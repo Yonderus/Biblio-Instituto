@@ -1,0 +1,13 @@
+<odoo>
+  <!-- Grupo Bibliotecario -->
+  <record id="group_library_librarian" model="res.groups">
+    <field name="name">Bibliotecario</field>
+    <field name="category_id" ref="module_category_library"/>
+  </record>
+
+  <!-- Grupo Usuario biblioteca -->
+  <record id="group_library_user" model="res.groups">
+    <field name="name">Usuario biblioteca</field>
+    <field name="category_id" ref="module_category_library"/>
+  </record>
+</odoo>
