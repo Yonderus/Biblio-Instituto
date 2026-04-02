@@ -8,14 +8,16 @@
     "depends": ["base"],
     # Autor del modulo.
     "author": "Javier Gisbert Talboom",
+    "license": "LGPL-3",
     # Archivos XML/CSV que se cargan al instalar el modulo.
     "data": [
-        "views/library_author_views.xml",
-        "views/library_book_views.xml",
-        "views/library_publisher_views.xml",
+        "security/security.xml",
         "security/ir.model.access.csv",
-        "security/security.xml"
+        "views/library_author.xml",
+        "views/library_book.xml",
+        "views/library_publisher.xml"
     ],
     # Indica si aparece como aplicacion en el menu principal.
     "application": True,
+    "installable": True,
 }

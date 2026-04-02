@@ -1,4 +1,10 @@
 <odoo>
+  <!-- Categoria para los grupos del modulo -->
+  <record id="module_category_library" model="ir.module.category">
+    <field name="name">Library</field>
+    <field name="sequence">30</field>
+  </record>
+
   <!-- Grupo Bibliotecario -->
   <record id="group_library_librarian" model="res.groups">
     <field name="name">Bibliotecario</field>

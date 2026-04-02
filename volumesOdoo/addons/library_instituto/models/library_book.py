@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 class LibraryBook(models.Model):
     _name = "library.book"
     _description = "Libro de la biblioteca"
-    _rec_name = "Titulo"  # Campo que se usará como nombre del registro
+    _rec_name = "title"  # Campo que se usará como nombre del registro
 
     title = fields.Char("Titulo", required=True)
     isbn = fields.Char("ISBN-13", required=True)
@@ -25,7 +25,7 @@ class LibraryBook(models.Model):
         string="Género",
         default="otro",
         required=True
-    ), 
+    )
 
     state = fields.Selection(
         selection=[
@@ -37,7 +37,7 @@ class LibraryBook(models.Model):
         string="Estado",
         default="disponible",
         required=True
-    ), 
+    )
 
     cover_image = fields.Image("Portada", max_width=300, max_height=400) #La anchura y altura están ahora puestos a ojo
 

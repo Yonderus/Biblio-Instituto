@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Vista listado de libros -->
+  <record id="view_library_book_list" model="ir.ui.view">
+    <field name="name">library.book.list</field>
+    <field name="model">library.book</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="title"/>
+        <field name="isbn"/>
+        <field name="genre"/>
+        <field name="state"/>
+        <field name="author_id"/>
+        <field name="publisher_id"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Vista formulario de libros -->
+  <record id="view_library_book_form" model="ir.ui.view">
+    <field name="name">library.book.form</field>
+    <field name="model">library.book</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="title"/>
+            <field name="isbn"/>
+            <field name="edition_year"/>
+            <field name="total_copies"/>
+          </group>
+          <group>
+            <field name="genre"/>
+            <field name="state"/>
+            <field name="author_id"/>
+            <field name="publisher_id"/>
+          </group>
+          <group>
+            <field name="cover_image" widget="image"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Vista búsqueda de libros con filtros -->
+  <record id="view_library_book_search" model="ir.ui.view">
+    <field name="name">library.book.search</field>
+    <field name="model">library.book</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="title"/>
+        <field name="isbn"/>
+        <field name="author_id"/>
+        <field name="publisher_id"/>
+        <separator/>
+        <filter name="filter_genre_narrativa" string="Narrativa" domain="[('genre', '=', 'narrativa')]"/>
+        <filter name="filter_genre_poesia" string="Poesía" domain="[('genre', '=', 'poesia')]"/>
+        <filter name="filter_genre_teatro" string="Teatro" domain="[('genre', '=', 'teatro')]"/>
+        <filter name="filter_genre_ensayo" string="Ensayo" domain="[('genre', '=', 'ensayo')]"/>
+        <filter name="filter_genre_divulgacion" string="Divulgación" domain="[('genre', '=', 'divulgacion')]"/>
+        <filter name="filter_genre_comic" string="Cómic" domain="[('genre', '=', 'comic')]"/>
+        <filter name="filter_genre_libro_texto" string="Libro de texto" domain="[('genre', '=', 'libro_texto')]"/>
+        <separator/>
+        <filter name="filter_state_disponible" string="Disponible" domain="[('state', '=', 'disponible')]"/>
+        <filter name="filter_state_prestado" string="Prestado" domain="[('state', '=', 'prestado')]"/>
+        <filter name="filter_state_reparacion" string="Reparación" domain="[('state', '=', 'reparacion')]"/>
+        <filter name="filter_state_baja" string="Baja" domain="[('state', '=', 'baja')]"/>
+      </search>
+    </field>
+  </record>
+
+  <!-- Acción para la vista de libros -->
+  <record id="action_library_book" model="ir.actions.act_window">
+    <field name="name">Libros</field>
+    <field name="res_model">library.book</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="view_library_book_search"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Crea tu primer libro en el catálogo.
+      </p>
+    </field>
+  </record>
+
+  <!-- Menú para libros (raíz) -->
+  <menuitem id="menu_library_book" name="Libros" action="action_library_book" sequence="99"/>
+</odoo>
