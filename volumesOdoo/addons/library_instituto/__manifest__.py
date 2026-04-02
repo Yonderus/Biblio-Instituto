@@ -10,6 +10,11 @@
     "author": "Javier Gisbert Talboom",
     # Archivos XML/CSV que se cargan al instalar el modulo.
     "data": [
+        "views/library_author_views.xml",
+        "views/library_book_views.xml",
+        "views/library_publisher_views.xml",
+        "security/ir.model.access.csv",
+        "security/security.xml"
     ],
     # Indica si aparece como aplicacion en el menu principal.
     "application": True,
