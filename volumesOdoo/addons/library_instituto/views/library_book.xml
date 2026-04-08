@@ -55,5 +55,5 @@
 	</record>
 
 	<!-- Menú de libros debajo del menú principal -->
-	<menuitem id="menu_library_book" name="Libros" parent="menu_library_root" action="action_library_book" sequence="10"/>
+	<menuitem id="menu_library_book" name="Libros" parent="menu_library_catalog" action="action_library_book" sequence="10"/>
 </odoo>

@@ -15,11 +15,17 @@
 
   <!-- Acción para autores -->
   <record id="action_library_author" model="ir.actions.act_window">
-    <field name="name">Library Instituto</field>
+    <field name="name">Autores</field>
     <field name="res_model">library.author</field>
     <field name="view_mode">list,form</field>
   </record>
 
-  <!-- Menú raíz con acción directa para que aparezca en el lanzador de apps -->
-  <menuitem id="menu_library_root" name="Library Instituto" action="action_library_author" sequence="25"/>
+  <!-- Menú raíz para la app -->
+  <menuitem id="menu_library_root" name="Library Instituto" sequence="25"/>
+
+  <!-- Menú contenedor para agrupar opciones en desplegable -->
+  <menuitem id="menu_library_catalog" name="Biblioteca" parent="menu_library_root" sequence="10"/>
+
+  <!-- Submenú de autores -->
+  <menuitem id="menu_library_author" name="Autores" parent="menu_library_catalog" action="action_library_author" sequence="20"/>
 </odoo>
