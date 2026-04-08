@@ -13,9 +13,7 @@
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
-        "views/library_author.xml",
-        "views/library_book.xml",
-        "views/library_publisher.xml"
+        "views/library_author.xml"
     ],
     # Indica si aparece como aplicacion en el menu principal.
     "application": True,

@@ -6,3 +6,4 @@ access_library_publisher_librarian,access.library.publisher.librarian,model_libr
 access_library_book_user,access.library.book.user,model_library_book,library_instituto.group_library_user,1,0,0,0
 access_library_author_user,access.library.author.user,model_library_author,library_instituto.group_library_user,1,0,0,0
 access_library_publisher_user,access.library.publisher.user,model_library_publisher,library_instituto.group_library_user,1,0,0,0
+
