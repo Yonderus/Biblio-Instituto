@@ -42,7 +42,4 @@
 		<field name="res_model">library.publisher</field>
 		<field name="view_mode">list,form</field>
 	</record>
-
-	<!-- Submenú de editoriales -->
-	<menuitem id="menu_library_publisher" name="Editoriales" parent="menu_library_catalog" action="action_library_publisher" sequence="30"/>
 </odoo>

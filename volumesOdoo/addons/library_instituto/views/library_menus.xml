@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <!-- Menú raíz para la app -->
+  <menuitem id="menu_library_root" name="Library Instituto" sequence="25"/>
+
+  <!-- Menú contenedor para agrupar opciones en desplegable -->
+  <menuitem id="menu_library_catalog" name="Biblioteca" parent="menu_library_root" sequence="10"/>
+
+  <!-- Submenú de libros -->
+  <menuitem id="menu_library_book" name="Libros" parent="menu_library_catalog" action="action_library_book" sequence="10"/>
+
+  <!-- Submenú de autores -->
+  <menuitem id="menu_library_author" name="Autores" parent="menu_library_catalog" action="action_library_author" sequence="20"/>
+
+  <!-- Submenú de editoriales -->
+  <menuitem id="menu_library_publisher" name="Editoriales" parent="menu_library_catalog" action="action_library_publisher" sequence="30"/>
+</odoo>
