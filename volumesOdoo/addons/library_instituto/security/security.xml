@@ -1,19 +1,21 @@
 <odoo>
-  <!-- Categoria para los grupos del modulo -->
-  <record id="module_category_library" model="ir.module.category">
-    <field name="name">Library</field>
-    <field name="sequence">30</field>
-  </record>
+  <data noupdate="1">
+    <!-- Categoria para los grupos del modulo -->
+    <record id="module_category_library" model="ir.module.category">
+      <field name="name">Library</field>
+      <field name="sequence">30</field>
+    </record>
 
-  <!-- Grupo Bibliotecario -->
-  <record id="group_library_librarian" model="res.groups">
-    <field name="name">Bibliotecario</field>
-    <field name="category_id" ref="module_category_library"/>
-  </record>
+    <!-- Grupo Bibliotecario -->
+    <record id="group_library_librarian" model="res.groups">
+      <field name="name">Bibliotecario</field>
+      <field name="category_id" ref="library_instituto.module_category_library"/>
+    </record>
 
-  <!-- Grupo Usuario biblioteca -->
-  <record id="group_library_user" model="res.groups">
-    <field name="name">Usuario biblioteca</field>
-    <field name="category_id" ref="module_category_library"/>
-  </record>
+    <!-- Grupo Usuario biblioteca -->
+    <record id="group_library_user" model="res.groups">
+      <field name="name">Usuario biblioteca</field>
+      <field name="category_id" ref="library_instituto.module_category_library"/>
+    </record>
+  </data>
 </odoo>
