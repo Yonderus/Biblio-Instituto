@@ -17,6 +17,7 @@ services:
     # situado en el lugar donde ejecutemos "Docker compose"
     volumes:
       - ./volumesOdoo/addons:/mnt/extra-addons
+      - ./volumesOdoo/odoo-data:/var/lib/odoo
     #Indicamos que el contenedor funcionara con usuario root y no con usuario odoo
     user: root
     # Definimos variables de entorno de Odoo
