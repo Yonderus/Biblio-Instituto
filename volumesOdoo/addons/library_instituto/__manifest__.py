@@ -13,6 +13,7 @@
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
+        "security/library_security_rules.xml",
         "views/library_author.xml",
         "views/library_book.xml",
         "views/library_publisher.xml",
