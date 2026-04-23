@@ -3,7 +3,7 @@ from odoo import fields, models
 class LibraryBook(models.Model):
     _name = "library.book"
     _description = "Libro de la biblioteca"
-    _rec_name = "title"  # Campo que se usará como nombre del registro
+    _rec_name = "title"
 
     title = fields.Char("Titulo", required=True)
     isbn = fields.Char("ISBN-13", required=True)
@@ -38,13 +38,13 @@ class LibraryBook(models.Model):
         required=True
     )
 
-    cover_image = fields.Image("Portada", max_width=300, max_height=400) #La anchura y altura están ahora puestos a ojo
+    cover_image = fields.Image("Portada", max_width=300, max_height=400)
 
     author_ids = fields.Many2many(
         "library.author",
         required=True)
     
-    editorial_id = fields.Many2one(
+    publisher_id = fields.Many2one(
         "library.publisher", 
         required=True, 
         ondelete="restrict")

@@ -21,11 +21,5 @@ class LibraryLoan(models.Model):
         string="Estado prestamo",
         default="activo",
     )
-
-user_id = fields.Many2one("res.partner",
-                           required=True,
-                             ondelete="restrict")
-
-book_id = fields.Many2one("library.book",
-                           required=True,
-                            ondelete="restrict")
+    user_id = fields.Many2one("res.partner", required=True, ondelete="restrict")
+    book_id = fields.Many2one("library.book", required=True, ondelete="restrict")
