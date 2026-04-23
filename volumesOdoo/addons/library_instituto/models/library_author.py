@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 class LibraryAuthor(models.Model):
     _name = 'library.author'
@@ -9,7 +9,7 @@ class LibraryAuthor(models.Model):
     fecha_nacimiento = fields.Date('Fecha de nacimiento')
 
 
-    book_ids = fields.One2many('library.book', 'author_id', string='Books')
+    book_ids = fields.Many2many('library.book')
 
     _sql_constraints = [
         ('name_uniq', 'UNIQUE(name)', 'Ya hay un autor con ese nombre.'),

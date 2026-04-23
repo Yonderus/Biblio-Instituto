@@ -1,5 +1,4 @@
-from odoo import models, fields
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 class LibraryBook(models.Model):
     _name = "library.book"
@@ -41,18 +40,14 @@ class LibraryBook(models.Model):
 
     cover_image = fields.Image("Portada", max_width=300, max_height=400) #La anchura y altura están ahora puestos a ojo
 
-    author_id = fields.Many2one(
-        comodel_name="library.author",
-        string="Autor",
-        required=True,
-        ondelete="restrict",
-    )
-    publisher_id = fields.Many2one(
-        comodel_name="library.publisher",
-        string="Editorial",
-        required=True,
-        ondelete="restrict",
-    )
+    author_ids = fields.Many2many(
+        "library.author",
+        required=True)
+    
+    editorial_id = fields.Many2one(
+        "library.publisher", 
+        required=True, 
+        ondelete="restrict")
 
     _sql_constraints = [
         ('isbn_uniq', 'UNIQUE(isbn)', 'Ya hay un libro con ese ISBN.'),

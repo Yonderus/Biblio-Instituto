@@ -8,8 +8,8 @@
 			<list>
 				<field name="title"/>
 				<field name="isbn"/>
-				<field name="author_id"/>
-				<field name="publisher_id"/>
+				<field name="author_ids" widget="many2many_tags"/>
+				<field name="editorial_id"/>
 				<field name="edition_year"/>
 				<field name="total_copies"/>
 				<field name="genre"/>
@@ -29,8 +29,8 @@
 						<group>
 							<field name="title"/>
 							<field name="isbn"/>
-							<field name="author_id"/>
-							<field name="publisher_id"/>
+							<field name="author_ids" widget="many2many_tags"/>
+							<field name="editorial_id"/>
 						</group>
 						<group>
 							<field name="edition_year"/>

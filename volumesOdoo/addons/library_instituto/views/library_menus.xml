@@ -15,4 +15,10 @@
 
   <!-- Submenú de editoriales -->
   <menuitem id="menu_library_publisher" name="Editoriales" parent="menu_library_catalog" action="action_library_publisher" sequence="30"/>
+
+  <!-- Submenú de préstamos -->
+  <menuitem id="menu_library_loan" name="Prestamos" parent="menu_library_catalog" action="action_library_loan" sequence="40"/>
+
+  <!-- Submenú de usuarios biblioteca -->
+  <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_catalog" action="action_library_users" sequence="50"/>
 </odoo>

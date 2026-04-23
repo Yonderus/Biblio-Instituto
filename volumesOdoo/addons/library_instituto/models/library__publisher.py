@@ -9,7 +9,7 @@ class LibraryPublisher(models.Model):
     email = fields.Char('Email')
     telefono = fields.Char('Telefono', required=True)
     
-    book_ids = fields.One2many('library.book', 'publisher_id', string='Books')
+    book_ids = fields.One2many('library.book', 'editorial_id')
 
     _sql_constraints = [
         ('name_uniq', 'UNIQUE(name)', 'Ya hay una editorial con ese nombre.'),

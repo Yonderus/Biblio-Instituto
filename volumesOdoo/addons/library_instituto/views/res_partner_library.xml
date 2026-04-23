@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Herencia del formulario de contactos para campos de biblioteca -->
+  <record id="view_partner_form_library_inherit" model="ir.ui.view">
+    <field name="name">res.partner.form.library.inherit</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//sheet/notebook" position="inside">
+        <page string="Biblioteca">
+          <group>
+            <group>
+              <field name="library_user_type"/>
+              <field name="library_course_group"/>
+              <field name="library_card_number"/>
+              <field name="library_max_loans"/>
+              <field name="library_active_loans"/>
+            </group>
+          </group>
+          <group string="Prestamos">
+            <field name="library_loan_ids" readonly="1">
+              <list>
+                <field name="book_id"/>
+                <field name="state"/>
+                <field name="loan_date"/>
+                <field name="expected_return_date"/>
+                <field name="real_return_date"/>
+              </list>
+            </field>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Accion de usuarios biblioteca -->
+  <record id="action_library_users" model="ir.actions.act_window">
+    <field name="name">Usuarios biblioteca</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[("library_card_number", "!=", False)]</field>
+    <field name="context">{"default_company_type": "person"}</field>
+  </record>
+</odoo>
