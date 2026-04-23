@@ -5,11 +5,11 @@ class LibraryAuthor(models.Model):
     _description = 'Autor del libro'
 
     name = fields.Char('Name', required=True)
-    pais = fields.Char('Pais de origen')
-    fecha_nacimiento = fields.Date('Fecha de nacimiento')
+    country = fields.Char('Pais de origen')
+    born_date = fields.Date('Fecha de nacimiento')
 
 
-    book_ids = fields.One2many('library.book', 'author_id', string='Books')
+    book_ids = fields.Many2many('library.book', 'author_id', string='Books')
 
     _sql_constraints = [
         ('name_uniq', 'UNIQUE(name)', 'Ya hay un autor con ese nombre.'),

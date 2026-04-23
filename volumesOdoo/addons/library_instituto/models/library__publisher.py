@@ -5,9 +5,9 @@ class LibraryPublisher(models.Model):
     _description = "Editorial del libro"
 
     name = fields.Char('Name', required=True)
-    ciudad = fields.Char('Ciudad')
+    city = fields.Char('Ciudad')
     email = fields.Char('Email')
-    telefono = fields.Char('Telefono', required=True)
+    phone = fields.Char('Telefono', required=True)
     
     book_ids = fields.One2many('library.book', 'publisher_id', string='Books')
 
