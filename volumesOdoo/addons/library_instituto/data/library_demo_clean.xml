@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="publisher_01" model="library.publisher">
+        <field name="name">Editorial Alba</field>
+        <field name="city">Madrid</field>
+        <field name="email">alba@example.com</field>
+        <field name="phone">910000001</field>
+    </record>
+    <record id="publisher_02" model="library.publisher">
+        <field name="name">Ediciones Aula</field>
+        <field name="city">Barcelona</field>
+        <field name="email">aula@example.com</field>
+        <field name="phone">910000002</field>
+    </record>
+    <record id="publisher_03" model="library.publisher">
+        <field name="name">Libros del Valle</field>
+        <field name="city">Valencia</field>
+        <field name="email">valle@example.com</field>
+        <field name="phone">910000003</field>
+    </record>
+
+    <record id="author_01" model="library.author">
+        <field name="name">Ana Torres</field>
+        <field name="country">España</field>
+        <field name="birth_date">1980-02-14</field>
+    </record>
+    <record id="author_02" model="library.author">
+        <field name="name">Bruno Gil</field>
+        <field name="country">Argentina</field>
+        <field name="birth_date">1975-09-03</field>
+    </record>
+    <record id="author_03" model="library.author">
+        <field name="name">Carla Romero</field>
+        <field name="country">Mexico</field>
+        <field name="birth_date">1988-06-21</field>
+    </record>
+    <record id="author_04" model="library.author">
+        <field name="name">Diego León</field>
+        <field name="country">Chile</field>
+        <field name="birth_date">1979-11-11</field>
+    </record>
+    <record id="author_05" model="library.author">
+        <field name="name">Elena Ruiz</field>
+        <field name="country">España</field>
+        <field name="birth_date">1990-01-30</field>
+    </record>
+    <record id="author_06" model="library.author">
+        <field name="name">Fabio Costa</field>
+        <field name="country">Colombia</field>
+        <field name="birth_date">1983-04-08</field>
+    </record>
+    <record id="author_07" model="library.author">
+        <field name="name">Gala Pérez</field>
+        <field name="country">Uruguay</field>
+        <field name="birth_date">1985-12-17</field>
+    </record>
+    <record id="author_08" model="library.author">
+        <field name="name">Hugo Martín</field>
+        <field name="country">España</field>
+        <field name="birth_date">1978-07-25</field>
+    </record>
+
+    <record id="partner_01" model="res.partner">
+        <field name="name">Laura Sánchez</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">alumno</field>
+        <field name="library_course_group">1A</field>
+        <field name="library_card_number">BIB001</field>
+        <field name="library_max_loans">2</field>
+    </record>
+    <record id="partner_02" model="res.partner">
+        <field name="name">Pablo Moreno</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">alumno</field>
+        <field name="library_course_group">2B</field>
+        <field name="library_card_number">BIB002</field>
+        <field name="library_max_loans">3</field>
+    </record>
+    <record id="partner_03" model="res.partner">
+        <field name="name">Marta Vidal</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">docente</field>
+        <field name="library_card_number">BIB003</field>
+        <field name="library_max_loans">4</field>
+    </record>
+    <record id="partner_04" model="res.partner">
+        <field name="name">Jorge Peña</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">docente</field>
+        <field name="library_card_number">BIB004</field>
+        <field name="library_max_loans">4</field>
+    </record>
+    <record id="partner_05" model="res.partner">
+        <field name="name">Celia Ortega</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">administracion</field>
+        <field name="library_card_number">BIB005</field>
+        <field name="library_max_loans">5</field>
+    </record>
+    <record id="partner_06" model="res.partner">
+        <field name="name">Adrián Flores</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">alumno</field>
+        <field name="library_course_group">3C</field>
+        <field name="library_card_number">BIB006</field>
+        <field name="library_max_loans">2</field>
+    </record>
+    <record id="partner_07" model="res.partner">
+        <field name="name">Nuria Castillo</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">alumno</field>
+        <field name="library_course_group">4D</field>
+        <field name="library_card_number">BIB007</field>
+        <field name="library_max_loans">3</field>
+    </record>
+    <record id="partner_08" model="res.partner">
+        <field name="name">Sergio Ramírez</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">docente</field>
+        <field name="library_card_number">BIB008</field>
+        <field name="library_max_loans">4</field>
+    </record>
+    <record id="partner_09" model="res.partner">
+        <field name="name">Irene Navarro</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">administracion</field>
+        <field name="library_card_number">BIB009</field>
+        <field name="library_max_loans">5</field>
+    </record>
+    <record id="partner_10" model="res.partner">
+        <field name="name">Raúl Prieto</field>
+        <field name="company_type">person</field>
+        <field name="library_user_type">alumno</field>
+        <field name="library_course_group">1B</field>
+        <field name="library_card_number">BIB010</field>
+        <field name="library_max_loans">2</field>
+    </record>
+
+    <record id="book_01" model="library.book">
+        <field name="title">Atlas de sombras</field>
+        <field name="isbn">9780000000001</field>
+        <field name="edition_year">2022</field>
+        <field name="total_copies">2</field>
+        <field name="genre">narrativa</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_02')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_02" model="library.book">
+        <field name="title">Cuentos del patio</field>
+        <field name="isbn">9780000000002</field>
+        <field name="edition_year">2021</field>
+        <field name="total_copies">1</field>
+        <field name="genre">narrativa</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_03')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_03" model="library.book">
+        <field name="title">Matemáticas claras</field>
+        <field name="isbn">9780000000003</field>
+        <field name="edition_year">2020</field>
+        <field name="total_copies">3</field>
+        <field name="genre">libro_texto</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_04'), ref('author_05')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_04" model="library.book">
+        <field name="title">El mar de abril</field>
+        <field name="isbn">9780000000004</field>
+        <field name="edition_year">2023</field>
+        <field name="total_copies">2</field>
+        <field name="genre">poesia</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_06')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_05" model="library.book">
+        <field name="title">Crónicas del instituto</field>
+        <field name="isbn">9780000000005</field>
+        <field name="edition_year">2019</field>
+        <field name="total_copies">4</field>
+        <field name="genre">ensayo</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_07'), ref('author_08')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_06" model="library.book">
+        <field name="title">Poemas de invierno</field>
+        <field name="isbn">9780000000006</field>
+        <field name="edition_year">2018</field>
+        <field name="total_copies">2</field>
+        <field name="genre">poesia</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_01')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_07" model="library.book">
+        <field name="title">Historia mínima</field>
+        <field name="isbn">9780000000007</field>
+        <field name="edition_year">2017</field>
+        <field name="total_copies">3</field>
+        <field name="genre">ensayo</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_02')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_08" model="library.book">
+        <field name="title">Tecnología visible</field>
+        <field name="isbn">9780000000008</field>
+        <field name="edition_year">2024</field>
+        <field name="total_copies">3</field>
+        <field name="genre">divulgacion</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_03'), ref('author_04')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_09" model="library.book">
+        <field name="title">Viaje a la calma</field>
+        <field name="isbn">9780000000009</field>
+        <field name="edition_year">2022</field>
+        <field name="total_copies">2</field>
+        <field name="genre">narrativa</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_05')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_10" model="library.book">
+        <field name="title">Leyendas urbanas</field>
+        <field name="isbn">9780000000010</field>
+        <field name="edition_year">2016</field>
+        <field name="total_copies">1</field>
+        <field name="genre">narrativa</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_07')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_11" model="library.book">
+        <field name="title">Redes y nudos</field>
+        <field name="isbn">9780000000011</field>
+        <field name="edition_year">2021</field>
+        <field name="total_copies">4</field>
+        <field name="genre">divulgacion</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_08')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_12" model="library.book">
+        <field name="title">El jardín rojo</field>
+        <field name="isbn">9780000000012</field>
+        <field name="edition_year">2019</field>
+        <field name="total_copies">2</field>
+        <field name="genre">teatro</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_04')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_13" model="library.book">
+        <field name="title">Lecturas cruzadas</field>
+        <field name="isbn">9780000000013</field>
+        <field name="edition_year">2020</field>
+        <field name="total_copies">3</field>
+        <field name="genre">ensayo</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_02'), ref('author_05')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_14" model="library.book">
+        <field name="title">Ciudad de papel</field>
+        <field name="isbn">9780000000014</field>
+        <field name="edition_year">2023</field>
+        <field name="total_copies">2</field>
+        <field name="genre">comic</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_03')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_15" model="library.book">
+        <field name="title">Biología sencilla</field>
+        <field name="isbn">9780000000015</field>
+        <field name="edition_year">2024</field>
+        <field name="total_copies">5</field>
+        <field name="genre">libro_texto</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_08')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_16" model="library.book">
+        <field name="title">Navegar el tiempo</field>
+        <field name="isbn">9780000000016</field>
+        <field name="edition_year">2018</field>
+        <field name="total_copies">2</field>
+        <field name="genre">narrativa</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_07')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_17" model="library.book">
+        <field name="title">Teatro breve</field>
+        <field name="isbn">9780000000017</field>
+        <field name="edition_year">2022</field>
+        <field name="total_copies">3</field>
+        <field name="genre">teatro</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_04'), ref('author_05')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+    <record id="book_18" model="library.book">
+        <field name="title">Mundos pequeños</field>
+        <field name="isbn">9780000000018</field>
+        <field name="edition_year">2021</field>
+        <field name="total_copies">4</field>
+        <field name="genre">divulgacion</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_03')])]"/>
+        <field name="publisher_id" ref="publisher_03"/>
+    </record>
+    <record id="book_19" model="library.book">
+        <field name="title">Manual de lectura</field>
+        <field name="isbn">9780000000019</field>
+        <field name="edition_year">2017</field>
+        <field name="total_copies">2</field>
+        <field name="genre">libro_texto</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_02')])]"/>
+        <field name="publisher_id" ref="publisher_01"/>
+    </record>
+    <record id="book_20" model="library.book">
+        <field name="title">Horizonte abierto</field>
+        <field name="isbn">9780000000020</field>
+        <field name="edition_year">2024</field>
+        <field name="total_copies">3</field>
+        <field name="genre">otro</field>
+        <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_07')])]"/>
+        <field name="publisher_id" ref="publisher_02"/>
+    </record>
+
+    <record id="loan_01" model="library.loan">
+        <field name="user_id" ref="partner_01"/>
+        <field name="book_id" ref="book_01"/>
+        <field name="copy_number">1</field>
+        <field name="loan_date">2026-04-15</field>
+        <field name="expected_return_date">2026-04-30</field>
+    </record>
+    <record id="loan_02" model="library.loan">
+        <field name="user_id" ref="partner_02"/>
+        <field name="book_id" ref="book_02"/>
+        <field name="copy_number">1</field>
+        <field name="loan_date">2026-04-20</field>
+        <field name="expected_return_date">2026-05-05</field>
+        <field name="real_return_date">2026-05-03</field>
+    </record>
+    <record id="loan_03" model="library.loan">
+        <field name="user_id" ref="partner_03"/>
+        <field name="book_id" ref="book_03"/>
+        <field name="copy_number">2</field>
+        <field name="loan_date">2026-05-01</field>
+        <field name="expected_return_date">2026-05-16</field>
+    </record>
+    <record id="loan_04" model="library.loan">
+        <field name="user_id" ref="partner_04"/>
+        <field name="book_id" ref="book_04"/>
+        <field name="copy_number">1</field>
+        <field name="loan_date">2026-04-10</field>
+        <field name="expected_return_date">2026-04-25</field>
+        <field name="real_return_date">2026-04-29</field>
+    </record>
+    <record id="loan_05" model="library.loan">
+        <field name="user_id" ref="partner_01"/>
+        <field name="book_id" ref="book_05"/>
+        <field name="copy_number">1</field>
+        <field name="loan_date">2026-05-03</field>
+        <field name="expected_return_date">2026-05-18</field>
+    </record>
+</odoo>

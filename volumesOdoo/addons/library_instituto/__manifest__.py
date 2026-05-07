@@ -17,10 +17,12 @@
         "views/library_author.xml",
         "views/library_book.xml",
         "views/library_publisher.xml",
+        "data/library_demo_clean.xml",
         "views/library_loan.xml",
         "views/res_partner_library.xml",
         "views/library_menus.xml"
     ],
+   
     # Indica si aparece como aplicacion en el menu principal.
     "application": True,
     "installable": True,
