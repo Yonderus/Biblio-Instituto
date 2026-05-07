@@ -12,6 +12,7 @@
 				<field name="publisher_id"/>
 				<field name="edition_year"/>
 				<field name="total_copies"/>
+				<field name="available_copies"/>
 				<field name="genre"/>
 				<field name="state"/>
 			</list>
@@ -35,6 +36,7 @@
 						<group>
 							<field name="edition_year"/>
 							<field name="total_copies"/>
+							<field name="available_copies" readonly="1"/>
 							<field name="genre"/>
 							<field name="state"/>
 						</group>
