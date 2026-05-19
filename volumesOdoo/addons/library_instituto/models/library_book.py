@@ -9,30 +9,10 @@ class LibraryBook(models.Model):
     _description = "Libro de la biblioteca"
     _rec_name = "title"
 
-    # ============================================================================
-    # CAMPOS BÁSICOS DEL LIBRO
-    # ============================================================================
-    title = fields.Char(
-        "Titulo", 
-        required=True,
-        help="Nombre del libro. Ej: 'Atlas de sombras'"
-    )
-    isbn = fields.Char(
-        "ISBN-13", 
-        required=True,
-        help="Código ISBN-13 único del libro. Tiene constraint UNIQUE para evitar duplicados."
-    )
-    edition_year = fields.Integer(
-        "Año de edición",
-        help="Año en que se publicó esta edición del libro."
-    )
-    total_copies = fields.Integer(
-        "Número total de copias", 
-        default=1, 
-        required=True,
-        help="Cantidad total de ejemplares que posee la biblioteca de este libro. "
-             "Ej: 3 copias de 'Matemáticas claras'."
-    )
+    title = fields.Char("Titulo", required=True)
+    isbn = fields.Char("ISBN-13", required=True)
+    edition_year = fields.Integer("Año de edición")
+    total_copies = fields.Integer("Número total de copias", default=1, required=True)
 
     genre = fields.Selection(
         selection=[
@@ -47,8 +27,7 @@ class LibraryBook(models.Model):
         ],
         string="Género",
         default="otro",
-        required=True,
-        help="Categoría literaria del libro para organización."
+        required=True
     )
 
     state = fields.Selection(
@@ -60,49 +39,25 @@ class LibraryBook(models.Model):
         ],
         string="Estado",
         default="disponible",
-        required=True,
-        help="Estado general del libro (no de cada copia). Ej: si todo el lote está en reparación."
+        required=True
     )
 
-    cover_image = fields.Image(
-        "Portada", 
-        max_width=300, 
-        max_height=400,
-        help="Imagen de la portada del libro. Se muestra en la vista kanban del catálogo. "
-             "Tamaño máximo: 300x400 px."
-    )
+    cover_image = fields.Image("Portada", max_width=300, max_height=400)
 
-
-    # ============================================================================
-    # RELACIONES CON OTROS MODELOS
-    # ============================================================================
     author_ids = fields.Many2many(
         "library.author",
-        required=True,
-        help="Autores del libro (puede haber varios). Se muestra como tags en formularios."
-    )
+        required=True)
     
     publisher_id = fields.Many2one(
         "library.publisher", 
         required=True, 
-        ondelete="restrict",
-        help="Editorial que publicó el libro. No se puede eliminar la editorial si hay libros asociados."
-    )
+        ondelete="restrict")
     
-    loan_ids = fields.One2many(
-        "library.loan", 
-        "book_id",
-        help="Todos los préstamos asociados a este libro (historial completo). "
-             "Se usa para calcular ejemplares disponibles."
-    )
-    
+    loan_ids = fields.One2many("library.loan", "book_id")
     available_copies = fields.Integer(
         "Ejemplares disponibles",
         compute="_compute_available_copies",
         store=True,
-        help="Número de copias disponibles para prestar ahora. "
-             "Se calcula como: total_copies - (préstamos en estado activo o vencido). "
-             "Se recalcula automáticamente al cambiar préstamos."
     )
 
     # ============================================================================

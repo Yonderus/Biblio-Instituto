@@ -1,5 +1,4 @@
 from datetime import timedelta
-
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -9,38 +8,18 @@ class LibraryLoan(models.Model):
     _description = "Prestamo de biblioteca"
     _order = "loan_date desc, id desc"
 
-    copy_number = fields.Integer(
-        required=True, 
-        default=1,
-        help="Número del ejemplar del libro (ej: si hay 3 copias, puede ser 1, 2 o 3)"
-    )
-    loan_date = fields.Date(
-        string="Fecha prestamo", 
-        default=fields.Date.context_today, 
-        required=True,
-        help="Fecha en que se realiza el préstamo. Por defecto, la fecha actual del sistema."
-    )
-    expected_return_date = fields.Date(
-        string="Fecha devolucion prevista", 
-        required=True,
-        help="Fecha en que se espera que el usuario devuelva el libro (calculada automáticamente como +15 días)"
-    )
-    real_return_date = fields.Date(
-        string="Fecha devolucion real",
-        help="Fecha en que el usuario realmente devuelve el libro. Vacío hasta que se devuelve."
-    )
+    
+    copy_number = fields.Integer(required=True, default=1)
+    loan_date = fields.Date(string="Fecha prestamo", default=fields.Date.context_today, required=True)
+    expected_return_date = fields.Date(string="Fecha devolucion prevista", required=True)
+    real_return_date = fields.Date(string="Fecha devolucion real")
     
     late_days = fields.Integer(
         string="Dias de retraso",
         compute="_compute_late_days",
         store=True,
-        help="Número de días de retraso."
     )
-    renewed = fields.Boolean(
-        string="Renovado", 
-        default=False,
-        help="Indica si el préstamo ha sido renovado. Solo se puede renovar UNA sola vez."
-    )
+    renewed = fields.Boolean(string="Renovado", default=False)
 
     state = fields.Selection(
         selection=[
@@ -51,20 +30,9 @@ class LibraryLoan(models.Model):
         string="Estado prestamo",
         compute="_compute_state",
         store=True,
-        help="Estado del préstamo: Activo (en curso), Vencido (pasó la fecha), Devuelto (retornado)."
     )
-    user_id = fields.Many2one(
-        "res.partner", 
-        required=True, 
-        ondelete="restrict",
-        help="Usuario que realiza el préstamo."
-    )
-    book_id = fields.Many2one(
-        "library.book", 
-        required=True, 
-        ondelete="restrict",
-        help="Libro que se presta."
-    )
+    user_id = fields.Many2one("res.partner", required=True, ondelete="restrict")
+    book_id = fields.Many2one("library.book", required=True, ondelete="restrict")
 
     @api.onchange("loan_date")
     def _onchange_loan_date(self):

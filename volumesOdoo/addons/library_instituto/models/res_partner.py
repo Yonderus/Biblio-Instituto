@@ -9,32 +9,12 @@ class ResPartner(models.Model):
     """
     _inherit = "res.partner"
 
-    # ============================================================================
-    # CAMPOS DE USUARIO BIBLIOTECA
-    # ============================================================================
-    library_course_group = fields.Char(
-        string="Curso y grupo",
-        help="Solo para alumnos. Ej: '1A', '2B', '3C'. Sirve para identificar el grupo."
-    )
-    
-    library_card_number = fields.Char(
-        string="Numero carnet biblioteca",
-        help="ID único del carnet de biblioteca (UNIQUE). Ej: 'BIB001'. "
-             "Se usa para identificar rápidamente al usuario."
-    )
-    
-    library_max_loans = fields.Integer(
-        string="Maximo prestamos simultaneos", 
-        default=3, 
-        required=True,
-        help="Número máximo de libros que este usuario puede tener en préstamo al mismo tiempo. "
-             "El constraint _check_loan_limit valida que no se exceda esta cantidad."
-    )
-    
+    library_course_group = fields.Char(string="Curso y grupo")
+    library_card_number = fields.Char(string="Numero carnet biblioteca")
+    library_max_loans = fields.Integer(string="Maximo prestamos simultaneos", default=3, required=True)
     library_active_loans = fields.Integer(
         string="Prestamos activos",
         compute="_compute_library_active_loans",
-        help="Contador de préstamos actuales en estados 'activo' o 'vencido' (readonly, calculado)."
     )
     
     library_user_type = fields.Selection(
@@ -44,8 +24,6 @@ class ResPartner(models.Model):
             ("administracion", "Personal de administracion"),
         ],
         string="Tipo de usuario biblioteca",
-        help="Categoría del usuario. Determina permisos y límites de préstamos. "
-             "Alumnos: máx 2-3, Docentes: máx 4, Admin: máx 5."
     )
 
 
@@ -56,15 +34,7 @@ class ResPartner(models.Model):
         ("library_card_number_uniq", "UNIQUE(library_card_number)", "El numero de carnet ya existe."),
     ]
 
-    library_loan_ids = fields.One2many(
-        "library.loan", 
-        "user_id",
-        help="Historial completo de préstamos del usuario (activos, vencidos, devueltos)."
-    )
-
-    # ============================================================================
-    # CÁLCULOS AUTOMÁTICOS
-    # ============================================================================
+    library_loan_ids = fields.One2many("library.loan", "user_id")
 
     @api.depends("library_loan_ids.state")
     def _compute_library_active_loans(self):
