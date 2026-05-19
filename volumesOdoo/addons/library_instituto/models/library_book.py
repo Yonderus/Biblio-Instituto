@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 class LibraryBook(models.Model):
     _name = "library.book"
@@ -48,6 +48,19 @@ class LibraryBook(models.Model):
         "library.publisher", 
         required=True, 
         ondelete="restrict")
+    
+    loan_ids = fields.One2many("library.loan", "book_id")
+    available_copies = fields.Integer(
+        "Ejemplares disponibles",
+        compute="_compute_available_copies",
+        store=True,
+    )
+
+    @api.depends("total_copies", "loan_ids.state")
+    def _compute_available_copies(self):
+        for book in self:
+            active_loans = len(book.loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
+            book.available_copies = max((book.total_copies or 0) - active_loans, 0)
 
     _sql_constraints = [
         ('isbn_uniq', 'UNIQUE(isbn)', 'Ya hay un libro con ese ISBN.'),

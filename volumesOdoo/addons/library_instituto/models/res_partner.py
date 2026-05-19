@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -7,7 +7,10 @@ class ResPartner(models.Model):
     library_course_group = fields.Char(string="Curso y grupo")
     library_card_number = fields.Char(string="Numero carnet biblioteca")
     library_max_loans = fields.Integer(string="Maximo prestamos simultaneos", default=3, required=True)
-    library_active_loans = fields.Integer(string="Prestamos activos", default=0)
+    library_active_loans = fields.Integer(
+        string="Prestamos activos",
+        compute="_compute_library_active_loans",
+    )
     
     library_user_type = fields.Selection(
         selection=[
@@ -23,3 +26,8 @@ class ResPartner(models.Model):
     ]
 
     library_loan_ids = fields.One2many("library.loan", "user_id")
+
+    @api.depends("library_loan_ids.state")
+    def _compute_library_active_loans(self):
+        for partner in self:
+            partner.library_active_loans = len(partner.library_loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
