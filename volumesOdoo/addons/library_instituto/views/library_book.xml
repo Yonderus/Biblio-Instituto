@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<!-- Vista listado de libros -->
+	<!-- 
+	===================================================================================
+	VISTAS DE LIBROS - Catálogo de la biblioteca
+	===================================================================================
+	
+	Hay 3 vistas principales:
+	1. Kanban (por defecto): muestra libros como tarjetas con portada
+	2. Lista: tabla con todos los datos en columnas
+	3. Formulario: detalle completo del libro
+	
+	Flujo típico: Usuario abre "Libros" → ve kanban → click en libro → formulario
+	-->
+
+	<!-- 
+	VISTA 1: LISTA (Tabla de libros)
+	- Muestra todos los libros en formato tabla
+	- Columnas: título, ISBN, autores, editorial, año, total, disponibles, género, estado
+	- Útil para búsquedas rápidas y edición masiva
+	-->
 	<record id="view_library_book_list" model="ir.ui.view">
 		<field name="name">library.book.list</field>
 		<field name="model">library.book</field>
@@ -19,28 +37,132 @@
 		</field>
 	</record>
 
-	<!-- Vista formulario de libros -->
+	<!-- 
+	VISTA 2: KANBAN (Catálogo visual con portadas)
+	
+	PROPÓSITO: Mostrar libros como tarjetas/cards para una experiencia visual tipo "librería".
+	Cada tarjeta muestra:
+	- Portada del libro (imagen grande)
+	- Título del libro
+	- ISBN (subtítulo)
+	- Editorial
+	- Badge azul con "Disponibles: X"
+	
+	CARACTERÍSTICAS TÉCNICAS:
+	- class="o_kanban_small_column": ajusta el ancho de columnas
+	- create="true": permite crear libros directamente desde kanban
+	- kanban-box: plantilla de cada tarjeta (DEPRECATED pero funcional)
+	
+	LÓGICA DE PORTADA:
+	- Si tiene cover_image: muestra <img src="/web/image/..." />
+	- Si no tiene: muestra un cuadro gris con "Sin portada"
+	- Altura fija 180px para consistencia visual
+	
+	DISPONIBILIDAD EN BADGE:
+	- Calcula dinámicamente: available_copies (campo computado en library_book)
+	- Se actualiza al crear/devolver préstamos
+	-->
+	<record id="view_library_book_kanban" model="ir.ui.view">
+		<field name="name">library.book.kanban</field>
+		<field name="model">library.book</field>
+		<field name="arch" type="xml">
+			<!-- 
+			kanban: clase principal del widget
+			o_kanban_small_column: ajusta ancho de columnas (más columnas por fila)
+			create="true": permite botón "Crear" dentro de kanban
+			-->
+			<kanban class="o_kanban_small_column" create="true">
+				<!-- 
+				Campos que necesita la plantilla kanban (deben estar en <field>)
+				Se cargan en memoria para acceder rápidamente sin queries extras
+				-->
+				<field name="title"/>
+				<field name="isbn"/>
+				<field name="publisher_id"/>
+				<field name="cover_image"/>
+				<field name="available_copies"/>
+				
+				<!-- Plantilla visual de cada tarjeta -->
+				<templates>
+					<!-- 
+					kanban-box: contenedor principal de cada tarjeta
+					o_kanban_record: permite clicks y selecciones
+					oe_kanban_global_click: hace toda la tarjeta clickeable
+					-->
+					<t t-name="kanban-box">
+						<div class="oe_kanban_global_click o_kanban_record">
+							<!-- SECCIÓN IMAGEN/PORTADA -->
+							<div class="o_kanban_image o_kanban_image_full">
+								<!-- Si el libro tiene portada, mostrar imagen -->
+								<t t-if="record.cover_image.raw_value">
+									<!-- 
+									URL dinámica: /web/image/MODEL/ID/FIELD
+									Odoo sirve las imágenes comprimidas bajo demanda
+									-->
+									<img t-att-src="'/web/image/library.book/%s/cover_image' % record.id.raw_value" alt="Portada"/>
+								</t>
+								<!-- Si no tiene portada, mostrar placeholder -->
+								<t t-else="">
+									<div class="d-flex align-items-center justify-content-center bg-light text-muted" style="height: 180px; border-radius: 8px;">
+										Sin portada
+									</div>
+								</t>
+							</div>
+							
+							<!-- SECCIÓN DETALLES (bajo la imagen) -->
+							<div class="o_kanban_details mt-2">
+								<!-- Título en negrita -->
+								<strong><field name="title"/></strong>
+								<!-- ISBN más pequeño y descolorido -->
+								<div class="text-muted"><field name="isbn"/></div>
+								<!-- Editorial -->
+								<div><field name="publisher_id"/></div>
+								<!-- BADGE de disponibilidad -->
+								<div class="mt-1">
+									<span class="badge text-bg-primary">
+										Disponibles: <field name="available_copies"/>
+									</span>
+								</div>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+
+	<!-- 
+	VISTA 3: FORMULARIO (Detalle completo del libro)
+	- Se abre al hacer click en un libro (desde kanban o lista)
+	- Muestra todos los campos del libro
+	- Permite editar metadatos, subir portada, ver relaciones
+	-->
 	<record id="view_library_book_form" model="ir.ui.view">
 		<field name="name">library.book.form</field>
 		<field name="model">library.book</field>
 		<field name="arch" type="xml">
 			<form string="Libro">
 				<sheet>
+					<!-- Datos organizados en grupos de 2 columnas -->
 					<group>
+						<!-- Columna izquierda: Metadatos principales -->
 						<group>
 							<field name="title"/>
 							<field name="isbn"/>
 							<field name="author_ids" widget="many2many_tags"/>
 							<field name="publisher_id"/>
 						</group>
+						<!-- Columna derecha: Datos secundarios y disponibilidad -->
 						<group>
 							<field name="edition_year"/>
 							<field name="total_copies"/>
+							<!-- Campo readonly: muestra disponibles sin permitir edición -->
 							<field name="available_copies" readonly="1"/>
 							<field name="genre"/>
 							<field name="state"/>
 						</group>
 					</group>
+					<!-- Sección portada: widget image muestra preview editable -->
 					<group>
 						<field name="cover_image" widget="image" class="oe_avatar"/>
 					</group>
@@ -49,10 +171,14 @@
 		</field>
 	</record>
 
-	<!-- Acción para libros -->
+	<!-- 
+	ACCIÓN WINDOW: Abre el menú "Libros"
+	- view_mode="kanban,list,form": orden de vistas (kanban es la por defecto)
+	- Usuario puede cambiar de vista con botones en top-right
+	-->
 	<record id="action_library_book" model="ir.actions.act_window">
 		<field name="name">Libros</field>
 		<field name="res_model">library.book</field>
-		<field name="view_mode">list,form</field>
+		<field name="view_mode">kanban,list,form</field>
 	</record>
 </odoo>

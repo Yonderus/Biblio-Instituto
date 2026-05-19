@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!-- Vista listado de prestamos -->
+  <!-- 
+  ===================================================================================
+  VISTAS DE PRÉSTAMOS - Gestión del ciclo de vida de préstamos
+  ===================================================================================
+  
+  Hay 2 vistas principales:
+  1. Lista: tabla con todos los préstamos (activos, vencidos, devueltos)
+  2. Formulario: detalle y acciones de un préstamo individual
+  
+  Flujo típico: Seleccionar préstamo en lista → abre formulario → usar botones Renovar/Devolver
+  -->
+
+  <!-- 
+  VISTA 1: LISTA (Tabla de préstamos)
+  
+  DECORACIÓN: decoration-danger="state == 'vencido'"
+  - Cambia el color de fondo de ROJO para préstamos vencidos (no devueltos a tiempo)
+  - Alerta visual inmediata al personal de biblioteca
+  - Facilita identificar préstamos atrasados
+  
+  COLUMNAS:
+  - user_id: quién tiene el préstamo
+  - book_id: qué libro
+  - copy_number: número de ejemplar
+  - loan_date: fecha en que se prestó
+  - expected_return_date: fecha esperada de devolución
+  - real_return_date: cuándo realmente lo devolvió (vacío si no devuelto)
+  - state: estado actual (activo/vencido/devuelto)
+  - late_days: días de retraso (si aplica)
+  - renewed: si fue renovado (sí/no)
+  -->
   <record id="view_library_loan_list" model="ir.ui.view">
     <field name="name">library.loan.list</field>
     <field name="model">library.loan</field>
     <field name="arch" type="xml">
-      <list>
+      <!-- decoration-danger: aplica fondo rojo a filas donde state == 'vencido' -->
+      <list decoration-danger="state == 'vencido'">
         <field name="user_id"/>
         <field name="book_id"/>
         <field name="copy_number"/>
@@ -19,27 +50,99 @@
     </field>
   </record>
 
-  <!-- Vista formulario de prestamos -->
+  <!-- 
+  VISTA 2: FORMULARIO (Detalle y gestión de préstamo)
+  
+  ESTRUCTURA:
+  1. HEADER: Botones de acción + Statusbar (workflow visual)
+  2. SHEET: Campos de datos del préstamo
+  
+  EL HEADER es donde ocurre la magia de UI/UX:
+  - Botones "Renovar" y "Devolver" son clickeables
+  - Statusbar muestra visualmente el "progreso" del préstamo
+  -->
   <record id="view_library_loan_form" model="ir.ui.view">
     <field name="name">library.loan.form</field>
     <field name="model">library.loan</field>
     <field name="arch" type="xml">
       <form string="Prestamo">
+        <!-- 
+        HEADER: Zona superior con botones y estados
+        ==============================================
+        -->
         <header>
+          <!-- 
+          BOTÓN 1: RENOVAR
+          - name="action_renew": llama método action_renew en el modelo
+          - type="object": ejecuta un método Python (no SQL)
+          - class="btn-primary": estilo visual azul
+          - invisible="state == 'devuelto' or renewed":
+            * Se oculta si ya está devuelto (no tiene sentido renovar devuelto)
+            * Se oculta si ya fue renovado una vez (regla de negocio)
+          
+          EFECTO AL HACER CLICK:
+          - Extiende expected_return_date +15 días
+          - Marca renewed = True
+          - Vuelve a invisible (botón desaparece)
+          -->
           <button name="action_renew" type="object" string="Renovar" class="btn-primary" invisible="state == 'devuelto' or renewed"/>
+          
+          <!-- 
+          BOTÓN 2: DEVOLVER
+          - name="action_return": llama método action_return en el modelo
+          - type="object": ejecuta Python
+          - class="btn-secondary": estilo visual gris
+          - invisible="state == 'devuelto'":
+            * Se oculta si ya está devuelto (no tiene sentido devolver dos veces)
+          
+          EFECTO AL HACER CLICK:
+          - Rellena real_return_date = hoy
+          - El compute _compute_state detecta esto y cambia state a "devuelto"
+          - Botón desaparece (por invisible)
+          -->
           <button name="action_return" type="object" string="Devolver" class="btn-secondary" invisible="state == 'devuelto'"/>
+          
+          <!-- 
+          STATUSBAR: Mostrador visual del flujo del préstamo
+          ===================================================
+          
+          Muestra el estado actual en forma de progreso:
+          |  activo  →  vencido  →  devuelto  |
+          
+          statusbar_visible="activo,vencido,devuelto":
+          - Solo muestra estos 3 estados (aunque el modelo tuviera más)
+          - El estado actual está resaltado en azul
+          - Los anteriores en gris
+          
+          CÓMO FUNCIONA:
+          1. Al crear préstamo: activo (si fecha no pasó)
+          2. Si pasa fecha sin devolver: vencido
+          3. Al hacer click "Devolver": devuelto
+          
+          Propósito: Usuario ve de un vistazo dónde está el préstamo en su ciclo
+          -->
           <field name="state" widget="statusbar" statusbar_visible="activo,vencido,devuelto"/>
         </header>
+        
+        <!-- 
+        SHEET: Zona de datos (formulario propiamente)
+        =============================================
+        Muestra todos los campos del préstamo en grupos
+        -->
         <sheet>
+          <!-- Datos en 2 columnas -->
           <group>
+            <!-- Columna izquierda: Usuario y libro -->
             <group>
               <field name="user_id"/>
               <field name="book_id"/>
               <field name="copy_number"/>
             </group>
+            <!-- Columna derecha: Fechas y cálculos -->
             <group>
               <field name="loan_date"/>
               <field name="expected_return_date"/>
+              <!-- readonly="1": solo visualización, no editable -->
               <field name="real_return_date" readonly="1"/>
               <field name="late_days" readonly="1"/>
               <field name="renewed" readonly="1"/>
@@ -50,9 +153,13 @@
     </field>
   </record>
 
-  <!-- Accion para prestamos -->
+  <!-- 
+  ACCIÓN WINDOW: Abre el menú "Préstamos"
+  - view_mode="list,form": orden de vistas (lista es la por defecto)
+  - Usuario puede cambiar a formulario haciendo click en un préstamo
+  -->
   <record id="action_library_loan" model="ir.actions.act_window">
-    <field name="name">Prestamos</field>
+    <field name="name">Préstamos</field>
     <field name="res_model">library.loan</field>
     <field name="view_mode">list,form</field>
   </record>
