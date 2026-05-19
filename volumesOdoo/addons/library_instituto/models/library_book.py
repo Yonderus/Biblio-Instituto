@@ -54,6 +54,13 @@ class LibraryBook(models.Model):
         ondelete="restrict")
     
     loan_ids = fields.One2many("library.loan", "book_id")
+
+    active_loans_count = fields.Integer(
+        "Préstamos activos",
+        compute="_compute_available_copies",
+        store=True
+    )
+
     available_copies = fields.Integer(
         "Ejemplares disponibles",
         compute="_compute_available_copies",
@@ -91,6 +98,7 @@ class LibraryBook(models.Model):
         """
         for book in self:
             active_loans = len(book.loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
+            book.active_loans_count = active_loans
             book.available_copies = max((book.total_copies or 0) - active_loans, 0)
 
     # ============================================================================

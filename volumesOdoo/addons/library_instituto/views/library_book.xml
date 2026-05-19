@@ -30,6 +30,7 @@
 				<field name="publisher_id"/>
 				<field name="edition_year"/>
 				<field name="total_copies"/>
+				<field name="active_loans_count"/>
 				<field name="available_copies"/>
 				<field name="genre"/>
 				<field name="state"/>
@@ -156,7 +157,8 @@
 						<group>
 							<field name="edition_year"/>
 							<field name="total_copies"/>
-							<!-- Campo readonly: muestra disponibles sin permitir edición -->
+							<!-- Campos readonly: calculados automáticamente, no editables -->
+							<field name="active_loans_count" readonly="1"/>
 							<field name="available_copies" readonly="1"/>
 							<field name="genre"/>
 							<field name="state"/>
