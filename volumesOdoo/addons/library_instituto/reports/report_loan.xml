@@ -51,7 +51,7 @@
                         <table class="table table-sm">
                             <tr>
                                 <td><strong>Título</strong></td>
-                                <td><t t-esc="loan.book_id.name"/></td>
+                                <td><t t-esc="loan.book_id.title"/></td>
                             </tr>
                             <tr>
                                 <td><strong>ISBN</strong></td>
