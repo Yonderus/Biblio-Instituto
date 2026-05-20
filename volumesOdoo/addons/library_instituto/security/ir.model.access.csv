@@ -1,4 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book_manager,access.library.book.manager,model_library_book,base.group_system,1,1,1,1
+access_library_author_manager,access.library.author.manager,model_library_author,base.group_system,1,1,1,1
+access_library_publisher_manager,access.library.publisher.manager,model_library_publisher,base.group_system,1,1,1,1
+access_library_loan_manager,access.library.loan.manager,model_library_loan,base.group_system,1,1,1,1
 access_library_book_librarian,access.library.book.librarian,model_library_book,library_instituto.group_library_librarian,1,1,1,1
 access_library_author_librarian,access.library.author.librarian,model_library_author,library_instituto.group_library_librarian,1,1,1,1
 access_library_publisher_librarian,access.library.publisher.librarian,model_library_publisher,library_instituto.group_library_librarian,1,1,1,1

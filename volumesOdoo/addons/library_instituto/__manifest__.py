@@ -20,7 +20,8 @@
         "data/library_demo_clean.xml",
         "views/library_loan.xml",
         "views/res_partner_library.xml",
-        "views/library_menus.xml"
+        "views/library_menus.xml",
+        "reports/report_loan.xml"
     ],
    
     # Indica si aparece como aplicacion en el menu principal.
