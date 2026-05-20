@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Acción de informe: asocia el template al modelo library.loan -->
+    <record id="action_report_loan" model="ir.actions.report">
+        <field name="name">Comprobante de préstamo</field>
+        <field name="model">library.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_instituto.report_loan_template</field>
+        <field name="report_file">library_instituto.report_loan_template</field>
+        <field name="binding_model_id" ref="model_library_loan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Template QWeb: define el HTML que Odoo convierte a PDF -->
+    <template id="report_loan_template">
+        <!-- t-call="web.html_container" envuelve el documento con los estilos base de Odoo -->
+        <t t-call="web.html_container">
+            <!-- t-foreach recorre todos los préstamos seleccionados (puede ser 1 o varios) -->
+            <t t-foreach="docs" t-as="loan">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <h2 class="text-center">Comprobante de Préstamo</h2>
+                        <h4 class="text-center text-muted">
+                            Código: <t t-esc="loan.id"/>
+                        </h4>
+
+                        <hr/>
+
+                        <!-- Datos del usuario -->
+                        <h4>Datos del usuario</h4>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Nombre</strong></td>
+                                <!-- t-esc imprime el valor escapando HTML para evitar inyección -->
+                                <td><t t-esc="loan.user_id.display_name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nº carnet</strong></td>
+                                <td><t t-esc="loan.user_id.library_card_number or '—'"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo usuario</strong></td>
+                                <td><t t-esc="loan.user_id.library_user_type or '—'"/></td>
+                            </tr>
+                        </table>
+
+                        <!-- Datos del libro -->
+                        <h4>Datos del libro</h4>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Título</strong></td>
+                                <td><t t-esc="loan.book_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ISBN</strong></td>
+                                <td><t t-esc="loan.book_id.isbn or '—'"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Autor/es</strong></td>
+                                <!-- t-esc con join para mostrar todos los autores separados por coma -->
+                                <td><t t-esc="', '.join(loan.book_id.author_ids.mapped('name')) or '—'"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Editorial</strong></td>
+                                <td><t t-esc="loan.book_id.publisher_id.name or '—'"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nº ejemplar</strong></td>
+                                <td><t t-esc="loan.copy_number"/></td>
+                            </tr>
+                        </table>
+
+                        <!-- Datos del préstamo -->
+                        <h4>Datos del préstamo</h4>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Fecha de préstamo</strong></td>
+                                <td><t t-esc="loan.loan_date"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Devolución prevista</strong></td>
+                                <td><t t-esc="loan.expected_return_date"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Estado</strong></td>
+                                <td><t t-esc="dict(loan.fields_get(['state'])['state']['selection'])[loan.state]"/></td>
+                            </tr>
+                        </table>
+
+                        <hr/>
+                        <p class="text-muted small text-center">
+                            Documento generado automáticamente por BiblioInstituto
+                        </p>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
