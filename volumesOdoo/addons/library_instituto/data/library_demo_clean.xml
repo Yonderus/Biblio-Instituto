@@ -63,6 +63,10 @@
     <record id="partner_01" model="res.partner">
         <field name="name">Laura Sánchez</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Mayor 12, 3ºA</field>
+        <field name="phone">911000001</field>
+        <field name="mobile">611000001</field>
+        <field name="email">laura.sanchez@correo.es</field>
         <field name="library_user_type">alumno</field>
         <field name="library_course_group">1A</field>
         <field name="library_card_number">BIB001</field>
@@ -71,6 +75,10 @@
     <record id="partner_02" model="res.partner">
         <field name="name">Pablo Moreno</field>
         <field name="company_type">person</field>
+        <field name="street">Avenida del Parque 5, 1ºB</field>
+        <field name="phone">911000002</field>
+        <field name="mobile">622000002</field>
+        <field name="email">pablo.moreno@correo.es</field>
         <field name="library_user_type">alumno</field>
         <field name="library_course_group">2B</field>
         <field name="library_card_number">BIB002</field>
@@ -79,6 +87,10 @@
     <record id="partner_03" model="res.partner">
         <field name="name">Marta Vidal</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Rosas 8, 2ºC</field>
+        <field name="phone">911000003</field>
+        <field name="mobile">633000003</field>
+        <field name="email">marta.vidal@instituto.es</field>
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB003</field>
         <field name="library_max_loans">4</field>
@@ -86,6 +98,10 @@
     <record id="partner_04" model="res.partner">
         <field name="name">Jorge Peña</field>
         <field name="company_type">person</field>
+        <field name="street">Plaza del Sol 3, 4ºD</field>
+        <field name="phone">911000004</field>
+        <field name="mobile">644000004</field>
+        <field name="email">jorge.pena@instituto.es</field>
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB004</field>
         <field name="library_max_loans">4</field>
@@ -93,6 +109,10 @@
     <record id="partner_05" model="res.partner">
         <field name="name">Celia Ortega</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Olivos 17, 1ºA</field>
+        <field name="phone">911000005</field>
+        <field name="mobile">655000005</field>
+        <field name="email">celia.ortega@instituto.es</field>
         <field name="library_user_type">administracion</field>
         <field name="library_card_number">BIB005</field>
         <field name="library_max_loans">5</field>
@@ -100,6 +120,10 @@
     <record id="partner_06" model="res.partner">
         <field name="name">Adrián Flores</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Cervantes 22, 3ºB</field>
+        <field name="phone">911000006</field>
+        <field name="mobile">666000006</field>
+        <field name="email">adrian.flores@correo.es</field>
         <field name="library_user_type">alumno</field>
         <field name="library_course_group">3C</field>
         <field name="library_card_number">BIB006</field>
@@ -108,6 +132,10 @@
     <record id="partner_07" model="res.partner">
         <field name="name">Nuria Castillo</field>
         <field name="company_type">person</field>
+        <field name="street">Avenida Constitución 9, 2ºA</field>
+        <field name="phone">911000007</field>
+        <field name="mobile">677000007</field>
+        <field name="email">nuria.castillo@correo.es</field>
         <field name="library_user_type">alumno</field>
         <field name="library_course_group">4D</field>
         <field name="library_card_number">BIB007</field>
@@ -116,6 +144,10 @@
     <record id="partner_08" model="res.partner">
         <field name="name">Sergio Ramírez</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Pinos 4, 5ºC</field>
+        <field name="phone">911000008</field>
+        <field name="mobile">688000008</field>
+        <field name="email">sergio.ramirez@instituto.es</field>
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB008</field>
         <field name="library_max_loans">4</field>
@@ -123,6 +155,10 @@
     <record id="partner_09" model="res.partner">
         <field name="name">Irene Navarro</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Luna 6, 1ºD</field>
+        <field name="phone">911000009</field>
+        <field name="mobile">699000009</field>
+        <field name="email">irene.navarro@instituto.es</field>
         <field name="library_user_type">administracion</field>
         <field name="library_card_number">BIB009</field>
         <field name="library_max_loans">5</field>
@@ -130,6 +166,10 @@
     <record id="partner_10" model="res.partner">
         <field name="name">Raúl Prieto</field>
         <field name="company_type">person</field>
+        <field name="street">Calle Alegría 31, 2ºB</field>
+        <field name="phone">911000010</field>
+        <field name="mobile">610000010</field>
+        <field name="email">raul.prieto@correo.es</field>
         <field name="library_user_type">alumno</field>
         <field name="library_course_group">1B</field>
         <field name="library_card_number">BIB010</field>

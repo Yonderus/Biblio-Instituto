@@ -33,11 +33,89 @@
     </field>
   </record>
 
-  <!-- Accion de usuarios biblioteca -->
+  <!--
+  VISTA KANBAN: Tarjetas de usuarios de la biblioteca
+
+  Muestra cada usuario como una tarjeta con:
+  - Foto de perfil (image_128: versión reducida del avatar de res.partner)
+  - Nombre
+  - Badge con el tipo de usuario (alumno / docente / administración)
+  - Número de carnet
+  - Préstamos activos en este momento
+  -->
+  <record id="view_library_users_kanban" model="ir.ui.view">
+    <field name="name">res.partner.library.kanban</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <!-- Campos que necesita la plantilla para renderizar cada tarjeta -->
+        <field name="name"/>
+        <field name="image_128"/>
+        <field name="library_user_type"/>
+        <field name="library_card_number"/>
+        <field name="library_active_loans"/>
+
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_global_click o_kanban_record d-flex flex-column align-items-center p-3" style="min-width:160px;">
+
+              <!-- FOTO DE PERFIL -->
+              <div class="mb-2">
+                <t t-if="record.image_128.raw_value">
+                  <!--
+                  /web/image/res.partner/ID/image_128:
+                  URL estándar de Odoo para servir imágenes de cualquier modelo.
+                  Formato: /web/image/MODELO/ID/CAMPO
+                  -->
+                  <img t-att-src="'/web/image/res.partner/%s/image_128' % record.id.raw_value"
+                       style="width:80px;height:80px;border-radius:50%;object-fit:cover;"
+                       alt="Foto"/>
+                </t>
+                <!-- Si no tiene foto, muestra un avatar gris con la inicial del nombre -->
+                <t t-else="">
+                  <div class="d-flex align-items-center justify-content-center bg-secondary text-white fw-bold"
+                       style="width:80px;height:80px;border-radius:50%;font-size:2em;">
+                    <t t-esc="record.name.raw_value[0].upper()"/>
+                  </div>
+                </t>
+              </div>
+
+              <!-- NOMBRE -->
+              <strong class="text-center"><field name="name"/></strong>
+
+              <!-- BADGE TIPO DE USUARIO -->
+              <!-- t-if/t-elif/t-else: muestra un span distinto según el tipo,
+                   cada uno con su clase de color de Bootstrap -->
+              <div class="mt-1">
+                <t t-if="record.library_user_type.raw_value == 'alumno'">
+                  <span class="badge text-bg-primary"><field name="library_user_type"/></span>
+                </t>
+                <t t-elif="record.library_user_type.raw_value == 'docente'">
+                  <span class="badge text-bg-success"><field name="library_user_type"/></span>
+                </t>
+                <t t-else="">
+                  <span class="badge text-bg-secondary"><field name="library_user_type"/></span>
+                </t>
+              </div>
+
+              <!-- CARNET Y PRÉSTAMOS -->
+              <div class="mt-2 text-muted small text-center">
+                <div>Carnet: <field name="library_card_number"/></div>
+                <div>Préstamos activos: <field name="library_active_loans"/></div>
+              </div>
+
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <!-- Accion de usuarios biblioteca — kanban como vista por defecto -->
   <record id="action_library_users" model="ir.actions.act_window">
     <field name="name">Usuarios biblioteca</field>
     <field name="res_model">res.partner</field>
-    <field name="view_mode">list,form</field>
+    <field name="view_mode">kanban,list,form</field>
     <field name="domain">[("library_card_number", "!=", False)]</field>
     <field name="context">{"default_company_type": "person"}</field>
   </record>
