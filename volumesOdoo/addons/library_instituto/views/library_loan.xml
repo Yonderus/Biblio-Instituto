@@ -153,7 +153,7 @@
     </field>
   </record>
 
-  <!-- 
+  <!--
   ACCIÓN WINDOW: Abre el menú "Préstamos"
   - view_mode="list,form": orden de vistas (lista es la por defecto)
   - Usuario puede cambiar a formulario haciendo click en un préstamo
@@ -162,5 +162,27 @@
     <field name="name">Préstamos</field>
     <field name="res_model">library.loan</field>
     <field name="view_mode">list,form</field>
+  </record>
+
+  <!--
+  VISTA SEARCH: Filtros para la lista de préstamos
+
+  Permite buscar por usuario o libro escribiendo texto,
+  y filtrar por estado con un solo click.
+  -->
+  <record id="view_library_loan_search" model="ir.ui.view">
+    <field name="name">library.loan.search</field>
+    <field name="model">library.loan</field>
+    <field name="arch" type="xml">
+      <search>
+        <!-- Búsqueda por usuario y por título de libro -->
+        <field name="user_id"/>
+        <field name="book_id"/>
+        <!-- Filtros rápidos por estado del préstamo -->
+        <filter name="activo"   string="Activos"   domain="[('state','=','activo')]"/>
+        <filter name="vencido"  string="Vencidos"  domain="[('state','=','vencido')]"/>
+        <filter name="devuelto" string="Devueltos" domain="[('state','=','devuelto')]"/>
+      </search>
+    </field>
   </record>
 </odoo>

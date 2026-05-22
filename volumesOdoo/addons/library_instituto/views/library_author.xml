@@ -13,6 +13,35 @@
     </field>
   </record>
 
+  <!--
+  VISTA FORMULARIO: Detalle de un autor
+
+  Se abre al hacer click en un autor desde la lista.
+  Muestra nombre, país, fecha de nacimiento y los libros
+  vinculados a ese autor (Many2many inversa).
+
+  widget="many2many_tags": muestra los libros como etiquetas clickeables
+  en vez de una tabla completa, más limpio para una relación inversa.
+  -->
+  <record id="view_library_author_form" model="ir.ui.view">
+    <field name="name">library.author.form</field>
+    <field name="model">library.author</field>
+    <field name="arch" type="xml">
+      <form string="Autor">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="country"/>
+            <field name="birth_date"/>
+          </group>
+          <group string="Libros del autor">
+            <field name="book_ids" widget="many2many_tags" nolabel="1"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
   <!-- Acción para autores -->
   <record id="action_library_author" model="ir.actions.act_window">
     <field name="name">Autores</field>

@@ -173,7 +173,7 @@
 		</field>
 	</record>
 
-	<!-- 
+	<!--
 	ACCIÓN WINDOW: Abre el menú "Libros"
 	- view_mode="kanban,list,form": orden de vistas (kanban es la por defecto)
 	- Usuario puede cambiar de vista con botones en top-right
@@ -182,5 +182,37 @@
 		<field name="name">Libros</field>
 		<field name="res_model">library.book</field>
 		<field name="view_mode">kanban,list,form</field>
+	</record>
+
+	<!--
+	VISTA SEARCH: Barra de búsqueda y filtros del catálogo
+
+	<field>: campos por los que se puede buscar escribiendo texto libre
+	<filter>: botones de filtro rápido que aplican un domain predefinido
+	<separator>: línea divisoria visual entre grupos de filtros
+	<group>: agrupa opciones de "Agrupar por" al final del desplegable
+	-->
+	<record id="view_library_book_search" model="ir.ui.view">
+		<field name="name">library.book.search</field>
+		<field name="model">library.book</field>
+		<field name="arch" type="xml">
+			<search>
+				<!-- Búsqueda por texto en título e ISBN -->
+				<field name="title"/>
+				<field name="isbn"/>
+				<!-- Filtros rápidos por estado del libro -->
+				<filter name="disponible" string="Disponibles" domain="[('state','=','disponible')]"/>
+				<filter name="prestado"   string="Prestados"   domain="[('state','=','prestado')]"/>
+				<separator/>
+				<!-- Filtros rápidos por género -->
+				<filter name="narrativa"   string="Narrativa"      domain="[('genre','=','narrativa')]"/>
+				<filter name="libro_texto" string="Libro de texto" domain="[('genre','=','libro_texto')]"/>
+				<!-- Opciones de agrupación -->
+				<group expand="0" string="Agrupar por">
+					<filter name="group_genre" string="Género" context="{'group_by': 'genre'}"/>
+					<filter name="group_state" string="Estado" context="{'group_by': 'state'}"/>
+				</group>
+			</search>
+		</field>
 	</record>
 </odoo>
