@@ -85,46 +85,40 @@
 				
 				<!-- Plantilla visual de cada tarjeta -->
 				<templates>
-					<!-- 
-					kanban-box: contenedor principal de cada tarjeta
-					o_kanban_record: permite clicks y selecciones
-					oe_kanban_global_click: hace toda la tarjeta clickeable
-					-->
 					<t t-name="kanban-box">
-						<div class="oe_kanban_global_click o_kanban_record">
-							<!-- SECCIÓN IMAGEN/PORTADA -->
-							<div class="o_kanban_image o_kanban_image_full">
-								<!-- Si el libro tiene portada, mostrar imagen -->
+						<div class="oe_kanban_global_click o_kanban_record d-flex flex-column align-items-center p-3" style="width:200px;">
+
+							<!-- PORTADA: centrada y con tamaño fijo -->
+							<div class="mb-2" style="width:140px;height:200px;overflow:hidden;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.18);">
 								<t t-if="record.cover_image.raw_value">
-									<!-- 
-									URL dinámica: /web/image/MODEL/ID/FIELD
-									Odoo sirve las imágenes comprimidas bajo demanda
-									-->
-									<img t-att-src="'/web/image/library.book/%s/cover_image' % record.id.raw_value" alt="Portada"/>
+									<img t-att-src="'/web/image/library.book/' + record.id.raw_value + '/cover_image'"
+										 style="width:140px;height:200px;object-fit:cover;" alt="Portada"/>
 								</t>
-								<!-- Si no tiene portada, mostrar placeholder -->
 								<t t-else="">
-									<div class="d-flex align-items-center justify-content-center bg-light text-muted" style="height: 180px; border-radius: 8px;">
+									<!-- Placeholder si no hay portada -->
+									<div class="d-flex align-items-center justify-content-center bg-light text-muted h-100 w-100" style="font-size:0.85em;">
 										Sin portada
 									</div>
 								</t>
 							</div>
-							
-							<!-- SECCIÓN DETALLES (bajo la imagen) -->
-							<div class="o_kanban_details mt-2">
-								<!-- Título en negrita -->
-								<strong><field name="title"/></strong>
-								<!-- ISBN más pequeño y descolorido -->
-								<div class="text-muted"><field name="isbn"/></div>
-								<!-- Editorial -->
-								<div><field name="publisher_id"/></div>
-								<!-- BADGE de disponibilidad -->
-								<div class="mt-1">
-									<span class="badge text-bg-primary">
-										Disponibles: <field name="available_copies"/>
-									</span>
-								</div>
+
+							<!-- TÍTULO -->
+							<strong class="text-center" style="font-size:0.95em;line-height:1.3;">
+								<field name="title"/>
+							</strong>
+
+							<!-- EDITORIAL -->
+							<div class="text-muted small text-center mt-1">
+								<field name="publisher_id"/>
 							</div>
+
+							<!-- BADGE DISPONIBLES -->
+							<div class="mt-2">
+								<span class="badge text-bg-primary">
+									Disponibles: <field name="available_copies"/>
+								</span>
+							</div>
+
 						</div>
 					</t>
 				</templates>
