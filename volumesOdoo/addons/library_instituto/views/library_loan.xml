@@ -154,14 +154,40 @@
   </record>
 
   <!--
+  VISTA CALENDAR: Calendario mensual de vencimientos
+
+  Muestra cada préstamo como un evento colocado en su fecha de devolución prevista.
+  Permite al personal de biblioteca ver de un vistazo qué libros vencen cada día del mes.
+
+  date_start="expected_return_date": campo que determina en qué día aparece el evento.
+  mode="month": se abre en vista mensual por defecto (el usuario puede cambiar a semana o día).
+  color="state": Odoo asigna un color distinto a cada valor del campo state.
+    Los campos dentro del tag <calendar> se muestran como texto en cada evento.
+  -->
+  <record id="view_library_loan_calendar" model="ir.ui.view">
+    <field name="name">library.loan.calendar</field>
+    <field name="model">library.loan</field>
+    <field name="arch" type="xml">
+      <calendar string="Vencimientos de préstamos"
+                date_start="expected_return_date"
+                mode="month"
+                color="state">
+        <field name="user_id"/>
+        <field name="book_id"/>
+        <field name="state"/>
+      </calendar>
+    </field>
+  </record>
+
+  <!--
   ACCIÓN WINDOW: Abre el menú "Préstamos"
-  - view_mode="list,form": orden de vistas (lista es la por defecto)
-  - Usuario puede cambiar a formulario haciendo click en un préstamo
+  - view_mode="list,calendar,form": añadido calendar como segunda opción
+  - El icono de calendario aparece en los botones de cambio de vista (arriba a la derecha)
   -->
   <record id="action_library_loan" model="ir.actions.act_window">
     <field name="name">Préstamos</field>
     <field name="res_model">library.loan</field>
-    <field name="view_mode">list,form</field>
+    <field name="view_mode">list,calendar,form</field>
   </record>
 
   <!--

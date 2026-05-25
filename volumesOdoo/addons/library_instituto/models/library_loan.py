@@ -9,6 +9,11 @@ class LibraryLoan(models.Model):
     _order = "loan_date desc, id desc"
 
     
+    name = fields.Char(
+        string="Referencia",
+        compute="_compute_name",
+        store=False,
+    )
     copy_number = fields.Integer(required=True, default=1)
     loan_date = fields.Date(string="Fecha prestamo", default=fields.Date.context_today, required=True)
     expected_return_date = fields.Date(string="Fecha devolucion prevista", required=True)
@@ -33,6 +38,13 @@ class LibraryLoan(models.Model):
     )
     user_id = fields.Many2one("res.partner", required=True, ondelete="restrict")
     book_id = fields.Many2one("library.book", required=True, ondelete="restrict")
+
+    @api.depends("user_id", "book_id")
+    def _compute_name(self):
+        for loan in self:
+            user = loan.user_id.display_name or "?"
+            book = loan.book_id.title or "?"
+            loan.name = f"{user} — {book}"
 
     @api.onchange("loan_date")
     def _onchange_loan_date(self):
