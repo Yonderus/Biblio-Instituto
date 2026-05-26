@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+    FORMULARIO DEL WIZARD
+    target="new" en la acción hace que se abra como ventana modal (popup).
+    El <footer> contiene los botones de confirmar y cancelar.
+    special="cancel" cierra el modal sin hacer nada.
+    -->
+    <record id="view_library_loan_wizard_form" model="ir.ui.view">
+        <field name="name">library.loan.wizard.form</field>
+        <field name="model">library.loan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Préstamo múltiple">
+                <group>
+                    <!-- Usuario al que se le hacen todos los préstamos -->
+                    <field name="user_id"
+                           domain="[('library_card_number', '!=', False)]"/>
+                </group>
+
+                <!-- Tabla de libros a prestar -->
+                <!-- editable="bottom": permite añadir líneas directamente en la tabla -->
+                <field name="line_ids">
+                    <list editable="bottom">
+                        <field name="book_id"/>
+                        <field name="copy_number"/>
+                    </list>
+                </field>
+
+                <footer>
+                    <!-- Llama al método action_confirm del modelo -->
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirmar préstamos"
+                            class="btn-primary"/>
+                    <!-- special="cancel": cierra el modal sin ejecutar nada -->
+                    <button string="Cancelar"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--
+    ACCIÓN QUE ABRE EL WIZARD
+    target="new": abre el formulario como ventana modal encima de la pantalla actual.
+    Sin target="new" abriría como una vista normal y perdería el contexto anterior.
+    -->
+    <record id="action_library_loan_wizard" model="ir.actions.act_window">
+        <field name="name">Préstamo múltiple</field>
+        <field name="res_model">library.loan.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

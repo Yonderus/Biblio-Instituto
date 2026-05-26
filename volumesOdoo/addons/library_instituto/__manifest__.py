@@ -19,6 +19,7 @@
         "views/library_publisher.xml",
         "data/library_demo_clean.xml",
         "views/library_loan.xml",
+        "views/library_loan_wizard.xml",
         "views/res_partner_library.xml",
         "views/library_menus.xml",
         "reports/report_loan.xml"

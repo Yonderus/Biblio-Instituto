@@ -21,4 +21,7 @@
 
   <!-- Submenú de usuarios biblioteca -->
   <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_catalog" action="action_library_users" sequence="50"/>
+
+  <!-- Acceso directo al wizard de préstamos múltiples -->
+  <menuitem id="menu_library_loan_wizard" name="Préstamo múltiple" parent="menu_library_catalog" action="action_library_loan_wizard" sequence="45"/>
 </odoo>

@@ -12,4 +12,8 @@ access_library_author_user,access.library.author.user,model_library_author,libra
 access_library_publisher_user,access.library.publisher.user,model_library_publisher,library_instituto.group_library_user,1,0,0,0
 access_library_loan_librarian,access.library.loan.librarian,model_library_loan,library_instituto.group_library_librarian,1,1,1,1
 access_library_loan_user,access.library.loan.user,model_library_loan,library_instituto.group_library_user,1,0,0,0
+access_library_loan_wizard_manager,access.library.loan.wizard.manager,model_library_loan_wizard,base.group_system,1,1,1,1
+access_library_loan_wizard_line_manager,access.library.loan.wizard.line.manager,model_library_loan_wizard_line,base.group_system,1,1,1,1
+access_library_loan_wizard_librarian,access.library.loan.wizard.librarian,model_library_loan_wizard,library_instituto.group_library_librarian,1,1,1,1
+access_library_loan_wizard_line_librarian,access.library.loan.wizard.line.librarian,model_library_loan_wizard_line,library_instituto.group_library_librarian,1,1,1,1
 
