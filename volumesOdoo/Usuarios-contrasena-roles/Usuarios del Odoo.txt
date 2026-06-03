@@ -1,0 +1,7 @@
+Correos electrónicos       Contraseñas	      Roles
+
+javigisbert05@gmail.com	-> biblioinstituto -> Administrador
+
+benito.biblio@bibio.com -> Benito -> Usuario biblioteca
+
+fonsi.biblio@biblio.com -> fonsi -> Bibliotecario
