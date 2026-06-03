@@ -3,11 +3,8 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
+# TransientModel: datos temporales, Odoo los borra automáticamente tras su uso
 class LibraryLoanWizard(models.TransientModel):
-    """
-    Wizard (asistente emergente) para crear varios préstamos a la vez.
-    TransientModel: los datos se guardan temporalmente en BD y Odoo los borra solos.
-    """
     _name = "library.loan.wizard"
     _description = "Asistente de préstamos múltiples"
 
@@ -18,11 +15,7 @@ class LibraryLoanWizard(models.TransientModel):
     line_ids = fields.One2many("library.loan.wizard.line", "wizard_id", string="Libros")
 
     def action_confirm(self):
-        """
-        Se ejecuta al pulsar "Confirmar préstamos".
-        Recorre cada línea y crea un library.loan por cada una.
-        Reutiliza la misma lógica de validación que ya tiene library.loan.
-        """
+        # Crea un préstamo real por cada línea de la tabla al pulsar "Confirmar"
         if not self.line_ids:
             raise ValidationError("Añade al menos un libro antes de confirmar.")
 
@@ -38,9 +31,6 @@ class LibraryLoanWizard(models.TransientModel):
 
 
 class LibraryLoanWizardLine(models.TransientModel):
-    """
-    Línea del wizard: representa un libro concreto dentro del préstamo múltiple.
-    """
     _name = "library.loan.wizard.line"
     _description = "Línea del asistente de préstamos"
 
