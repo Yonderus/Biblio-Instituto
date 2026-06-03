@@ -19,9 +19,11 @@
   <!-- Submenú de préstamos -->
   <menuitem id="menu_library_loan" name="Prestamos" parent="menu_library_catalog" action="action_library_loan" sequence="40"/>
 
-  <!-- Submenú de usuarios biblioteca -->
-  <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_catalog" action="action_library_users" sequence="50"/>
+  <!-- Submenú de usuarios biblioteca: solo bibliotecarios (privacidad de datos) -->
+  <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_catalog" action="action_library_users" sequence="50"
+            groups="library_instituto.group_library_librarian"/>
 
-  <!-- Acceso directo al wizard de préstamos múltiples -->
-  <menuitem id="menu_library_loan_wizard" name="Préstamo múltiple" parent="menu_library_catalog" action="action_library_loan_wizard" sequence="45"/>
+  <!-- Acceso directo al wizard de préstamos múltiples: solo bibliotecarios -->
+  <menuitem id="menu_library_loan_wizard" name="Préstamo múltiple" parent="menu_library_catalog" action="action_library_loan_wizard" sequence="45"
+            groups="library_instituto.group_library_librarian"/>
 </odoo>
