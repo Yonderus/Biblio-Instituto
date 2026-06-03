@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BiblioInstituto — Memoria técnica del proyecto</title>
+  <style>
+    :root {
+      --azul:      #1a3a5c;
+      --azul-med:  #2c5282;
+      --azul-clr:  #3182ce;
+      --azul-pale: #ebf8ff;
+      --verde:     #22543d;
+      --verde-med: #276749;
+      --verde-pale:#f0fff4;
+      --rojo:      #c53030;
+      --rojo-pale: #fff5f5;
+      --naranja:   #c05621;
+      --naranja-p: #fffaf0;
+      --gris-osc:  #2d3748;
+      --gris:      #4a5568;
+      --gris-med:  #718096;
+      --gris-clr:  #e2e8f0;
+      --gris-pale: #f7fafc;
+      --blanco:    #ffffff;
+      --radius:    6px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--gris-osc);
+      background: #edf2f7;
+    }
+
+    /* ── PORTADA ── */
+    .portada {
+      background: linear-gradient(160deg, #0f2942 0%, #1a3a5c 50%, #2c5282 100%);
+      color: white;
+      padding: 80px 40px 70px;
+      text-align: center;
+    }
+    .portada .logo { font-size: 3rem; margin-bottom: 16px; }
+    .portada h1 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .portada .subtitulo { font-size: 1.1rem; opacity: 0.8; margin-bottom: 32px; }
+    .portada .meta {
+      display: inline-flex; flex-direction: column; gap: 6px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: 20px 36px; text-align: left;
+    }
+    .portada .meta span { font-size: 0.9rem; opacity: 0.9; }
+    .portada .meta strong { opacity: 1; }
+
+    /* ── LAYOUT ── */
+    .wrapper { max-width: 1060px; margin: 44px auto; padding: 0 22px 60px; }
+
+    /* ── ÍNDICE ── */
+    .indice {
+      background: white; border-radius: var(--radius);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.09);
+      padding: 28px 32px; margin-bottom: 38px;
+    }
+    .indice h2 { color: var(--azul); font-size: 1rem; text-transform: uppercase;
+                  letter-spacing: 1px; margin-bottom: 14px; }
+    .indice ol { padding-left: 20px; columns: 2; column-gap: 30px; }
+    .indice li { margin-bottom: 5px; break-inside: avoid; }
+    .indice a { color: var(--gris); font-size: 0.88rem; text-decoration: none; }
+    .indice a:hover { color: var(--azul-clr); }
+
+    /* ── SECCIONES ── */
+    .sec {
+      background: white; border-radius: var(--radius);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.09);
+      margin-bottom: 32px; overflow: hidden;
+    }
+    .sec-head {
+      background: var(--azul); color: white;
+      padding: 16px 26px; display: flex; align-items: center; gap: 14px;
+    }
+    .sec-head .num {
+      background: rgba(255,255,255,0.18); border-radius: 50%;
+      width: 32px; height: 32px; display: flex; align-items: center;
+      justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+    .sec-head h2 { font-size: 1.1rem; font-weight: 600; }
+    .sec-body { padding: 26px 30px; }
+
+    h3 {
+      font-size: 1rem; color: var(--azul-med);
+      border-left: 3px solid var(--azul-clr);
+      padding-left: 11px; margin: 24px 0 12px;
+    }
+    h3:first-child { margin-top: 0; }
+    h4 { font-size: 0.92rem; color: var(--gris); font-weight: 600; margin: 16px 0 7px; }
+    p { margin-bottom: 10px; }
+    ul, ol { padding-left: 20px; margin-bottom: 10px; }
+    li { margin-bottom: 4px; }
+
+    /* ── CÓDIGO ── */
+    pre {
+      background: #1e2a3a; color: #cdd5df;
+      border-radius: var(--radius); padding: 16px 18px;
+      overflow-x: auto; font-size: 0.8rem; line-height: 1.65; margin: 12px 0;
+      font-family: 'Cascadia Code','Fira Code','Consolas',monospace;
+    }
+    code {
+      background: var(--gris-clr); color: #c53030;
+      border-radius: 3px; padding: 1px 5px; font-size: 0.8rem;
+      font-family: 'Consolas', monospace;
+    }
+    pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+    .cm { color: #6db36d; }
+    .kw { color: #79d4f0; }
+    .st { color: #f0a868; }
+    .fn { color: #c8a0f0; }
+    .cl { color: #90cdf4; }
+    .de { color: #fc8181; }
+
+    /* ── CAJAS ── */
+    .caja {
+      border-radius: var(--radius); padding: 13px 16px;
+      margin: 12px 0; font-size: 0.89rem;
+    }
+    .caja b { display: block; margin-bottom: 4px; font-size: 0.9rem; }
+    .caja-azul   { background: var(--azul-pale);  border-left: 4px solid var(--azul-clr); }
+    .caja-verde  { background: var(--verde-pale);  border-left: 4px solid #38a169; }
+    .caja-rojo   { background: var(--rojo-pale);   border-left: 4px solid #e53e3e; }
+    .caja-naranja{ background: var(--naranja-p);   border-left: 4px solid #dd6b20; }
+    .caja-gris   { background: var(--gris-pale);   border-left: 4px solid #a0aec0; }
+
+    /* ── TABLAS ── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin: 12px 0; }
+    th { background: var(--azul); color: white; padding: 9px 13px; text-align: left; }
+    td { padding: 8px 13px; border-bottom: 1px solid var(--gris-clr); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--gris-pale); }
+
+    /* ── GRID ── */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+    .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0; }
+    @media (max-width: 680px) { .g2,.g3 { grid-template-columns: 1fr; } }
+    .card { border: 1px solid var(--gris-clr); border-radius: var(--radius); padding: 14px; }
+    .card h4 { margin-top: 0; color: var(--azul-med); }
+
+    /* ── BADGES ── */
+    .tag { display: inline-block; border-radius: 12px; padding: 2px 10px;
+           font-size: 0.73rem; font-weight: 700; }
+    .tag-opt { background: #e9d8fd; color: #553c9a; }
+    .tag-req { background: #c6f6d5; color: #22543d; }
+
+    hr.sep { border: none; border-top: 2px solid var(--gris-clr); margin: 24px 0; }
+
+    /* ── ÁRBOL ── */
+    .arbol {
+      background: #1e2a3a; color: #a0c0e0; border-radius: var(--radius);
+      padding: 18px 20px; font-size: 0.8rem; font-family: monospace;
+      line-height: 1.8; margin: 12px 0;
+    }
+    .arbol .dir { color: #90cdf4; font-weight: 700; }
+    .arbol .com { color: #6db36d; }
+
+    /* ── TABLA DE USUARIOS ── */
+    .tbl-usr th { background: #2c3e50; }
+    .badge-admin { background: #fed7d7; color: #c53030; border-radius: 4px; padding: 2px 8px; font-size: 0.78rem; font-weight: 700; }
+    .badge-bib   { background: #bee3f8; color: #2b6cb0; border-radius: 4px; padding: 2px 8px; font-size: 0.78rem; font-weight: 700; }
+    .badge-usr   { background: #c6f6d5; color: #276749; border-radius: 4px; padding: 2px 8px; font-size: 0.78rem; font-weight: 700; }
+
+    footer { text-align: center; padding: 24px; color: var(--gris-med); font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<div class="portada">
+  <div class="logo">📚</div>
+  <h1>BiblioInstituto</h1>
+  <div class="subtitulo">Módulo Odoo 18 — Sistema de gestión de biblioteca escolar<br>Memoria técnica del proyecto</div>
+  <div class="meta">
+    <span><strong>Alumno:</strong> Javier Gisbert Talboom</span>
+    <span><strong>Ciclo:</strong> 2.º DAM — Desarrollo de Aplicaciones Multiplataforma</span>
+    <span><strong>Módulo:</strong> SGE — Sistemas de Gestión Empresarial</span>
+    <span><strong>Tecnologías:</strong> Odoo 18 · Python 3 · PostgreSQL · XML · QWeb · Docker</span>
+    <span><strong>Fecha:</strong> Junio 2026</span>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- ÍNDICE -->
+<div class="indice">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#intro">Introducción y objetivos</a></li>
+    <li><a href="#infra">Infraestructura: Docker y arquitectura</a></li>
+    <li><a href="#estructura">Estructura del módulo Odoo</a></li>
+    <li><a href="#modelos">Modelos de datos y decisiones de diseño</a></li>
+    <li><a href="#vistas">Vistas: tipos y justificación</a></li>
+    <li><a href="#seguridad">Sistema de seguridad en tres capas</a></li>
+    <li><a href="#reports">Informes QWeb</a></li>
+    <li><a href="#ampliaciones">Ampliaciones opcionales</a></li>
+    <li><a href="#datos">Datos de demostración</a></li>
+    <li><a href="#usuarios">Usuarios del sistema</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="intro">
+  <div class="sec-head"><div class="num">1</div><h2>Introducción y objetivos</h2></div>
+  <div class="sec-body">
+    <p>BiblioInstituto es un módulo desarrollado sobre la plataforma Odoo 18 que implementa un sistema completo de gestión de biblioteca para centros educativos. El proyecto se ha realizado como trabajo de recuperación de la asignatura SGE (Sistemas de Gestión Empresarial) del ciclo formativo de 2.º DAM.</p>
+
+    <h3>Alcance funcional</h3>
+    <div class="g3">
+      <div class="card"><h4>Catálogo</h4><p>Gestión de libros, autores y editoriales con todos sus metadatos, portadas y control de existencias.</p></div>
+      <div class="card"><h4>Préstamos</h4><p>Ciclo completo: alta, renovación, devolución, control de vencimientos y generación de comprobante PDF.</p></div>
+      <div class="card"><h4>Usuarios</h4><p>Extensión del modelo de contactos de Odoo con datos específicos de biblioteca: carnet, tipo de usuario y límite de préstamos.</p></div>
+    </div>
+
+    <h3>Objetivos técnicos cubiertos</h3>
+    <table>
+      <tr><th>Objetivo</th><th>Implementación</th><th>Requisito</th></tr>
+      <tr><td>Modelos ORM con relaciones</td><td>5 modelos + extensión de res.partner</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Campos calculados con @api.depends</td><td>available_copies, state, late_days, name</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Validaciones Python</td><td>Límite de préstamos, número ejemplar, máximo negativo</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Vistas list, form, kanban, search</td><td>Todas las entidades tienen sus vistas completas</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Sistema de seguridad</td><td>2 grupos + CSV de accesos + reglas de registro</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Informe QWeb PDF</td><td>Comprobante de préstamo desde formulario</td><td><span class="tag tag-req">Obligatorio</span></td></tr>
+      <tr><td>Vista Calendar</td><td>Calendario mensual de vencimientos</td><td><span class="tag tag-opt">Ampliación +nota</span></td></tr>
+      <tr><td>Wizard de préstamos múltiples</td><td>Asistente modal con TransientModel</td><td><span class="tag tag-opt">Ampliación +nota</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="infra">
+  <div class="sec-head"><div class="num">2</div><h2>Infraestructura: Docker y arquitectura</h2></div>
+  <div class="sec-body">
+    <p>El entorno de desarrollo utiliza Docker Compose para levantar dos servicios aislados: el servidor Odoo y la base de datos PostgreSQL. Esta elección elimina la necesidad de instalar dependencias localmente y garantiza que el entorno sea reproducible en cualquier máquina.</p>
+
+    <div class="g2">
+      <div>
+        <h3>Servicios definidos en docker-compose.yml</h3>
+        <table>
+          <tr><th>Servicio</th><th>Imagen</th><th>Puerto</th></tr>
+          <tr><td><strong>web</strong> (Odoo)</td><td>odoo:18</td><td>8069 → host</td></tr>
+          <tr><td><strong>db</strong> (PostgreSQL)</td><td>postgres:15</td><td>5432 (interno)</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Volúmenes persistentes</h3>
+        <table>
+          <tr><th>Volumen</th><th>Contenido</th></tr>
+          <tr><td>postgres_data</td><td>Toda la base de datos</td></tr>
+          <tr><td>odoo_filestore</td><td>Imágenes, adjuntos</td></tr>
+          <tr><td>./volumesOdoo/addons</td><td>Código del módulo (montado en vivo)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="caja caja-azul">
+      <b>Decisión de diseño: montaje de addons como volumen</b>
+      El directorio <code>./volumesOdoo/addons</code> se monta directamente dentro del contenedor en <code>/mnt/extra-addons</code>. Esto significa que cualquier cambio en los archivos Python o XML del módulo es visible inmediatamente en el contenedor sin reconstruir la imagen. Solo se necesita hacer "Actualizar módulo" en la interfaz de Odoo para aplicar los cambios.
+    </div>
+
+    <div class="caja caja-rojo">
+      <b>Diferencia crítica: restart vs down -v</b>
+      <code>docker compose restart</code> reinicia los contenedores pero conserva todos los volúmenes (datos de BD intactos). <code>docker compose down -v</code> elimina también los volúmenes, borrando todos los datos. Durante el desarrollo solo se usa restart o down (sin -v).
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="estructura">
+  <div class="sec-head"><div class="num">3</div><h2>Estructura del módulo Odoo</h2></div>
+  <div class="sec-body">
+    <div class="arbol">
+<span class="dir">library_instituto/</span>
+├── __manifest__.py          <span class="com">← "pasaporte" del módulo: nombre, versión, dependencias, archivos a cargar</span>
+├── __init__.py              <span class="com">← importa el paquete models/ para que Python cargue los modelos</span>
+│
+├── <span class="dir">models/</span>              <span class="com">← lógica de negocio en Python (clases ORM)</span>
+│   ├── __init__.py          <span class="com">← importa cada fichero .py del directorio</span>
+│   ├── library_author.py    <span class="com">← modelo library.author</span>
+│   ├── library_book.py      <span class="com">← modelo library.book (con campos calculados)</span>
+│   ├── library_publisher.py <span class="com">← modelo library.publisher</span>
+│   ├── library_loan.py      <span class="com">← modelo library.loan (lógica principal)</span>
+│   ├── library_loan_wizard.py  <span class="com">← TransientModel para préstamos múltiples</span>
+│   └── res_partner.py       <span class="com">← extensión de res.partner con _inherit</span>
+│
+├── <span class="dir">views/</span>               <span class="com">← definición de la interfaz en XML</span>
+│   ├── library_author.xml
+│   ├── library_book.xml     <span class="com">← incluye vistas list, form, kanban y search</span>
+│   ├── library_publisher.xml
+│   ├── library_loan.xml     <span class="com">← incluye vista calendar (ampliación)</span>
+│   ├── library_loan_wizard.xml  <span class="com">← formulario modal del wizard</span>
+│   ├── res_partner_library.xml  <span class="com">← kanban de usuarios con foto y badges</span>
+│   └── library_menus.xml    <span class="com">← árbol de menús con control de visibilidad por grupo</span>
+│
+├── <span class="dir">security/</span>            <span class="com">← todo lo relacionado con permisos y acceso</span>
+│   ├── security.xml         <span class="com">← define los dos grupos del módulo</span>
+│   ├── ir.model.access.csv  <span class="com">← permisos CRUD por grupo y modelo</span>
+│   └── library_security_rules.xml  <span class="com">← filtro de registros (préstamos propios)</span>
+│
+├── <span class="dir">reports/</span>             <span class="com">← plantillas QWeb para generación de PDF</span>
+│   └── report_loan.xml      <span class="com">← comprobante de préstamo</span>
+│
+└── <span class="dir">data/</span>                <span class="com">← datos que se cargan al instalar el módulo</span>
+    └── library_demo_clean.xml  <span class="com">← 3 editoriales, 8 autores, 10 socios, 20 libros, préstamos</span></div>
+
+    <h3>El archivo __manifest__.py y el orden de carga</h3>
+    <p>El manifest es el primer archivo que Odoo lee al instalar o actualizar un módulo. La clave <code>"data"</code> contiene la lista ordenada de archivos XML/CSV que se cargarán. <strong>El orden es determinante</strong>: si un archivo XML referencia un elemento definido en otro, ese otro debe ir primero.</p>
+
+    <pre><span class="st">"data"</span>: [
+    <span class="st">"security/security.xml"</span>,            <span class="cm"># 1º: grupos (otros archivos los referencian)</span>
+    <span class="st">"security/ir.model.access.csv"</span>,      <span class="cm"># 2º: permisos (necesita los grupos ya creados)</span>
+    <span class="st">"security/library_security_rules.xml"</span>, <span class="cm"># 3º: reglas de registro (necesita grupos y modelos)</span>
+    <span class="st">"views/library_author.xml"</span>,           <span class="cm"># vistas de entidades simples</span>
+    <span class="st">"views/library_book.xml"</span>,
+    <span class="st">"views/library_publisher.xml"</span>,
+    <span class="st">"data/library_demo_clean.xml"</span>,        <span class="cm"># datos demo (necesita que los modelos existan)</span>
+    <span class="st">"views/library_loan.xml"</span>,
+    <span class="st">"views/library_loan_wizard.xml"</span>,      <span class="cm"># wizard antes que el menú que lo referencia</span>
+    <span class="st">"views/res_partner_library.xml"</span>,
+    <span class="st">"views/library_menus.xml"</span>,            <span class="cm"># menús al final: referencian todas las acciones anteriores</span>
+    <span class="st">"reports/report_loan.xml"</span>
+],</pre>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="modelos">
+  <div class="sec-head"><div class="num">4</div><h2>Modelos de datos y decisiones de diseño</h2></div>
+  <div class="sec-body">
+
+    <div class="caja caja-azul">
+      <b>Principio ORM de Odoo</b>
+      Cada clase Python que hereda de <code>models.Model</code> se convierte automáticamente en una tabla de PostgreSQL. Los atributos de clase con <code>fields.*</code> generan columnas. No se escribe SQL: el ORM (Object Relational Mapper) traduce las operaciones Python a consultas SQL. Esto abstrae la capa de datos y permite cambiar de motor de BD sin modificar el código.
+    </div>
+
+    <hr class="sep"/>
+    <h3>4.1 library.author y library.publisher — Entidades de catálogo</h3>
+    <p>Modelos de apoyo al catálogo. Tienen estructura sencilla y se relacionan con los libros mediante Many2one/Many2many. Se les aplica <code>_sql_constraints</code> para garantizar unicidad de nombre a nivel de base de datos, que es más eficiente que una validación Python.</p>
+
+    <hr class="sep"/>
+    <h3>4.2 library.book — Libro del catálogo</h3>
+
+    <div class="g2">
+      <div>
+        <h4>Decisión: _rec_name = "title"</h4>
+        <p>Por convención, Odoo busca el campo "nombre visible" de un modelo en un campo llamado <code>name</code>. Como aquí el campo se llama <code>title</code>, es necesario indicarlo explícitamente. Sin esto, los desplegables Many2one mostrarían el ID técnico del registro en lugar del título del libro.</p>
+      </div>
+      <div>
+        <h4>Decisión: _sql_constraints para ISBN</h4>
+        <p>El ISBN es un identificador único por definición. Se implementa como <code>UNIQUE(isbn)</code> a nivel SQL porque es más robusto: la restricción la impone PostgreSQL directamente, incluso si se insertan datos desde fuera del ORM de Odoo.</p>
+      </div>
+    </div>
+
+    <h4>Campos calculados: active_loans_count y available_copies</h4>
+    <pre><span class="de">@api.depends</span>(<span class="st">"total_copies"</span>, <span class="st">"loan_ids.state"</span>)
+<span class="kw">def</span> <span class="fn">_compute_available_copies</span>(self):
+    <span class="cm"># Cuenta préstamos activos o vencidos (excluye devueltos) y calcula ejemplares libres</span>
+    <span class="kw">for</span> book <span class="kw">in</span> self:
+        active_loans = len(book.loan_ids.filtered(<span class="kw">lambda</span> loan: loan.state <span class="kw">in</span> [<span class="st">"activo"</span>, <span class="st">"vencido"</span>]))
+        book.active_loans_count = active_loans
+        book.available_copies   = max((book.total_copies <span class="kw">or</span> 0) - active_loans, 0)</pre>
+
+    <div class="caja caja-naranja">
+      <b>¿Por qué loan_ids.state con notación de punto en @api.depends?</b>
+      La notación <code>"loan_ids.state"</code> le indica a Odoo que debe recalcular este campo no solo cuando se añada o elimine un préstamo del libro, sino también cuando cambie el estado (<code>state</code>) de cualquiera de esos préstamos. Sin el <code>.state</code>, el campo no se recalcularía al devolver un libro, ya que la devolución cambia el estado del préstamo pero no crea ni borra el registro.
+    </div>
+
+    <div class="caja caja-verde">
+      <b>¿Por qué ambos campos en un mismo método?</b>
+      Ambos campos necesitan exactamente la misma información: el conteo de préstamos activos. Calcularlos en métodos separados implicaría recorrer y filtrar la lista de préstamos dos veces por cada libro. Un único método que calcula ambos a la vez es significativamente más eficiente cuando hay muchos libros.
+    </div>
+
+    <hr class="sep"/>
+    <h3>4.3 library.loan — Préstamo (modelo central)</h3>
+    <p>Es el modelo con mayor lógica de negocio. Gestiona el ciclo de vida completo de un préstamo.</p>
+
+    <h4>Campo name con store=False</h4>
+    <pre>name = fields.Char(string=<span class="st">"Referencia"</span>, compute=<span class="st">"_compute_name"</span>, store=False)
+
+<span class="de">@api.depends</span>(<span class="st">"user_id"</span>, <span class="st">"book_id"</span>)
+<span class="kw">def</span> <span class="fn">_compute_name</span>(self):
+    <span class="kw">for</span> loan <span class="kw">in</span> self:
+        loan.name = <span class="st">f"{loan.user_id.display_name <span class="kw">or</span> '?'} — {loan.book_id.title <span class="kw">or</span> '?'}"</span></pre>
+
+    <div class="caja caja-azul">
+      <b>Justificación técnica de store=False</b>
+      La tabla <code>library_loan</code> fue creada en la instalación inicial del módulo sin esta columna. Añadir un campo calculado con <code>store=True</code> requeriría que Odoo ejecute un <code>ALTER TABLE ADD COLUMN</code> en PostgreSQL al actualizar el módulo, lo que puede fallar si la tabla ya existe con datos. Con <code>store=False</code> el valor se calcula en memoria Python cada vez que se necesita, sin tocar el esquema de la base de datos. La razón de necesitar este campo es que la vista Calendar de Odoo utiliza el campo <code>name</code> del modelo como etiqueta de cada evento; sin él, los eventos mostrarían el identificador técnico <code>library.loan,N</code>.
+    </div>
+
+    <h4>Máquina de estados automática</h4>
+    <table>
+      <tr><th>Estado</th><th>Condición</th></tr>
+      <tr><td><strong>activo</strong></td><td>No hay fecha de devolución real y la fecha límite no ha pasado</td></tr>
+      <tr><td><strong>vencido</strong></td><td>No hay fecha de devolución real y la fecha límite ya pasó</td></tr>
+      <tr><td><strong>devuelto</strong></td><td>Existe fecha de devolución real</td></tr>
+    </table>
+    <p>El estado se recalcula automáticamente mediante <code>@api.depends("real_return_date", "expected_return_date")</code>. Cuando el bibliotecario pulsa "Devolver", el método <code>action_return()</code> asigna la fecha real; esto dispara el recálculo del estado sin necesidad de asignarlo manualmente.</p>
+
+    <h4>Constraint de límite de préstamos simultáneos</h4>
+    <pre><span class="de">@api.constrains</span>(<span class="st">"user_id"</span>, <span class="st">"state"</span>)
+<span class="kw">def</span> <span class="fn">_check_loan_limit</span>(self):
+    active_states = [<span class="st">"activo"</span>, <span class="st">"vencido"</span>]
+    <span class="kw">for</span> loan <span class="kw">in</span> self:
+        <span class="kw">if not</span> loan.user_id <span class="kw">or</span> loan.state <span class="kw">not in</span> active_states:
+            <span class="kw">continue</span>
+        active_loans = loan.user_id.library_loan_ids.filtered(
+            <span class="kw">lambda</span> item: item.state <span class="kw">in</span> active_states <span class="kw">and</span> item.id != loan.id
+        )
+        <span class="kw">if</span> len(active_loans) >= loan.user_id.library_max_loans:
+            <span class="kw">raise</span> ValidationError(...)</pre>
+
+    <div class="caja caja-naranja">
+      <b>item.id != loan.id — exclusión del préstamo actual</b>
+      Cuando se crea o modifica un préstamo, el constraint se ejecuta sobre ese mismo registro que ya fue insertado en la base de datos. Si no se excluyera, el sistema lo contaría como uno de los préstamos activos ya existentes, generando un falso positivo que impediría crear préstamos incluso cuando el usuario está dentro del límite.
+    </div>
+
+    <hr class="sep"/>
+    <h3>4.4 res.partner — Extensión del modelo de contactos</h3>
+    <pre><span class="kw">class</span> <span class="cl">ResPartner</span>(models.Model):
+    _inherit = <span class="st">"res.partner"</span>   <span class="cm"># _inherit, no _name: amplía la tabla existente</span></pre>
+
+    <div class="caja caja-azul">
+      <b>_inherit vs _name: diferencia fundamental</b>
+      <code>_name = "library.book"</code> crea un modelo completamente nuevo con su propia tabla en PostgreSQL. <br><br>
+      <code>_inherit = "res.partner"</code> amplía un modelo ya existente añadiendo nuevas columnas a su tabla. No se crea ninguna tabla nueva. Es la técnica estándar de Odoo para extender modelos del núcleo sin modificar el código fuente de la plataforma, respetando el principio Open/Closed de la programación orientada a objetos. Todos los socios, clientes, proveedores y empleados de Odoo son <code>res.partner</code>; extender este modelo permite que los usuarios de biblioteca sean el mismo concepto que los demás contactos del sistema.
+    </div>
+
+    <hr class="sep"/>
+    <h3>4.5 library.loan.wizard — Wizard de préstamos múltiples <span class="tag tag-opt">Ampliación</span></h3>
+    <pre><span class="kw">class</span> <span class="cl">LibraryLoanWizard</span>(models.TransientModel):
+    _name = <span class="st">"library.loan.wizard"</span>
+    user_id  = fields.Many2one(<span class="st">"res.partner"</span>, required=True)
+    line_ids = fields.One2many(<span class="st">"library.loan.wizard.line"</span>, <span class="st">"wizard_id"</span>)
+
+    <span class="kw">def</span> <span class="fn">action_confirm</span>(self):
+        <span class="cm"># Crea un préstamo real por cada línea de la tabla al pulsar "Confirmar"</span>
+        today = fields.Date.context_today(self)
+        <span class="kw">for</span> line <span class="kw">in</span> self.line_ids:
+            self.env[<span class="st">"library.loan"</span>].create({
+                <span class="st">"user_id"</span>: self.user_id.id,
+                <span class="st">"book_id"</span>: line.book_id.id,
+                <span class="st">"loan_date"</span>: today,
+                <span class="st">"expected_return_date"</span>: today + timedelta(days=15),
+            })</pre>
+
+    <div class="g2">
+      <div class="caja caja-verde">
+        <b>TransientModel vs Model</b>
+        <code>models.TransientModel</code> crea registros temporales en PostgreSQL que Odoo elimina automáticamente mediante un job periódico (normalmente cada hora). Es adecuado para los wizards porque los datos del asistente solo son relevantes durante la interacción del usuario; una vez confirmado o cancelado no tienen valor permanente y no deben ocupar espacio en la base de datos indefinidamente.
+      </div>
+      <div class="caja caja-azul">
+        <b>self.env["library.loan"]</b>
+        <code>self.env</code> es el entorno de ejecución de Odoo, que contiene el usuario activo, el contexto de zona horaria y el acceso al registro de todos los modelos. <code>self.env["library.loan"]</code> devuelve la clase Python del modelo indicado, permitiendo llamar a sus métodos estándar como <code>.create()</code>, <code>.search()</code> o <code>.write()</code> desde cualquier otro modelo.
+      </div>
+    </div>
+
+    <h4>Diseño en dos modelos (cabecera + líneas)</h4>
+    <p>La estructura "cabecera - líneas" es el patrón estándar de Odoo para formularios con tablas dinámicas (como una factura o un albarán). La cabecera (<code>library.loan.wizard</code>) guarda el usuario destinatario. Las líneas (<code>library.loan.wizard.line</code>) son los libros individuales y se almacenan como registros independientes vinculados mediante Many2one. Esto permite añadir y eliminar filas dinámicamente en el formulario mediante el campo One2many, algo que no sería posible con campos sueltos en el mismo modelo.</p>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="vistas">
+  <div class="sec-head"><div class="num">5</div><h2>Vistas: tipos y justificación</h2></div>
+  <div class="sec-body">
+
+    <p>Una vista en Odoo es un registro XML guardado en la tabla <code>ir.ui.view</code> de PostgreSQL que define cómo se renderiza un modelo en la interfaz web. Odoo selecciona la vista adecuada según el contexto.</p>
+
+    <table>
+      <tr><th>Tipo de vista</th><th>Uso en el proyecto</th><th>Justificación</th></tr>
+      <tr><td><strong>list</strong></td><td>Todos los modelos</td><td>Vista por defecto para explorar colecciones de datos. Permite ordenar, filtrar y selección múltiple.</td></tr>
+      <tr><td><strong>form</strong></td><td>Todos los modelos</td><td>Vista detallada de un registro individual. Contiene los botones de acción (Renovar, Devolver) y el statusbar.</td></tr>
+      <tr><td><strong>kanban</strong></td><td>Libros y usuarios</td><td>Libros: presentación visual con portadas. Usuarios: presentación con foto y badge de tipo. Mejora la experiencia del bibliotecario.</td></tr>
+      <tr><td><strong>calendar</strong></td><td>Préstamos</td><td>Ampliación opcional. Permite visualizar vencimientos distribuidos en el mes, detectando días con alta carga de devoluciones.</td></tr>
+      <tr><td><strong>search</strong></td><td>Libros y préstamos</td><td>Define los campos de búsqueda libre y los filtros rápidos por estado y género.</td></tr>
+    </table>
+
+    <hr class="sep"/>
+    <h3>Vista Form: estructura header + sheet</h3>
+    <pre>&lt;form&gt;
+  &lt;header&gt;
+    <span class="cm">&lt;!-- Botones de acción y statusbar van aquí --&gt;</span>
+    &lt;button name=<span class="st">"action_renew"</span> type=<span class="st">"object"</span> invisible=<span class="st">"state == 'devuelto' or renewed"</span>/&gt;
+    &lt;field name=<span class="st">"state"</span> widget=<span class="st">"statusbar"</span> statusbar_visible=<span class="st">"activo,vencido,devuelto"</span>/&gt;
+  &lt;/header&gt;
+  &lt;sheet&gt;
+    <span class="cm">&lt;!-- Campos de datos del registro --&gt;</span>
+  &lt;/sheet&gt;
+&lt;/form&gt;</pre>
+
+    <p>El atributo <code>invisible="state == 'devuelto' or renewed"</code> es una expresión Python evaluada en el cliente. Oculta el botón "Renovar" cuando el préstamo ya está devuelto o ya fue renovado, guiando al usuario sin necesidad de mensajes de error.</p>
+
+    <hr class="sep"/>
+    <h3>Vista Kanban: diferencia entre servidor y cliente</h3>
+    <div class="caja caja-naranja">
+      <b>¿Por qué la URL de las imágenes usa + y no %s?</b>
+      Las plantillas Kanban se renderizan en el <strong>navegador del usuario</strong> mediante JavaScript, no en el servidor Python. Por eso la concatenación de la URL de imagen debe hacerse con el operador <code>+</code> de JavaScript. Si se usara la sintaxis <code>%s</code> de Python, la plantilla no funcionaría porque Python no la procesa; solo JavaScript la interpreta en ese contexto.
+      <br><br>
+      <code>t-att-src="'/web/image/library.book/' + record.id.raw_value + '/cover_image'"</code><br>
+      <code>raw_value</code> extrae el valor numérico del ID porque en kanban los campos Many2one devuelven un array <code>[id, "nombre"]</code>.
+    </div>
+
+    <hr class="sep"/>
+    <h3>Vista Calendar <span class="tag tag-opt">Ampliación</span></h3>
+    <pre>&lt;calendar
+    date_start=<span class="st">"expected_return_date"</span>
+    mode=<span class="st">"month"</span>
+    color=<span class="st">"state"</span>&gt;
+  &lt;field name=<span class="st">"user_id"</span>/&gt;
+  &lt;field name=<span class="st">"book_id"</span>/&gt;
+&lt;/calendar&gt;</pre>
+
+    <table>
+      <tr><th>Atributo</th><th>Efecto</th></tr>
+      <tr><td><code>date_start="expected_return_date"</code></td><td>Cada préstamo aparece en el día de su fecha de devolución prevista, no en la de alta.</td></tr>
+      <tr><td><code>mode="month"</code></td><td>Se abre en vista mensual por defecto. El usuario puede cambiar a semana o día.</td></tr>
+      <tr><td><code>color="state"</code></td><td>Odoo asigna automáticamente un color distinto a cada valor posible del campo state.</td></tr>
+    </table>
+
+    <hr class="sep"/>
+    <h3>Vista Wizard (modal) <span class="tag tag-opt">Ampliación</span></h3>
+    <p>La acción que abre el wizard define <code>target="new"</code>, que hace que el formulario se abra como ventana modal superpuesta a la pantalla actual en lugar de navegar a una nueva página. El botón "Cancelar" usa <code>special="cancel"</code>, un atributo exclusivo de wizards modales que cierra la ventana sin ejecutar ningún método Python ni guardar datos.</p>
+
+    <hr class="sep"/>
+    <h3>Menús y control de visibilidad</h3>
+    <p>El atributo <code>groups</code> en un <code>menuitem</code> hace que Odoo renderice ese ítem solo para usuarios pertenecientes al grupo indicado. Los menús "Usuarios biblioteca" y "Préstamo múltiple" están restringidos a <code>group_library_librarian</code> por razones de privacidad (un alumno no debe ver los datos de carnet de otros usuarios) y de lógica de negocio (crear préstamos es una tarea del personal de biblioteca).</p>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="seguridad">
+  <div class="sec-head"><div class="num">6</div><h2>Sistema de seguridad en tres capas</h2></div>
+  <div class="sec-body">
+
+    <p>Odoo implementa la seguridad en tres niveles independientes que actúan conjuntamente. El orden de carga en el manifest respeta esta jerarquía: primero los grupos, luego los accesos que los referencian, finalmente las reglas que usan tanto grupos como modelos.</p>
+
+    <div class="g3">
+      <div class="card">
+        <h4>Capa 1: Grupos (security.xml)</h4>
+        <p>Define los roles de usuario. Un usuario puede pertenecer a varios grupos. Los grupos son el elemento base al que se refieren las capas 2 y 3.</p>
+      </div>
+      <div class="card">
+        <h4>Capa 2: Accesos a modelos (ir.model.access.csv)</h4>
+        <p>Define qué operaciones CRUD puede hacer cada grupo sobre cada modelo. Es el filtro de tipo de operación.</p>
+      </div>
+      <div class="card">
+        <h4>Capa 3: Reglas de registro (library_security_rules.xml)</h4>
+        <p>Filtros a nivel de fila. Determinan qué registros concretos puede ver o modificar cada grupo, más allá del acceso al modelo.</p>
+      </div>
+    </div>
+
+    <h3>Los dos grupos del módulo</h3>
+    <table>
+      <tr><th>Grupo</th><th>ID interno</th><th>Perfil de usuario</th></tr>
+      <tr><td><strong>Bibliotecario</strong></td><td>group_library_librarian</td><td>Personal de biblioteca: acceso CRUD completo a todos los modelos del módulo.</td></tr>
+      <tr><td><strong>Usuario biblioteca</strong></td><td>group_library_user</td><td>Alumnos y docentes: solo lectura de libros, autores y editoriales. Solo lectura de sus propios préstamos.</td></tr>
+    </table>
+
+    <h3>Tabla de permisos CRUD (ir.model.access.csv)</h3>
+    <p>Formato del CSV: <code>id, name, model_id:id, group_id:id, perm_read, perm_write, perm_create, perm_unlink</code></p>
+    <table>
+      <tr><th>Modelo</th><th>Admin (group_system)</th><th>Bibliotecario</th><th>Usuario</th></tr>
+      <tr><td>library.book / author / publisher</td><td>CRUD</td><td>CRUD</td><td>R (solo lectura)</td></tr>
+      <tr><td>library.loan</td><td>CRUD</td><td>CRUD</td><td>R (filtrado por regla)</td></tr>
+      <tr><td>library.loan.wizard</td><td>CRUD</td><td>CRUD</td><td>Sin acceso</td></tr>
+      <tr><td>library.loan.wizard.line</td><td>CRUD</td><td>CRUD</td><td>Sin acceso</td></tr>
+    </table>
+
+    <div class="caja caja-rojo">
+      <b>¿Por qué el wizard tiene permisos para base.group_system (admin) además de para el bibliotecario?</b>
+      En Odoo Community Edition, el usuario administrador (<code>base.group_system</code>) no es un superusuario que bypasea todos los controles de acceso. Necesita permisos explícitos en el CSV para cada modelo, igual que cualquier otro grupo. Si el wizard solo tuviera permisos para <code>group_library_librarian</code> y el administrador no perteneciera a ese grupo, Odoo ocultaría el menú del wizard para el administrador sin mostrar ningún error visible, lo que generaría confusión durante las pruebas y el uso del sistema.
+    </div>
+
+    <h3>Regla de registro — Filtro de préstamos propios</h3>
+    <pre><span class="cm">&lt;!-- library_security_rules.xml --&gt;</span>
+&lt;record id=<span class="st">"library_loan_rule_own_records"</span> model=<span class="st">"ir.rule"</span>&gt;
+  &lt;field name=<span class="st">"model_id"</span> ref=<span class="st">"model_library_loan"</span>/&gt;
+  &lt;field name=<span class="st">"groups"</span> eval=<span class="st">"[(4, ref('library_instituto.group_library_user'))]"</span>/&gt;
+  &lt;field name=<span class="st">"domain_force"</span>&gt;[('user_id', '=', user.partner_id.id)]&lt;/field&gt;
+&lt;/record&gt;</pre>
+
+    <p><code>domain_force</code> es un filtro que Odoo añade automáticamente a todas las consultas SQL del modelo para ese grupo. <code>user.partner_id.id</code> es el ID del partner del usuario activo en ese momento. El resultado es que un alumno que consulta la lista de préstamos solo recibe los suyos propios, sin necesidad de ningún código Python adicional.</p>
+
+    <div class="caja caja-azul">
+      <b>¿Por qué no hay regla equivalente para el bibliotecario?</b>
+      Las reglas de registro en Odoo son restrictivas: se aplican únicamente al grupo indicado. Si un grupo no tiene ninguna regla para un modelo, ve todos los registros. El bibliotecario no tiene regla, por tanto ve todos los préstamos. El usuario de biblioteca sí tiene regla, por tanto solo ve los suyos. Este diseño es deliberado: añadir una regla solo donde se necesita restricción, no en todos los grupos.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="reports">
+  <div class="sec-head"><div class="num">7</div><h2>Informes QWeb</h2></div>
+  <div class="sec-body">
+
+    <p>QWeb es el motor de plantillas de Odoo. Genera HTML dinámico que el servidor convierte a PDF mediante <code>wkhtmltopdf</code>, una herramienta instalada en el contenedor Docker. La plantilla es XML con atributos especiales prefijados con <code>t-</code>.</p>
+
+    <h3>Estructura del informe (report_loan.xml)</h3>
+    <p>El archivo combina dos elementos en uno:</p>
+
+    <pre><span class="cm">&lt;!-- Elemento 1: acción que registra el informe en el sistema --&gt;</span>
+&lt;record id=<span class="st">"action_report_loan"</span> model=<span class="st">"ir.actions.report"</span>&gt;
+  &lt;field name=<span class="st">"model"</span>&gt;library.loan&lt;/field&gt;
+  &lt;field name=<span class="st">"report_type"</span>&gt;qweb-pdf&lt;/field&gt;
+  &lt;field name=<span class="st">"report_name"</span>&gt;library_instituto.report_loan_template&lt;/field&gt;
+  <span class="cm">&lt;!-- binding_model_id: añade automáticamente el informe al menú Imprimir
+       de cualquier formulario del modelo, sin necesidad de botones manuales --&gt;</span>
+  &lt;field name=<span class="st">"binding_model_id"</span> ref=<span class="st">"model_library_loan"</span>/&gt;
+  &lt;field name=<span class="st">"binding_type"</span>&gt;report&lt;/field&gt;
+&lt;/record&gt;
+
+<span class="cm">&lt;!-- Elemento 2: plantilla visual del documento PDF --&gt;</span>
+&lt;template id=<span class="st">"report_loan_template"</span>&gt;
+  &lt;t t-call=<span class="st">"web.html_container"</span>&gt;
+    &lt;t t-foreach=<span class="st">"docs"</span> t-as=<span class="st">"loan"</span>&gt;        <span class="cm">&lt;!-- itera sobre los préstamos seleccionados --&gt;</span>
+      &lt;t t-call=<span class="st">"web.external_layout"</span>&gt;      <span class="cm">&lt;!-- cabecera/pie con datos de la empresa --&gt;</span>
+        &lt;div class=<span class="st">"page"</span>&gt;
+          &lt;t t-esc=<span class="st">"loan.user_id.display_name"</span>/&gt;   <span class="cm">&lt;!-- imprime valor escapando HTML --&gt;</span>
+          &lt;t t-esc=<span class="st">"loan.book_id.title"</span>/&gt;
+          &lt;t t-esc=<span class="st">"loan.loan_date"</span>/&gt;
+          &lt;t t-esc=<span class="st">"loan.expected_return_date"</span>/&gt;
+          <span class="cm">&lt;!-- Convierte el valor interno 'activo' → etiqueta 'Activo' --&gt;</span>
+          &lt;t t-esc=<span class="st">"dict(loan.fields_get(['state'])['state']['selection'])[loan.state]"</span>/&gt;
+        &lt;/div&gt;
+      &lt;/t&gt;
+    &lt;/t&gt;
+  &lt;/t&gt;
+&lt;/template&gt;</pre>
+
+    <h3>Directivas QWeb utilizadas</h3>
+    <table>
+      <tr><th>Directiva</th><th>Función</th></tr>
+      <tr><td><code>t-call="plantilla"</code></td><td>Incluye otra plantilla, como un <code>include</code>. Se usa para reutilizar la estructura HTML base de Odoo (<code>web.html_container</code>, <code>web.external_layout</code>).</td></tr>
+      <tr><td><code>t-foreach="docs" t-as="loan"</code></td><td>Bucle sobre la colección de registros. <code>docs</code> es la variable estándar que Odoo pasa con los registros seleccionados para el informe.</td></tr>
+      <tr><td><code>t-esc="expresión"</code></td><td>Evalúa la expresión Python y renderiza el resultado como texto escapado (seguro contra inyección HTML).</td></tr>
+    </table>
+
+    <div class="caja caja-verde">
+      <b>Conversión del valor de selection a etiqueta legible</b>
+      Un campo <code>Selection</code> almacena en BD el valor interno (<code>"activo"</code>) pero para el PDF se necesita la etiqueta visible (<code>"Activo"</code>). La expresión <code>dict(loan.fields_get(['state'])['state']['selection'])[loan.state]</code> obtiene el diccionario de opciones del campo y recupera la etiqueta correspondiente al valor actual.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="ampliaciones">
+  <div class="sec-head"><div class="num">8</div><h2>Ampliaciones opcionales</h2></div>
+  <div class="sec-body">
+
+    <div class="g2">
+      <div>
+        <h3>Vista Calendar <span class="tag tag-opt">+nota</span></h3>
+        <p>Añade un tipo de vista al listado de préstamos que los presenta como eventos en un calendario mensual, distribuidos en la fecha de devolución prevista de cada uno.</p>
+        <p><strong>Valor funcional:</strong> el personal puede ver de un vistazo qué días del mes tienen mayor concentración de devoluciones y detectar préstamos vencidos por su color.</p>
+        <p><strong>Implementación técnica:</strong> se añadió la vista <code>&lt;calendar&gt;</code> en <code>views/library_loan.xml</code> y se incluyó <code>calendar</code> en el <code>view_mode</code> de la acción. Fue necesario añadir un campo <code>name</code> calculado al modelo <code>library.loan</code> con <code>store=False</code> para que los eventos del calendario mostraran texto legible.</p>
+      </div>
+      <div>
+        <h3>Wizard préstamos múltiples <span class="tag tag-opt">+nota</span></h3>
+        <p>Asistente emergente (ventana modal) que permite registrar varios préstamos a un mismo usuario en una sola operación.</p>
+        <p><strong>Valor funcional:</strong> cuando un alumno lleva varios libros, el bibliotecario puede registrar todos los préstamos de una vez en lugar de crearlos uno a uno.</p>
+        <p><strong>Implementación técnica:</strong> dos modelos <code>TransientModel</code> (cabecera + líneas), formulario con <code>target="new"</code> para apertura modal, método <code>action_confirm()</code> que itera las líneas y crea los préstamos reales usando <code>self.env["library.loan"].create()</code>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="datos">
+  <div class="sec-head"><div class="num">9</div><h2>Datos de demostración</h2></div>
+  <div class="sec-body">
+
+    <p>El archivo <code>data/library_demo_clean.xml</code> se carga automáticamente al instalar el módulo, proporcionando datos de ejemplo para poder probar todas las funcionalidades sin necesidad de introducirlos manualmente.</p>
+
+    <table>
+      <tr><th>Entidad</th><th>Cantidad</th><th>Detalle</th></tr>
+      <tr><td>Editoriales</td><td>3</td><td>Alfaguara, Planeta, Penguin Random House</td></tr>
+      <tr><td>Autores</td><td>8</td><td>Con nombre, país y fecha de nacimiento</td></tr>
+      <tr><td>Usuarios (res.partner)</td><td>10</td><td>4 alumnos, 3 docentes, 2 personal de administración, 1 admin. Todos con carnet BIB001–BIB010, email, teléfono y foto.</td></tr>
+      <tr><td>Libros</td><td>20</td><td>Con ISBN, género, editorial y número de copias</td></tr>
+      <tr><td>Préstamos</td><td>Varios</td><td>En distintos estados: activos, vencidos y devueltos para cubrir todos los casos de prueba</td></tr>
+    </table>
+
+    <div class="caja caja-naranja">
+      <b>¿Por qué los datos de demo están en "data" y no en "demo" del manifest?</b>
+      Odoo distingue la sección <code>"data"</code> (se carga siempre al instalar) de la sección <code>"demo"</code> (solo se carga en instancias creadas con el flag de modo demo). El entorno Docker de este proyecto no fue creado en modo demo, por lo que si los datos estuvieran en la sección <code>"demo"</code>, nunca se cargarían. Para garantizar que los datos de ejemplo estén disponibles en esta instancia concreta, se mantienen en la sección <code>"data"</code>.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec" id="usuarios">
+  <div class="sec-head"><div class="num">10</div><h2>Usuarios del sistema</h2></div>
+  <div class="sec-body">
+
+    <p>Los siguientes usuarios de Odoo están configurados en la instancia de desarrollo para probar los distintos niveles de acceso del módulo:</p>
+
+    <table class="tbl-usr">
+      <tr><th>Correo electrónico</th><th>Contraseña</th><th>Rol en Odoo</th><th>Grupo biblioteca</th><th>Acceso</th></tr>
+      <tr>
+        <td>javigisbert05@gmail.com</td>
+        <td><code>biblioinstituto</code></td>
+        <td><span class="badge-admin">Administrador</span></td>
+        <td>Todos los grupos</td>
+        <td>Acceso completo al sistema. Puede gestionar usuarios, instalar módulos y acceder al menú Técnico.</td>
+      </tr>
+      <tr>
+        <td>fonsi.biblio@biblio.com</td>
+        <td><code>fonsi</code></td>
+        <td><span class="badge-bib">Usuario interno</span></td>
+        <td>Bibliotecario</td>
+        <td>CRUD completo en todos los modelos del módulo. Ve todos los préstamos. Accede al wizard y a la lista de usuarios.</td>
+      </tr>
+      <tr>
+        <td>benito.biblio@bibio.com</td>
+        <td><code>Benito</code></td>
+        <td><span class="badge-usr">Usuario interno</span></td>
+        <td>Usuario biblioteca</td>
+        <td>Solo lectura en libros, autores y editoriales. Ve únicamente sus propios préstamos. No accede al wizard ni a la lista de usuarios.</td>
+      </tr>
+    </table>
+
+    <div class="caja caja-gris">
+      <b>Nota sobre las credenciales</b>
+      Las contraseñas indicadas son las configuradas en el entorno de desarrollo local (Docker). No son contraseñas de producción. Para un entorno productivo deben seguirse las recomendaciones de seguridad de Odoo: contraseñas complejas, HTTPS obligatorio y desactivación de la interfaz de administración de base de datos.
+    </div>
+
+  </div>
+</div>
+
+</div><!-- wrapper -->
+
+<footer>
+  BiblioInstituto · Javier Gisbert Talboom · 2.º DAM · SGE · Junio 2026<br>
+  Odoo 18 Community · Python 3 · PostgreSQL 15 · Docker
+</footer>
+
+</body>
+</html>

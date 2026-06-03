@@ -229,11 +229,13 @@ docker-compose up -d
 # http://localhost:8069
 ```
 
-### Credenciales por Defecto
-```
-Usuario: odoo
-Contraseña: odoo
-```
+### Usuarios del sistema
+
+| Correo | Contraseña | Rol Odoo | Grupo biblioteca |
+|--------|-----------|----------|-----------------|
+| `javigisbert05@gmail.com` | `biblioinstituto` | Administrador | Todos |
+| `fonsi.biblio@biblio.com` | `fonsi` | Usuario interno | Bibliotecario |
+| `benito.biblio@bibio.com` | `Benito` | Usuario interno | Usuario biblioteca |
 
 ---
 
