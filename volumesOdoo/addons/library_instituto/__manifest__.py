@@ -2,6 +2,8 @@
 {
     # Nombre del modulo que se muestra en Odoo.
     "name": "Library Instituto",
+    "summary": "Gestión de biblioteca para centros educativos",
+    "description": "Módulo Odoo para digitalizar la gestión de préstamos, catálogo de libros y usuarios de la biblioteca de un instituto. Incluye control de disponibilidad, renovaciones, vencimientos y generación de comprobantes PDF.",
     # Version del modulo.
     "version": "1.0",
     # Modulos requeridos para que este funcione.
