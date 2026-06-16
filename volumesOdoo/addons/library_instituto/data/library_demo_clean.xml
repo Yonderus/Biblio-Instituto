@@ -21,42 +21,42 @@
 
     <record id="author_01" model="library.author">
         <field name="name">Ana Torres</field>
-        <field name="country">España</field>
+        <field name="country_id" ref="base.es"/>
         <field name="birth_date">1980-02-14</field>
     </record>
     <record id="author_02" model="library.author">
         <field name="name">Bruno Gil</field>
-        <field name="country">Argentina</field>
+        <field name="country_id" ref="base.ar"/>
         <field name="birth_date">1975-09-03</field>
     </record>
     <record id="author_03" model="library.author">
         <field name="name">Carla Romero</field>
-        <field name="country">Mexico</field>
+        <field name="country_id" ref="base.mx"/>
         <field name="birth_date">1988-06-21</field>
     </record>
     <record id="author_04" model="library.author">
         <field name="name">Diego León</field>
-        <field name="country">Chile</field>
+        <field name="country_id" ref="base.cl"/>
         <field name="birth_date">1979-11-11</field>
     </record>
     <record id="author_05" model="library.author">
         <field name="name">Elena Ruiz</field>
-        <field name="country">España</field>
+        <field name="country_id" ref="base.es"/>
         <field name="birth_date">1990-01-30</field>
     </record>
     <record id="author_06" model="library.author">
         <field name="name">Fabio Costa</field>
-        <field name="country">Colombia</field>
+        <field name="country_id" ref="base.co"/>
         <field name="birth_date">1983-04-08</field>
     </record>
     <record id="author_07" model="library.author">
         <field name="name">Gala Pérez</field>
-        <field name="country">Uruguay</field>
+        <field name="country_id" ref="base.uy"/>
         <field name="birth_date">1985-12-17</field>
     </record>
     <record id="author_08" model="library.author">
         <field name="name">Hugo Martín</field>
-        <field name="country">España</field>
+        <field name="country_id" ref="base.es"/>
         <field name="birth_date">1978-07-25</field>
     </record>
 
