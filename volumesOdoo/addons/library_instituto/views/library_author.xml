@@ -7,7 +7,7 @@
     <field name="arch" type="xml">
       <list>
         <field name="name"/>
-        <field name="country"/>
+        <field name="country_id"/>
         <field name="birth_date"/>
       </list>
     </field>
@@ -31,7 +31,7 @@
         <sheet>
           <group>
             <field name="name"/>
-            <field name="country"/>
+            <field name="country_id"/>
             <field name="birth_date"/>
           </group>
           <group string="Libros del autor">
