@@ -29,8 +29,8 @@ class LibraryLoan(models.Model):
     state = fields.Selection(
         selection=[
             ("activo", "Activo"),
-            ("devuelto", "Devuelto"),
             ("vencido", "Vencido"),
+            ("devuelto", "Devuelto"),
         ],
         string="Estado prestamo",
         compute="_compute_state",
@@ -107,5 +107,5 @@ class LibraryLoan(models.Model):
                 raise ValidationError("Este prestamo ya fue renovado una vez.")
             if not loan.expected_return_date:
                 raise ValidationError("El prestamo no tiene fecha de devolucion prevista.")
-            loan.expected_return_date = loan.expected_return_date + timedelta(days=15)
+            loan.expected_return_date = fields.Date.context_today(self) + timedelta(days=15)
             loan.renewed = True
