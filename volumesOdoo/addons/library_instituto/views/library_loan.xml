@@ -45,7 +45,7 @@
         <field name="real_return_date"/>
         <field name="state"/>
         <field name="late_days"/>
-        <field name="renewed"/>
+        <field name="renewed" string="Renovado (máx. 1)"/>
       </list>
     </field>
   </record>
@@ -145,7 +145,7 @@
               <!-- readonly="1": solo visualización, no editable -->
               <field name="real_return_date" readonly="1"/>
               <field name="late_days" readonly="1"/>
-              <field name="renewed" readonly="1"/>
+              <field name="renewed" readonly="1" help="Cada préstamo solo puede renovarse una vez. Si está marcado, el botón Renovar deja de estar disponible."/>
             </group>
           </group>
         </sheet>

@@ -11,7 +11,7 @@
           <group>
             <group>
               <field name="library_user_type"/>
-              <field name="library_course_group"/>
+              <field name="library_course_group" invisible="library_user_type != 'alumno'"/>
               <field name="library_card_number"/>
               <field name="library_max_loans"/>
               <field name="library_active_loans" readonly="1"/>
