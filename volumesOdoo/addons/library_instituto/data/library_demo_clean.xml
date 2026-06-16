@@ -3,18 +3,21 @@
     <record id="publisher_01" model="library.publisher">
         <field name="name">Editorial Alba</field>
         <field name="city">Madrid</field>
+        <field name="country_id" ref="base.es"/>
         <field name="email">alba@example.com</field>
         <field name="phone">910000001</field>
     </record>
     <record id="publisher_02" model="library.publisher">
         <field name="name">Ediciones Aula</field>
         <field name="city">Barcelona</field>
+        <field name="country_id" ref="base.es"/>
         <field name="email">aula@example.com</field>
         <field name="phone">910000002</field>
     </record>
     <record id="publisher_03" model="library.publisher">
         <field name="name">Libros del Valle</field>
         <field name="city">Valencia</field>
+        <field name="country_id" ref="base.es"/>
         <field name="email">valle@example.com</field>
         <field name="phone">910000003</field>
     </record>
