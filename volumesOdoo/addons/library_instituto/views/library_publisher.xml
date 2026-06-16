@@ -8,8 +8,10 @@
 			<list>
 				<field name="name"/>
 				<field name="city"/>
+				<field name="country_id"/>
 				<field name="email"/>
 				<field name="phone"/>
+				<field name="book_count"/>
 			</list>
 		</field>
 	</record>
@@ -25,10 +27,12 @@
 						<group>
 							<field name="name"/>
 							<field name="city"/>
+							<field name="country_id"/>
 						</group>
 						<group>
 							<field name="email"/>
 							<field name="phone"/>
+							<field name="book_count" readonly="1"/>
 						</group>
 					</group>
 				</sheet>
