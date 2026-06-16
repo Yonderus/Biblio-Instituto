@@ -4,26 +4,20 @@
   <!-- Menú raíz para la app -->
   <menuitem id="menu_library_root" name="Library Instituto" sequence="25"/>
 
-  <!-- Menú contenedor para agrupar opciones en desplegable -->
-  <menuitem id="menu_library_catalog" name="Biblioteca" parent="menu_library_root" sequence="10"/>
-
-  <!-- Submenú de libros -->
+  <!-- ── CATÁLOGO: libros, autores, editoriales ── -->
+  <menuitem id="menu_library_catalog" name="Catálogo" parent="menu_library_root" sequence="10"/>
   <menuitem id="menu_library_book" name="Libros" parent="menu_library_catalog" action="action_library_book" sequence="10"/>
-
-  <!-- Submenú de autores -->
   <menuitem id="menu_library_author" name="Autores" parent="menu_library_catalog" action="action_library_author" sequence="20"/>
-
-  <!-- Submenú de editoriales -->
   <menuitem id="menu_library_publisher" name="Editoriales" parent="menu_library_catalog" action="action_library_publisher" sequence="30"/>
 
-  <!-- Submenú de préstamos -->
-  <menuitem id="menu_library_loan" name="Prestamos" parent="menu_library_catalog" action="action_library_loan" sequence="40"/>
-
-  <!-- Submenú de usuarios biblioteca: solo bibliotecarios (privacidad de datos) -->
-  <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_catalog" action="action_library_users" sequence="50"
+  <!-- ── PRÉSTAMOS ── -->
+  <menuitem id="menu_library_loans" name="Préstamos" parent="menu_library_root" sequence="20"/>
+  <menuitem id="menu_library_loan" name="Préstamos" parent="menu_library_loans" action="action_library_loan" sequence="10"/>
+  <menuitem id="menu_library_loan_wizard" name="Préstamo múltiple" parent="menu_library_loans" action="action_library_loan_wizard" sequence="20"
             groups="library_instituto.group_library_librarian"/>
 
-  <!-- Acceso directo al wizard de préstamos múltiples: solo bibliotecarios -->
-  <menuitem id="menu_library_loan_wizard" name="Préstamo múltiple" parent="menu_library_catalog" action="action_library_loan_wizard" sequence="45"
+  <!-- ── GESTIÓN: solo bibliotecarios ── -->
+  <menuitem id="menu_library_gestion" name="Gestión" parent="menu_library_root" sequence="30"
             groups="library_instituto.group_library_librarian"/>
+  <menuitem id="menu_library_users" name="Usuarios biblioteca" parent="menu_library_gestion" action="action_library_users" sequence="10"/>
 </odoo>
