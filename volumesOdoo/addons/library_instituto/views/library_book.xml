@@ -155,7 +155,7 @@
 							<field name="active_loans_count" readonly="1"/>
 							<field name="available_copies" readonly="1"/>
 							<field name="genre"/>
-							<field name="state"/>
+							<field name="state" widget="statusbar" statusbar_visible="disponible,prestado,reparacion,baja"/>
 						</group>
 					</group>
 					<!-- Sección portada: widget image muestra preview editable -->
@@ -196,7 +196,7 @@
 				<field name="isbn"/>
 				<!-- Filtros rápidos por estado del libro -->
 				<filter name="disponible" string="Disponibles" domain="[('state','=','disponible')]"/>
-				<filter name="prestado"   string="Prestados"   domain="[('state','=','prestado')]"/>
+				<filter name="prestado"   string="Con préstamos activos"   domain="[('active_loans_count', '>', 0)]"/>
 				<separator/>
 				<!-- Filtros rápidos por género -->
 				<filter name="narrativa"   string="Narrativa"      domain="[('genre','=','narrativa')]"/>
