@@ -6,9 +6,11 @@
     <field name="model">library.author</field>
     <field name="arch" type="xml">
       <list>
+        <field name="image" widget="image" class="oe_avatar"/>
         <field name="name"/>
         <field name="country_id"/>
         <field name="birth_date"/>
+        <field name="book_count"/>
       </list>
     </field>
   </record>
@@ -29,10 +31,12 @@
     <field name="arch" type="xml">
       <form string="Autor">
         <sheet>
+          <field name="image" widget="image" class="oe_avatar"/>
           <group>
             <field name="name"/>
             <field name="country_id"/>
             <field name="birth_date"/>
+            <field name="book_count" readonly="1"/>
           </group>
           <group string="Libros del autor">
             <field name="book_ids" widget="many2many_tags" nolabel="1"/>
