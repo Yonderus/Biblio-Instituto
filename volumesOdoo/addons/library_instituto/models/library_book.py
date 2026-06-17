@@ -71,9 +71,9 @@ class LibraryBook(models.Model):
     def _compute_available_copies(self):
         # Cuenta préstamos activos o vencidos (excluye devueltos) y calcula ejemplares libres
         for book in self:
-            active_loans = len(book.loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
-            book.active_loans_count = active_loans
-            book.available_copies = max((book.total_copies or 0) - active_loans, 0)
+            prestamos_activos = len(book.loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
+            book.active_loans_count = prestamos_activos
+            book.available_copies = max((book.total_copies or 0) - prestamos_activos, 0)
 
     # ============================================================================
     # VALIDACIONES

@@ -15,6 +15,7 @@
               <field name="library_card_number"/>
               <field name="library_max_loans"/>
               <field name="library_active_loans" readonly="1"/>
+              <field name="total_late_days" readonly="1"/>
             </group>
           </group>
           <group string="Prestamos">
@@ -99,6 +100,22 @@
     </field>
   </record>
 
+  <!-- Vista lista de usuarios biblioteca con columnas de biblioteca -->
+  <record id="view_library_users_list" model="ir.ui.view">
+    <field name="name">res.partner.library.list</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name"/>
+        <field name="library_user_type"/>
+        <field name="library_card_number"/>
+        <field name="library_max_loans"/>
+        <field name="library_active_loans"/>
+        <field name="total_late_days"/>
+      </list>
+    </field>
+  </record>
+
   <!-- Accion de usuarios biblioteca — kanban como vista por defecto -->
   <!-- view_ids fuerza que se use nuestro kanban personalizado en vez del kanban
        por defecto de res.partner que trae Odoo. Sin esto Odoo ignora nuestra vista. -->
@@ -108,6 +125,6 @@
     <field name="view_mode">kanban,list,form</field>
     <field name="domain">[("library_card_number", "!=", False)]</field>
     <field name="context">{"default_company_type": "person"}</field>
-    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_library_users_kanban')})]"/>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_library_users_kanban')}), (0, 0, {'view_mode': 'list', 'view_id': ref('view_library_users_list')})]"/>
   </record>
 </odoo>

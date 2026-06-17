@@ -13,6 +13,11 @@ class ResPartner(models.Model):
         string="Prestamos activos",
         compute="_compute_library_active_loans",
     )
+    total_late_days = fields.Integer(
+        string="Total días retraso",
+        compute="_compute_total_late_days",
+        store=True,
+    )
     
     library_user_type = fields.Selection(
         selection=[
@@ -38,6 +43,11 @@ class ResPartner(models.Model):
         # Cuenta préstamos activos y vencidos del usuario (excluye devueltos)
         for partner in self:
             partner.library_active_loans = len(partner.library_loan_ids.filtered(lambda loan: loan.state in ["activo", "vencido"]))
+
+    @api.depends("library_loan_ids.late_days")
+    def _compute_total_late_days(self):
+        for partner in self:
+            partner.total_late_days = sum(partner.library_loan_ids.mapped("late_days"))
 
     # ============================================================================
     # VALIDACIONES Y CONSTRAINTS

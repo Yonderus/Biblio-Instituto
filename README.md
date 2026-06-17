@@ -86,7 +86,7 @@ available_copies = total_copies - (préstamos activos + vencidos)
 loan_date              → Fecha de préstamo
 expected_return_date   → Fecha límite de devolución (+15 días)
 real_return_date       → Cuándo realmente se devuelve
-state                  → activo | devuelto | vencido
+state                  → activo | vencido | devuelto
 late_days              → Días de retraso (CÁLCULO automático)
 renewed                → ¿Ha sido renovado?
 ```
@@ -186,7 +186,7 @@ action_confirm():
 ```
 1. Alumno devuelve libro
 2. Personal abre el préstamo
-3. Rellena real_return_date
+3. Pulsa el botón "Devolver" → el programa registra real_return_date automáticamente
 4. Sistema calcula:
    ├─ state → "devuelto"
    ├─ late_days (si hay retraso)
@@ -195,11 +195,12 @@ action_confirm():
 
 ### Flujo: Detectar Retrasos
 ```
-1. Cada día, el sistema chequea:
+1. El campo state es un @api.depends que recalcula en tiempo real:
    └─ Si today > expected_return_date
    └─ Y real_return_date es vacío
    └─ Entonces state = "vencido"
-   
+   (No es un cron diario; se recalcula automáticamente al acceder al registro)
+
 2. Campo late_days = today - expected_return_date
 3. Visible en reportes para sanciones
 ```
