@@ -5,7 +5,7 @@ class LibraryBook(models.Model):
     _description = "Libro de la biblioteca"
     _rec_name = "title"
 
-    title = fields.Char("Titulo", required=True)
+    title = fields.Char("Título", required=True)
     isbn = fields.Char("ISBN-13", required=True)
     edition_year = fields.Integer("Año de edición")
     total_copies = fields.Integer("Número total de copias", default=1, required=True)

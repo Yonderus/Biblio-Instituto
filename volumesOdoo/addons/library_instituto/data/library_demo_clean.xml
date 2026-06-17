@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Usuarios de prueba con roles de biblioteca -->
+    <record id="user_fonsi" model="res.users">
+        <field name="name">Fonsi Biblio</field>
+        <field name="login">fonsi.biblio@biblio.com</field>
+        <field name="password">fonsi</field>
+        <field name="groups_id" eval="[(4, ref('base.group_user')), (4, ref('library_instituto.group_library_librarian'))]"/>
+    </record>
+    <record id="user_benito" model="res.users">
+        <field name="name">Benito Biblio</field>
+        <field name="login">benito.biblio@bibio.com</field>
+        <field name="password">Benito</field>
+        <field name="groups_id" eval="[(4, ref('base.group_user')), (4, ref('library_instituto.group_library_user'))]"/>
+    </record>
+
     <record id="publisher_01" model="library.publisher">
         <field name="name">Editorial Alba</field>
         <field name="city">Madrid</field>

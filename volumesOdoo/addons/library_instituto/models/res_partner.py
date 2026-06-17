@@ -7,10 +7,10 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     library_course_group = fields.Char(string="Curso y grupo")
-    library_card_number = fields.Char(string="Numero carnet biblioteca")
-    library_max_loans = fields.Integer(string="Maximo prestamos simultaneos", default=3, required=True)
+    library_card_number = fields.Char(string="Número de carnet")
+    library_max_loans = fields.Integer(string="Máximo préstamos simultáneos", default=3, required=True)
     library_active_loans = fields.Integer(
-        string="Prestamos activos",
+        string="Préstamos activos",
         compute="_compute_library_active_loans",
     )
     total_late_days = fields.Integer(

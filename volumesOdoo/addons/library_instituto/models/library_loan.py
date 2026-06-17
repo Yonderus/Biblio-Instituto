@@ -14,13 +14,13 @@ class LibraryLoan(models.Model):
         compute="_compute_name",
         store=False,
     )
-    copy_number = fields.Integer(required=True, default=1)
-    loan_date = fields.Date(string="Fecha prestamo", default=fields.Date.context_today, required=True)
-    expected_return_date = fields.Date(string="Fecha devolucion prevista", required=True)
-    real_return_date = fields.Date(string="Fecha devolucion real")
-    
+    copy_number = fields.Integer(string="Nº ejemplar", required=True, default=1)
+    loan_date = fields.Date(string="Fecha préstamo", default=fields.Date.context_today, required=True)
+    expected_return_date = fields.Date(string="Fecha devolución prevista", required=True)
+    real_return_date = fields.Date(string="Fecha devolución real")
+
     late_days = fields.Integer(
-        string="Dias de retraso",
+        string="Días de retraso",
         compute="_compute_late_days",
         store=True,
     )
@@ -32,7 +32,7 @@ class LibraryLoan(models.Model):
             ("vencido", "Vencido"),
             ("devuelto", "Devuelto"),
         ],
-        string="Estado prestamo",
+        string="Estado préstamo",
         compute="_compute_state",
         store=True,
     )
@@ -72,6 +72,15 @@ class LibraryLoan(models.Model):
                 loan.late_days = max((today - loan.expected_return_date).days, 0)
             else:
                 loan.late_days = 0
+
+    @api.constrains("book_id", "state")
+    def _check_book_availability(self):
+        for loan in self:
+            if loan.state in ["activo", "vencido"]:
+                if loan.book_id.available_copies < 0:
+                    raise ValidationError(
+                        f'No hay ejemplares disponibles de "{loan.book_id.title}".'
+                    )
 
     @api.constrains("copy_number")
     def _check_copy_number(self):
