@@ -5,12 +5,14 @@
         <field name="name">Fonsi Biblio</field>
         <field name="login">fonsi.biblio@biblio.com</field>
         <field name="password">fonsi</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/user_fonsi.png"/>
         <field name="groups_id" eval="[(4, ref('base.group_user')), (4, ref('library_instituto.group_library_librarian'))]"/>
     </record>
     <record id="user_benito" model="res.users">
         <field name="name">Benito Biblio</field>
-        <field name="login">benito.biblio@bibio.com</field>
+        <field name="login">benito.biblio@biblio.com</field>
         <field name="password">Benito</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/user_benito.png"/>
         <field name="groups_id" eval="[(4, ref('base.group_user')), (4, ref('library_instituto.group_library_user'))]"/>
     </record>
 
@@ -40,41 +42,49 @@
         <field name="name">Ana Torres</field>
         <field name="country_id" ref="base.es"/>
         <field name="birth_date">1980-02-14</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_01.png"/>
     </record>
     <record id="author_02" model="library.author">
         <field name="name">Bruno Gil</field>
         <field name="country_id" ref="base.ar"/>
         <field name="birth_date">1975-09-03</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_02.png"/>
     </record>
     <record id="author_03" model="library.author">
         <field name="name">Carla Romero</field>
         <field name="country_id" ref="base.mx"/>
         <field name="birth_date">1988-06-21</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_03.png"/>
     </record>
     <record id="author_04" model="library.author">
         <field name="name">Diego León</field>
         <field name="country_id" ref="base.cl"/>
         <field name="birth_date">1979-11-11</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_04.png"/>
     </record>
     <record id="author_05" model="library.author">
         <field name="name">Elena Ruiz</field>
         <field name="country_id" ref="base.es"/>
         <field name="birth_date">1990-01-30</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_05.png"/>
     </record>
     <record id="author_06" model="library.author">
         <field name="name">Fabio Costa</field>
         <field name="country_id" ref="base.co"/>
         <field name="birth_date">1983-04-08</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_06.png"/>
     </record>
     <record id="author_07" model="library.author">
         <field name="name">Gala Pérez</field>
         <field name="country_id" ref="base.uy"/>
         <field name="birth_date">1985-12-17</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_07.png"/>
     </record>
     <record id="author_08" model="library.author">
         <field name="name">Hugo Martín</field>
         <field name="country_id" ref="base.es"/>
         <field name="birth_date">1978-07-25</field>
+        <field name="image" type="base64" file="library_instituto/static/src/img/author_08.png"/>
     </record>
 
     <record id="partner_01" model="res.partner">
@@ -88,6 +98,7 @@
         <field name="library_course_group">1A</field>
         <field name="library_card_number">BIB001</field>
         <field name="library_max_loans">2</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_01.png"/>
     </record>
     <record id="partner_02" model="res.partner">
         <field name="name">Pablo Moreno</field>
@@ -100,6 +111,7 @@
         <field name="library_course_group">2B</field>
         <field name="library_card_number">BIB002</field>
         <field name="library_max_loans">3</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_02.png"/>
     </record>
     <record id="partner_03" model="res.partner">
         <field name="name">Marta Vidal</field>
@@ -111,6 +123,7 @@
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB003</field>
         <field name="library_max_loans">4</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_03.png"/>
     </record>
     <record id="partner_04" model="res.partner">
         <field name="name">Jorge Peña</field>
@@ -122,6 +135,7 @@
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB004</field>
         <field name="library_max_loans">4</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_04.png"/>
     </record>
     <record id="partner_05" model="res.partner">
         <field name="name">Celia Ortega</field>
@@ -133,6 +147,7 @@
         <field name="library_user_type">administracion</field>
         <field name="library_card_number">BIB005</field>
         <field name="library_max_loans">5</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_05.png"/>
     </record>
     <record id="partner_06" model="res.partner">
         <field name="name">Adrián Flores</field>
@@ -145,6 +160,7 @@
         <field name="library_course_group">3C</field>
         <field name="library_card_number">BIB006</field>
         <field name="library_max_loans">2</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_06.png"/>
     </record>
     <record id="partner_07" model="res.partner">
         <field name="name">Nuria Castillo</field>
@@ -157,6 +173,7 @@
         <field name="library_course_group">4D</field>
         <field name="library_card_number">BIB007</field>
         <field name="library_max_loans">3</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_07.png"/>
     </record>
     <record id="partner_08" model="res.partner">
         <field name="name">Sergio Ramírez</field>
@@ -168,6 +185,7 @@
         <field name="library_user_type">docente</field>
         <field name="library_card_number">BIB008</field>
         <field name="library_max_loans">4</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_08.png"/>
     </record>
     <record id="partner_09" model="res.partner">
         <field name="name">Irene Navarro</field>
@@ -179,6 +197,7 @@
         <field name="library_user_type">administracion</field>
         <field name="library_card_number">BIB009</field>
         <field name="library_max_loans">5</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_09.png"/>
     </record>
     <record id="partner_10" model="res.partner">
         <field name="name">Raúl Prieto</field>
@@ -191,6 +210,7 @@
         <field name="library_course_group">1B</field>
         <field name="library_card_number">BIB010</field>
         <field name="library_max_loans">2</field>
+        <field name="image_1920" type="base64" file="library_instituto/static/src/img/partner_10.png"/>
     </record>
 
     <record id="book_01" model="library.book">
@@ -201,6 +221,7 @@
         <field name="genre">narrativa</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_02')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_01.png"/>
     </record>
     <record id="book_02" model="library.book">
         <field name="title">Cuentos del patio</field>
@@ -210,6 +231,7 @@
         <field name="genre">narrativa</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_03')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_02.png"/>
     </record>
     <record id="book_03" model="library.book">
         <field name="title">Matemáticas claras</field>
@@ -219,6 +241,7 @@
         <field name="genre">libro_texto</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_04'), ref('author_05')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_03.png"/>
     </record>
     <record id="book_04" model="library.book">
         <field name="title">El mar de abril</field>
@@ -228,6 +251,7 @@
         <field name="genre">poesia</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_06')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_04.png"/>
     </record>
     <record id="book_05" model="library.book">
         <field name="title">Crónicas del instituto</field>
@@ -237,6 +261,7 @@
         <field name="genre">ensayo</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_07'), ref('author_08')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_05.png"/>
     </record>
     <record id="book_06" model="library.book">
         <field name="title">Poemas de invierno</field>
@@ -246,6 +271,7 @@
         <field name="genre">poesia</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_01')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_06.png"/>
     </record>
     <record id="book_07" model="library.book">
         <field name="title">Historia mínima</field>
@@ -255,6 +281,7 @@
         <field name="genre">ensayo</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_02')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_07.png"/>
     </record>
     <record id="book_08" model="library.book">
         <field name="title">Tecnología visible</field>
@@ -264,6 +291,7 @@
         <field name="genre">divulgacion</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_03'), ref('author_04')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_08.png"/>
     </record>
     <record id="book_09" model="library.book">
         <field name="title">Viaje a la calma</field>
@@ -273,6 +301,7 @@
         <field name="genre">narrativa</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_05')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_09.png"/>
     </record>
     <record id="book_10" model="library.book">
         <field name="title">Leyendas urbanas</field>
@@ -282,6 +311,7 @@
         <field name="genre">narrativa</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_07')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_10.png"/>
     </record>
     <record id="book_11" model="library.book">
         <field name="title">Redes y nudos</field>
@@ -291,6 +321,7 @@
         <field name="genre">divulgacion</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_08')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_11.png"/>
     </record>
     <record id="book_12" model="library.book">
         <field name="title">El jardín rojo</field>
@@ -300,6 +331,7 @@
         <field name="genre">teatro</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_04')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_12.png"/>
     </record>
     <record id="book_13" model="library.book">
         <field name="title">Lecturas cruzadas</field>
@@ -309,6 +341,7 @@
         <field name="genre">ensayo</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_02'), ref('author_05')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_13.png"/>
     </record>
     <record id="book_14" model="library.book">
         <field name="title">Ciudad de papel</field>
@@ -318,6 +351,7 @@
         <field name="genre">comic</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_03')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_14.png"/>
     </record>
     <record id="book_15" model="library.book">
         <field name="title">Biología sencilla</field>
@@ -327,6 +361,7 @@
         <field name="genre">libro_texto</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_08')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_15.png"/>
     </record>
     <record id="book_16" model="library.book">
         <field name="title">Navegar el tiempo</field>
@@ -336,6 +371,7 @@
         <field name="genre">narrativa</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_07')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_16.png"/>
     </record>
     <record id="book_17" model="library.book">
         <field name="title">Teatro breve</field>
@@ -345,6 +381,7 @@
         <field name="genre">teatro</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_04'), ref('author_05')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_17.png"/>
     </record>
     <record id="book_18" model="library.book">
         <field name="title">Mundos pequeños</field>
@@ -354,6 +391,7 @@
         <field name="genre">divulgacion</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_01'), ref('author_03')])]"/>
         <field name="publisher_id" ref="publisher_03"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_18.png"/>
     </record>
     <record id="book_19" model="library.book">
         <field name="title">Manual de lectura</field>
@@ -363,6 +401,7 @@
         <field name="genre">libro_texto</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_02')])]"/>
         <field name="publisher_id" ref="publisher_01"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_19.png"/>
     </record>
     <record id="book_20" model="library.book">
         <field name="title">Horizonte abierto</field>
@@ -372,6 +411,7 @@
         <field name="genre">otro</field>
         <field name="author_ids" eval="[(6, 0, [ref('author_06'), ref('author_07')])]"/>
         <field name="publisher_id" ref="publisher_02"/>
+        <field name="cover_image" type="base64" file="library_instituto/static/src/img/book_20.png"/>
     </record>
 
     <record id="loan_01" model="library.loan">
