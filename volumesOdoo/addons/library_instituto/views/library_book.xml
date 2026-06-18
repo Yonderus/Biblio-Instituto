@@ -137,6 +137,9 @@
 		<field name="model">library.book</field>
 		<field name="arch" type="xml">
 			<form string="Libro">
+				<header>
+					<field name="state" widget="statusbar" statusbar_visible="disponible,prestado,reparacion,baja"/>
+				</header>
 				<sheet>
 					<!-- Datos organizados en grupos de 2 columnas -->
 					<group>
@@ -155,7 +158,6 @@
 							<field name="active_loans_count" readonly="1"/>
 							<field name="available_copies" readonly="1"/>
 							<field name="genre"/>
-							<field name="state" widget="statusbar" statusbar_visible="disponible,prestado,reparacion,baja"/>
 						</group>
 					</group>
 					<!-- Sección portada: widget image muestra preview editable -->
