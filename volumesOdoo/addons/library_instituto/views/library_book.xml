@@ -72,7 +72,7 @@
 			o_kanban_small_column: ajusta ancho de columnas (más columnas por fila)
 			create="true": permite botón "Crear" dentro de kanban
 			-->
-			<kanban class="o_kanban_small_column" create="true">
+			<kanban class="o_kanban_small_column">
 				<!-- 
 				Campos que necesita la plantilla kanban (deben estar en <field>)
 				Se cargan en memoria para acceder rápidamente sin queries extras
