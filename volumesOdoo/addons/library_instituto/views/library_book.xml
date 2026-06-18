@@ -138,6 +138,15 @@
 		<field name="arch" type="xml">
 			<form string="Libro">
 				<header>
+					<button name="action_set_reparacion" string="Poner en reparación"
+					        type="object" class="btn-warning"
+					        invisible="state in ('reparacion', 'baja')"/>
+					<button name="action_set_baja" string="Dar de baja"
+					        type="object" class="btn-danger"
+					        invisible="state == 'baja'"/>
+					<button name="action_reset_state" string="Restablecer"
+					        type="object" class="btn-secondary"
+					        invisible="state not in ('reparacion', 'baja')"/>
 					<field name="state" widget="statusbar" statusbar_visible="disponible,prestado,reparacion,baja"/>
 				</header>
 				<sheet>

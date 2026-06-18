@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 class LibraryBook(models.Model):
     _name = "library.book"
@@ -35,7 +36,10 @@ class LibraryBook(models.Model):
         ],
         string="Estado",
         default="disponible",
-        required=True
+        required=True,
+        compute="_compute_state",
+        store=True,
+        readonly=False,
     )
 
     cover_image = fields.Image("Portada", max_width=300, max_height=400)
@@ -78,6 +82,40 @@ class LibraryBook(models.Model):
     # ============================================================================
     # VALIDACIONES
     # ============================================================================
+    @api.depends("active_loans_count", "total_copies")
+    def _compute_state(self):
+        for book in self:
+            if book.state not in ("reparacion", "baja"):
+                if book.active_loans_count >= (book.total_copies or 1):
+                    book.state = "prestado"
+                else:
+                    book.state = "disponible"
+
+    def action_set_reparacion(self):
+        for book in self:
+            if book.active_loans_count > 0:
+                raise ValidationError(
+                    f'"{book.title}" tiene {book.active_loans_count} préstamo(s) activo(s). '
+                    'Devuélvelos antes de ponerlo en reparación.'
+                )
+            book.state = "reparacion"
+
+    def action_set_baja(self):
+        for book in self:
+            if book.active_loans_count > 0:
+                raise ValidationError(
+                    f'"{book.title}" tiene {book.active_loans_count} préstamo(s) activo(s). '
+                    'Devuélvelos antes de darlo de baja.'
+                )
+            book.state = "baja"
+
+    def action_reset_state(self):
+        for book in self:
+            if book.active_loans_count >= (book.total_copies or 1):
+                book.state = "prestado"
+            else:
+                book.state = "disponible"
+
     _sql_constraints = [
         ('isbn_uniq', 'UNIQUE(isbn)', 'Ya hay un libro con ese ISBN.'),
     ]
