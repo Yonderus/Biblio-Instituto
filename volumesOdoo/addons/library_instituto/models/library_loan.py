@@ -77,7 +77,7 @@ class LibraryLoan(models.Model):
     def _check_book_availability(self):
         for loan in self:
             if loan.state in ["activo", "vencido"]:
-                if loan.book_id.available_copies < 0:
+                if loan.book_id.active_loans_count > loan.book_id.total_copies:
                     raise ValidationError(
                         f'No hay ejemplares disponibles de "{loan.book_id.title}".'
                     )

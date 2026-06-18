@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Informe de Correcciones — BiblioInstituto</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a1a; background: #fff; }
+
+    /* ── PORTADA ── */
+    .cover {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 60%, #4a9fd4 100%);
+      color: white; padding: 60px 40px; page-break-after: always;
+    }
+    .cover .badge {
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px; padding: 6px 18px; font-size: 11px; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 32px;
+    }
+    .cover h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+    .cover h2 { font-size: 20px; font-weight: 400; opacity: 0.85; margin-bottom: 40px; }
+    .cover .divider { width: 60px; height: 3px; background: rgba(255,255,255,0.5); margin: 0 auto 40px; border-radius: 2px; }
+    .cover-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 620px; margin-top: 20px; }
+    .cover-meta-item { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px 12px; }
+    .cover-meta-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+    .cover-meta-item .value { font-size: 14px; font-weight: 600; }
+    .cover-footer { margin-top: 60px; font-size: 11px; opacity: 0.55; }
+
+    /* ── LAYOUT ── */
+    .content { max-width: 900px; margin: 0 auto; padding: 48px 52px; }
+
+    /* ── INTRO BOX ── */
+    .intro-box {
+      background: #f0f7ff; border-left: 4px solid #2d6a9f;
+      border-radius: 0 8px 8px 0; padding: 18px 22px; margin-bottom: 40px;
+    }
+    .intro-box p { line-height: 1.75; color: #333; }
+
+    /* ── STATS ROW ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 44px; }
+    .stat-card {
+      border: 1px solid #dde4ed; border-radius: 10px; padding: 18px 14px; text-align: center;
+    }
+    .stat-card .num { font-size: 32px; font-weight: 800; color: #2d6a9f; }
+    .stat-card .lbl { font-size: 11px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── SECTION TITLE ── */
+    h2.section-title {
+      font-size: 17px; color: #1e3a5f; font-weight: 700;
+      border-bottom: 2px solid #2d6a9f; padding-bottom: 8px;
+      margin-top: 50px; margin-bottom: 26px;
+    }
+
+    /* ── BLOCK TITLE ── */
+    h3.block-title {
+      font-size: 13.5px; color: #1e3a5f; font-weight: 700;
+      margin-top: 32px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .block-num {
+      background: #2d6a9f; color: white; border-radius: 50%;
+      width: 22px; height: 22px; display: inline-flex;
+      align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── CHANGE CARD ── */
+    .change-card {
+      border: 1px solid #dde4ed; border-radius: 10px;
+      overflow: hidden; margin-bottom: 18px;
+    }
+    .change-header {
+      background: #f4f7fb; padding: 11px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #dde4ed; gap: 12px; flex-wrap: wrap;
+    }
+    .change-header .file-path {
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 11.5px; color: #1e3a5f; font-weight: 600;
+    }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      font-size: 10px; padding: 2px 8px; border-radius: 10px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .tag.model    { background: #dbeafe; color: #1d4ed8; }
+    .tag.view     { background: #d1fae5; color: #065f46; }
+    .tag.data     { background: #fef3c7; color: #92400e; }
+    .tag.security { background: #ede9fe; color: #4c1d95; }
+    .tag.docs     { background: #e0f2fe; color: #0c4a6e; }
+    .tag.fix      { background: #fee2e2; color: #991b1b; }
+
+    .change-body { padding: 14px 16px; }
+
+    .problem {
+      background: #fff5f5; border-left: 3px solid #e74c3c;
+      border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 10px;
+      font-size: 12px; color: #7f1d1d; line-height: 1.55;
+    }
+    .problem strong { display: block; margin-bottom: 3px; color: #b91c1c; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+    .solution {
+      background: #f0fbf4; border-left: 3px solid #27ae60;
+      border-radius: 0 6px 6px 0; padding: 9px 13px; margin-bottom: 10px;
+      font-size: 12px; color: #14532d; line-height: 1.55;
+    }
+    .solution strong { display: block; margin-bottom: 3px; color: #15803d; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+    .lines-ref { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .line-chip {
+      font-family: monospace; font-size: 11px;
+      background: #f1f5f9; border: 1px solid #cbd5e1;
+      border-radius: 5px; padding: 2px 8px; color: #475569;
+    }
+
+    code {
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      background: #f1f5f9; border: 1px solid #e2e8f0;
+      border-radius: 4px; padding: 1px 5px; font-size: 11.5px; color: #1e3a5f;
+    }
+    pre {
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      background: #1e293b; color: #e2e8f0;
+      border-radius: 8px; padding: 14px 16px;
+      font-size: 11px; line-height: 1.65; overflow-x: auto; margin-top: 10px;
+    }
+    pre .kw { color: #93c5fd; }
+    pre .st { color: #86efac; }
+    pre .cm { color: #6b7280; font-style: italic; }
+    pre .fn { color: #fde68a; }
+    pre .op { color: #f9a8d4; }
+
+    /* ── SUMMARY TABLE ── */
+    table.summary-table {
+      width: 100%; border-collapse: collapse; font-size: 12px;
+      margin-top: 18px; margin-bottom: 32px;
+    }
+    table.summary-table th {
+      background: #1e3a5f; color: white; padding: 10px 12px;
+      text-align: left; font-weight: 600; font-size: 11.5px;
+    }
+    table.summary-table td {
+      padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top;
+    }
+    table.summary-table tr:nth-child(even) td { background: #f8fafc; }
+    .ok  { color: #16a34a; font-weight: 700; }
+
+    /* ── PRINT ── */
+    @media print {
+      body { font-size: 12px; }
+      .content { padding: 24px 32px; }
+      .change-card { page-break-inside: avoid; }
+      pre { white-space: pre-wrap; word-break: break-all; }
+      .cover { min-height: auto; padding: 80px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ PORTADA ═══════════════════════════ -->
+<div class="cover">
+  <div class="badge">SGE · 2º DAM · Recuperación</div>
+  <h1>BiblioInstituto</h1>
+  <h2>Informe de Correcciones</h2>
+  <div class="divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="label">Alumno</div>
+      <div class="value">Javier Gisbert Talboom</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Módulo Odoo</div>
+      <div class="value">library_instituto</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Fecha</div>
+      <div class="value">Junio 2026</div>
+    </div>
+  </div>
+  <div class="cover-footer">Odoo 18 · PostgreSQL 15 · Docker Compose</div>
+</div>
+
+
+<!-- ═══════════════════════════ CONTENIDO ═══════════════════════════ -->
+<div class="content">
+
+  <div class="intro-box">
+    <p>
+      Este documento recoge todas las correcciones aplicadas sobre el módulo
+      <strong>library_instituto</strong> a partir del feedback del profesor (nota inicial: <strong>4/10</strong>).
+      Por cada punto se indica el <strong>problema detectado</strong>, la <strong>solución implementada</strong>
+      y los <strong>archivos y líneas exactas</strong> que se modificaron.
+      Los cambios están organizados en cinco bloques: módulo, modelos, vistas, datos de demo y documentación.
+    </p>
+  </div>
+
+  <!-- ESTADÍSTICAS -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">22</div><div class="lbl">Correcciones aplicadas</div></div>
+    <div class="stat-card"><div class="num">11</div><div class="lbl">Archivos modificados</div></div>
+    <div class="stat-card"><div class="num">40</div><div class="lbl">Imágenes añadidas</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="lbl">Usuarios de prueba creados</div></div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       BLOQUE 1 — MÓDULO
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Bloque 1 — Estructura del módulo</h2>
+
+  <!-- 1. Manifest -->
+  <h3 class="block-title"><span class="block-num">1</span> Metadatos del módulo</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">__manifest__.py</span>
+      <div class="tags"><span class="tag model">módulo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>El módulo no mostraba descripción ni resumen en el panel de aplicaciones de Odoo.</div>
+      <div class="solution"><strong>Solución</strong>Añadidos <code>summary</code> y <code>description</code> en español (líneas 5–6).</div>
+      <div class="lines-ref">
+        <span class="line-chip">líneas 5–6 — summary, description</span>
+      </div>
+<pre><span class="st">"summary"</span>: <span class="st">"Gestión de biblioteca para centros educativos"</span>,
+<span class="st">"description"</span>: <span class="st">"Módulo Odoo para digitalizar la gestión de préstamos..."</span>,</pre>
+    </div>
+  </div>
+
+  <!-- 2. Demo key -->
+  <h3 class="block-title"><span class="block-num">2</span> Demo data en clave <code>demo:</code></h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">__manifest__.py</span>
+      <div class="tags"><span class="tag model">módulo</span><span class="tag fix">fix</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong><code>library_demo_clean.xml</code> estaba en la clave <code>data:</code>, lo que hace que los datos de demo se carguen en cualquier instalación, incluso en producción.</div>
+      <div class="solution"><strong>Solución</strong>Movido a una clave separada <code>demo:</code>. Ahora solo se carga cuando Odoo instala el módulo en modo demo.</div>
+      <div class="lines-ref">
+        <span class="line-chip">data: — eliminada la línea de library_demo_clean.xml</span>
+        <span class="line-chip">nueva clave demo: — añadida al final del manifest</span>
+      </div>
+<pre><span class="st">"demo"</span>: [
+    <span class="st">"data/library_demo_clean.xml"</span>,
+],</pre>
+    </div>
+  </div>
+
+  <!-- 3. Icono -->
+  <h3 class="block-title"><span class="block-num">3</span> Icono del módulo</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">static/description/icon.png</span>
+      <div class="tags"><span class="tag model">módulo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>Sin icono propio, Odoo mostraba el icono genérico de rompecabezas. El módulo no era visualmente identificable en el panel de aplicaciones.</div>
+      <div class="solution"><strong>Solución</strong>Creada la carpeta <code>static/description/</code> y copiado el logo del instituto como <code>icon.png</code>. Odoo lo carga automáticamente al instalar.</div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       BLOQUE 2 — MODELOS
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Bloque 2 — Modelos Python</h2>
+
+  <!-- 4. Author model -->
+  <h3 class="block-title"><span class="block-num">4</span> Modelo de Autores</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">models/library_author.py</span>
+      <div class="tags"><span class="tag model">modelo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>El campo país era un <code>Char</code> libre ("country") sin relación con el modelo estándar de países. Sin foto del autor. Sin contador de libros. Etiqueta del nombre en inglés ("Name").</div>
+      <div class="solution"><strong>Solución</strong>
+        Sustituido <code>country</code> (Char) por <code>country_id = fields.Many2one('res.country')</code>.<br>
+        Añadido <code>image = fields.Image('Foto', max_width=256, max_height=256)</code>.<br>
+        Añadido <code>book_count</code> computed con <code>@api.depends('book_ids')</code>.<br>
+        Etiqueta corregida a <code>'Nombre'</code>.
+      </div>
+      <div class="lines-ref">
+        <span class="line-chip">línea 7 — 'Nombre'</span>
+        <span class="line-chip">línea 8 — country_id Many2one</span>
+        <span class="line-chip">línea 10 — image field</span>
+        <span class="line-chip">líneas 13–18 — book_count computed</span>
+      </div>
+<pre><span class="kw">name</span>       = fields.Char(<span class="st">'Nombre'</span>, required=<span class="kw">True</span>)
+<span class="kw">country_id</span> = fields.Many2one(<span class="st">'res.country'</span>, string=<span class="st">'País'</span>)
+<span class="kw">image</span>      = fields.Image(<span class="st">'Foto'</span>, max_width=<span class="fn">256</span>, max_height=<span class="fn">256</span>)
+<span class="kw">book_count</span> = fields.Integer(<span class="st">'Nº de libros'</span>, compute=<span class="st">'_compute_book_count'</span>, store=<span class="kw">True</span>)
+
+<span class="cm">@api.depends('book_ids')</span>
+<span class="kw">def</span> <span class="fn">_compute_book_count</span>(self):
+    <span class="kw">for</span> author <span class="kw">in</span> self:
+        author.book_count = len(author.book_ids)</pre>
+    </div>
+  </div>
+
+  <!-- 5. Publisher model -->
+  <h3 class="block-title"><span class="block-num">5</span> Modelo de Editoriales</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">models/library_publisher.py</span>
+      <div class="tags"><span class="tag model">modelo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>Sin campo país vinculado a <code>res.country</code>. Sin contador de libros publicados. Etiqueta del nombre en inglés.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>country_id = fields.Many2one('res.country')</code>. Añadido <code>book_count</code> computed. Etiqueta corregida a <code>'Nombre'</code>.</div>
+      <div class="lines-ref">
+        <span class="line-chip">línea 7 — 'Nombre'</span>
+        <span class="line-chip">línea 9 — country_id Many2one</span>
+        <span class="line-chip">líneas 14–19 — book_count computed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Loan model -->
+  <h3 class="block-title"><span class="block-num">6</span> Modelo de Préstamos</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">models/library_loan.py</span>
+      <div class="tags"><span class="tag model">modelo</span></div>
+    </div>
+    <div class="change-body">
+
+      <div class="problem"><strong>Problema A — Orden de estados incorrecto</strong>Los estados estaban definidos como <em>activo → devuelto → vencido</em>, lo que no refleja el flujo real del préstamo.</div>
+      <div class="solution"><strong>Solución</strong>Reordenado a <em>activo → vencido → devuelto</em> en la Selection (líneas 30–38).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Renovación calculaba fecha desde el pasado</strong><code>action_renew</code> sumaba 15 días a <code>expected_return_date</code>. En un préstamo vencido, la nueva fecha quedaba en el pasado.</div>
+      <div class="solution"><strong>Solución</strong>La nueva fecha se calcula desde <code>fields.Date.context_today(self)</code> + 15 días (línea 119).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema C — Etiquetas sin acentos</strong>"Fecha prestamo", "Dias de retraso", "Estado prestamo", "copy_number" sin label.</div>
+      <div class="solution"><strong>Solución</strong>Corregidos todos: <em>Fecha préstamo, Fecha devolución prevista, Fecha devolución real, Días de retraso, Estado préstamo, Nº ejemplar</em>.</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema D — Sin validación automática de disponibilidad</strong>El profesor señaló: <em>"Ho planteja tot molt manual. El treballador no ha de mirar si es pot fer el préstec o no"</em>. No existía ningún constraint que bloqueara crear un préstamo si no había ejemplares.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>@api.constrains('book_id', 'state')</code> que compara <code>active_loans_count</code> contra <code>total_copies</code> (líneas 76–83). Se usa el conteo directo en vez de <code>available_copies</code> (que está clampeado a 0) para que la validación sea siempre efectiva.</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">líneas 17–38 — labels y orden Selection</span>
+        <span class="line-chip">líneas 76–83 — _check_book_availability</span>
+        <span class="line-chip">línea 119 — action_renew desde hoy</span>
+      </div>
+<pre><span class="cm">@api.constrains("book_id", "state")</span>
+<span class="kw">def</span> <span class="fn">_check_book_availability</span>(self):
+    <span class="kw">for</span> loan <span class="kw">in</span> self:
+        <span class="kw">if</span> loan.state <span class="kw">in</span> [<span class="st">"activo"</span>, <span class="st">"vencido"</span>]:
+            <span class="cm"># active_loans_count ya incluye este préstamo al ejecutarse el constraint</span>
+            <span class="kw">if</span> loan.book_id.active_loans_count <span class="op">&gt;</span> loan.book_id.total_copies:
+                <span class="kw">raise</span> ValidationError(
+                    <span class="st">f'No hay ejemplares disponibles de "{loan.book_id.title}".'</span>
+                )</pre>
+    </div>
+  </div>
+
+  <!-- 7. Partner model -->
+  <h3 class="block-title"><span class="block-num">7</span> Extensión de Usuarios (res.partner)</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">models/res_partner.py</span>
+      <div class="tags"><span class="tag model">modelo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — Etiquetas sin acentos</strong>"Numero carnet biblioteca", "Maximo prestamos simultaneos", "Prestamos activos".</div>
+      <div class="solution"><strong>Solución</strong>Corregidos a <em>Número de carnet, Máximo préstamos simultáneos, Préstamos activos</em> (líneas 10–15).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Sin campo estadístico de retrasos</strong>No había forma de ver el total de días de retraso acumulados por usuario en la lista.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>total_late_days</code> con <code>@api.depends('library_loan_ids.late_days')</code> y <code>store=True</code> para poder ordenar la lista por él (líneas 16–20, 47–50).</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">líneas 10–15 — labels con acentos</span>
+        <span class="line-chip">líneas 16–20 — total_late_days field</span>
+        <span class="line-chip">líneas 47–50 — _compute_total_late_days</span>
+      </div>
+<pre><span class="kw">total_late_days</span> = fields.Integer(
+    string=<span class="st">"Total días retraso"</span>,
+    compute=<span class="st">"_compute_total_late_days"</span>,
+    store=<span class="kw">True</span>,
+)
+
+<span class="cm">@api.depends("library_loan_ids.late_days")</span>
+<span class="kw">def</span> <span class="fn">_compute_total_late_days</span>(self):
+    <span class="kw">for</span> partner <span class="kw">in</span> self:
+        partner.total_late_days = sum(partner.library_loan_ids.mapped(<span class="st">"late_days"</span>))</pre>
+    </div>
+  </div>
+
+  <!-- 8. Book model -->
+  <h3 class="block-title"><span class="block-num">8</span> Modelo de Libros</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">models/library_book.py</span>
+      <div class="tags"><span class="tag model">modelo</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — Variable local con nombre ambiguo</strong>La variable local <code>active_loans</code> en <code>_compute_available_copies</code> coincidía con el nombre del campo del modelo, creando confusión al leer el código.</div>
+      <div class="solution"><strong>Solución</strong>Renombrada a <code>prestamos_activos</code> para distinguirla claramente del campo (líneas 73–76).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — "Titulo" sin acento</strong>La etiqueta del campo título no tenía acento.</div>
+      <div class="solution"><strong>Solución</strong>Corregido a <code>"Título"</code> (línea 8).</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">línea 8 — "Título"</span>
+        <span class="line-chip">líneas 73–76 — variable prestamos_activos</span>
+      </div>
+<pre><span class="kw">def</span> <span class="fn">_compute_available_copies</span>(self):
+    <span class="kw">for</span> book <span class="kw">in</span> self:
+        prestamos_activos = len(book.loan_ids.filtered(
+            <span class="kw">lambda</span> loan: loan.state <span class="kw">in</span> [<span class="st">"activo"</span>, <span class="st">"vencido"</span>]))
+        book.active_loans_count = prestamos_activos
+        book.available_copies = max((book.total_copies <span class="kw">or</span> <span class="fn">0</span>) - prestamos_activos, <span class="fn">0</span>)</pre>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       BLOQUE 3 — VISTAS
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Bloque 3 — Vistas XML</h2>
+
+  <!-- 9. Author view -->
+  <h3 class="block-title"><span class="block-num">9</span> Vista de Autores</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/library_author.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>La lista no mostraba foto ni contador de libros. El campo país referenciaba <code>country</code> (Char eliminado), no <code>country_id</code>. El formulario no tenía imagen del autor.</div>
+      <div class="solution"><strong>Solución</strong>
+        Lista: añadidas columnas <code>image</code> (<code>widget="image"</code>), <code>country_id</code>, <code>book_count</code> (líneas 9–14).<br>
+        Formulario: añadido <code>image widget="image" class="oe_avatar"</code> y <code>book_count readonly</code> (líneas 34–40).
+      </div>
+      <div class="lines-ref">
+        <span class="line-chip">líneas 9–14 — lista actualizada</span>
+        <span class="line-chip">líneas 34–40 — formulario con imagen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Publisher view -->
+  <h3 class="block-title"><span class="block-num">10</span> Vista de Editoriales</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/library_publisher.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>La lista no mostraba el país ni el contador de libros. El formulario tampoco tenía estos campos.</div>
+      <div class="solution"><strong>Solución</strong>Lista: añadidas columnas <code>country_id</code> y <code>book_count</code> (líneas 9–16). Formulario: añadidos <code>country_id</code> y <code>book_count readonly</code> (líneas 27–36).</div>
+      <div class="lines-ref">
+        <span class="line-chip">líneas 9–16 — lista con country_id, book_count</span>
+        <span class="line-chip">líneas 27–36 — formulario actualizado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Book view -->
+  <h3 class="block-title"><span class="block-num">11</span> Vista de Libros</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/library_book.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — Estado sin barra de progreso visual</strong>El campo <code>state</code> se mostraba como un select simple sin indicar el flujo del libro.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>widget="statusbar" statusbar_visible="disponible,prestado,reparacion,baja"</code> en el formulario (línea 158).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Filtro "Prestados" incorrecto</strong>El domain <code>[('state','=','prestado')]</code> no funcionaba bien porque el campo <code>state</code> del libro es manual. Los libros con préstamos activos podían no tener ese valor.</div>
+      <div class="solution"><strong>Solución</strong>Cambiado a <code>[('active_loans_count', '&gt;', 0)]</code> y renombrado a "Con préstamos activos" (línea 199).</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">línea 158 — widget statusbar</span>
+        <span class="line-chip">línea 199 — filtro "Con préstamos activos"</span>
+      </div>
+<pre><span class="cm">&lt;!-- Formulario: estado como barra de progreso --&gt;</span>
+&lt;field name=<span class="st">"state"</span> widget=<span class="st">"statusbar"</span>
+       statusbar_visible=<span class="st">"disponible,prestado,reparacion,baja"</span>/&gt;
+
+<span class="cm">&lt;!-- Búsqueda: filtro corregido --&gt;</span>
+&lt;filter name=<span class="st">"prestado"</span> string=<span class="st">"Con préstamos activos"</span>
+        domain=<span class="st">"[('active_loans_count', '&gt;', 0)]"</span>/&gt;</pre>
+    </div>
+  </div>
+
+  <!-- 12. Loan view -->
+  <h3 class="block-title"><span class="block-num">12</span> Vista de Préstamos</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/library_loan.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>El campo <code>renewed</code> no explicaba su propósito ni la limitación de solo poder renovar una vez. Un usuario no entendía por qué desaparecía el botón Renovar tras usarlo.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>string="Renovado (máx. 1)"</code> en la lista (línea 48) y un <code>help="..."</code> en el formulario que explica la regla (línea 148).</div>
+      <div class="lines-ref">
+        <span class="line-chip">línea 48 — string "Renovado (máx. 1)"</span>
+        <span class="line-chip">línea 148 — help tooltip en formulario</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. Partner view -->
+  <h3 class="block-title"><span class="block-num">13</span> Vista de Usuarios Biblioteca</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/res_partner_library.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — "Curso y grupo" visible para todos</strong>Los docentes y personal de administración veían el campo <em>Curso y grupo</em>, que solo aplica a alumnos.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>invisible="library_user_type != 'alumno'"</code> al campo (línea 14). El campo desaparece automáticamente para tipos que no sean alumno.</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Sin campo de días de retraso acumulados en la vista</strong>El campo <code>total_late_days</code> no era visible ni en el formulario ni en la lista.</div>
+      <div class="solution"><strong>Solución</strong>Añadido al formulario como <code>readonly</code> (línea 18). Creada nueva vista lista para la acción "Usuarios biblioteca" con columna <code>total_late_days</code> ordenable (líneas 104–117).</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">línea 14 — invisible para no-alumnos</span>
+        <span class="line-chip">línea 18 — total_late_days en formulario</span>
+        <span class="line-chip">líneas 104–117 — nueva vista lista biblioteca</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. Menus -->
+  <h3 class="block-title"><span class="block-num">14</span> Jerarquía de Menús</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">views/library_menus.xml</span>
+      <div class="tags"><span class="tag view">vista</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema</strong>Todos los menús estaban al mismo nivel sin jerarquía. El wizard de préstamo múltiple y la gestión de usuarios eran accesibles sin restricción de rol.</div>
+      <div class="solution"><strong>Solución</strong>Estructura reescrita con tres submenús bajo el menú raíz:
+        <br>• <strong>Catálogo</strong> (Libros, Autores, Editoriales) — visible para todos.
+        <br>• <strong>Préstamos</strong> (Préstamos + Préstamo múltiple) — el wizard solo para Bibliotecarios.
+        <br>• <strong>Gestión</strong> (Usuarios biblioteca) — solo para Bibliotecarios (<code>groups="...group_library_librarian"</code>).
+      </div>
+      <div class="lines-ref">
+        <span class="line-chip">línea 8 — Catálogo (antes "Biblioteca")</span>
+        <span class="line-chip">líneas 14–17 — submenu Préstamos</span>
+        <span class="line-chip">líneas 19–22 — submenu Gestión (librarian only)</span>
+      </div>
+<pre><span class="cm">&lt;!-- Gestión: solo bibliotecarios ──&gt;</span>
+&lt;menuitem id=<span class="st">"menu_library_gestion"</span> name=<span class="st">"Gestión"</span>
+          parent=<span class="st">"menu_library_root"</span> sequence=<span class="st">"30"</span>
+          groups=<span class="st">"library_instituto.group_library_librarian"</span>/&gt;
+&lt;menuitem id=<span class="st">"menu_library_users"</span> name=<span class="st">"Usuarios biblioteca"</span>
+          parent=<span class="st">"menu_library_gestion"</span> action=<span class="st">"action_library_users"</span>/&gt;</pre>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       BLOQUE 4 — DATOS DE DEMO
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Bloque 4 — Datos de demo</h2>
+
+  <!-- 15. Demo data -->
+  <h3 class="block-title"><span class="block-num">15</span> Datos de demo completos</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">data/library_demo_clean.xml &nbsp;·&nbsp; static/src/img/</span>
+      <div class="tags"><span class="tag data">datos</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — Editoriales sin país en los datos de demo</strong>Los 3 registros de editorial no tenían <code>country_id</code> asignado.</div>
+      <div class="solution"><strong>Solución</strong>Añadido <code>&lt;field name="country_id" ref="base.es"/&gt;</code> a publisher_01, publisher_02 y publisher_03.</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Sin usuarios con grupos asignados en el demo</strong>El profesor indicó: <em>"no veig que els haja creat ni grups"</em>. Los grupos existían en <code>security.xml</code> pero no había usuarios de prueba con esos grupos: el profesor no podía verificarlos al instalar el módulo desde cero.</div>
+      <div class="solution"><strong>Solución</strong>Añadidos <code>user_fonsi</code> (Bibliotecario) y <code>user_benito</code> (Usuario biblioteca) como <code>res.users</code> con <code>groups_id</code> usando el patrón <code>(4, ref(...))</code>.</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema C — Sin imágenes en el demo</strong>Ningún autor, usuario ni libro tenía imagen asignada. La aplicación se veía vacía de contenido visual.</div>
+      <div class="solution"><strong>Solución</strong>
+        Descargadas y referenciadas 40 imágenes PNG en <code>static/src/img/</code>:<br>
+        • <code>author_01..08.png</code> → avatares 256×256 por inicial de nombre<br>
+        • <code>partner_01..10.png</code> → avatares 256×256<br>
+        • <code>user_fonsi.png</code>, <code>user_benito.png</code> → avatares 256×256<br>
+        • <code>book_01..20.png</code> → portadas de color 300×400<br>
+        Referenciadas con <code>type="base64" file="library_instituto/static/src/img/..."</code>.
+      </div>
+      <div class="lines-ref">
+        <span class="line-chip">country_id en publishers — ~líneas 57, 72, 87</span>
+        <span class="line-chip">res.users fonsi + benito — ~líneas 15–40</span>
+        <span class="line-chip">image en autores — ~líneas 44–91</span>
+        <span class="line-chip">image_1920 en partners — ~líneas 96–204</span>
+        <span class="line-chip">cover_image en libros — ~líneas 206–385</span>
+      </div>
+<pre><span class="cm">&lt;!-- Usuario con grupo Bibliotecario --&gt;</span>
+&lt;record id=<span class="st">"user_fonsi"</span> model=<span class="st">"res.users"</span>&gt;
+    &lt;field name=<span class="st">"name"</span>&gt;Fonsi Biblio&lt;/field&gt;
+    &lt;field name=<span class="st">"login"</span>&gt;fonsi.biblio@biblio.com&lt;/field&gt;
+    &lt;field name=<span class="st">"image_1920"</span> type=<span class="st">"base64"</span>
+           file=<span class="st">"library_instituto/static/src/img/user_fonsi.png"</span>/&gt;
+    &lt;field name=<span class="st">"groups_id"</span> eval=<span class="st">"[(4, ref('base.group_user')),
+        (4, ref('library_instituto.group_library_librarian'))]"</span>/&gt;
+&lt;/record&gt;</pre>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       BLOQUE 5 — DOCUMENTACIÓN
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Bloque 5 — Documentación</h2>
+
+  <!-- 16. README -->
+  <h3 class="block-title"><span class="block-num">16</span> README — corrección de flujos incorrectos</h3>
+  <div class="change-card">
+    <div class="change-header">
+      <span class="file-path">README.md</span>
+      <div class="tags"><span class="tag docs">docs</span></div>
+    </div>
+    <div class="change-body">
+      <div class="problem"><strong>Problema A — Flujo de devolución incorrecto</strong>El README indicaba que el empleado debía rellenar manualmente <code>real_return_date</code>. En realidad basta con pulsar el botón "Devolver".</div>
+      <div class="solution"><strong>Solución</strong>"Pulsa el botón 'Devolver'; el programa registra <code>real_return_date</code> automáticamente" (línea 189).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema B — Detección de retrasos descrita como cron diario</strong>El README decía "Cada día, el sistema chequea…", dando a entender que hay un cron nocturno.</div>
+      <div class="solution"><strong>Solución</strong>Explicado que es un <code>@api.depends</code> que recalcula en tiempo real cuando cambian los datos, no un cron (líneas 196–200).</div>
+
+      <div class="problem" style="margin-top:12px;"><strong>Problema C — Orden de estados incorrecto en la documentación</strong>El README mostraba <em>activo → devuelto → vencido</em>.</div>
+      <div class="solution"><strong>Solución</strong>Corregido a <em>activo → vencido → devuelto</em> (línea 88).</div>
+
+      <div class="lines-ref">
+        <span class="line-chip">línea 88 — orden de estados</span>
+        <span class="line-chip">línea 189 — flujo devolución</span>
+        <span class="line-chip">líneas 196–200 — detección de retrasos</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       TABLA RESUMEN
+  ════════════════════════════════════════ -->
+  <h2 class="section-title">Tabla resumen de correcciones</h2>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Corrección del profesor</th>
+        <th>Archivo modificado</th>
+        <th>Líneas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Sin imagen del módulo</td><td><code>static/description/icon.png</code></td><td>—</td></tr>
+      <tr><td>2</td><td>Sin info del módulo en Odoo</td><td><code>__manifest__.py</code></td><td>5–6</td></tr>
+      <tr><td>3</td><td>Demo data en clave incorrecta (<code>data:</code>)</td><td><code>__manifest__.py</code></td><td>clave demo:</td></tr>
+      <tr><td>4</td><td>Menús sin jerarquía / sin control de roles</td><td><code>views/library_menus.xml</code></td><td>8–22</td></tr>
+      <tr><td>5</td><td>Etiquetas sin acentos — modelos</td><td><code>library_loan.py</code>, <code>res_partner.py</code>, <code>library_book.py</code></td><td>varios</td></tr>
+      <tr><td>6</td><td>Editoriales sin país (<code>res.country</code>)</td><td><code>library_publisher.py</code>, <code>library_publisher.xml</code>, <code>library_demo_clean.xml</code></td><td>9, 9–16, ~57–87</td></tr>
+      <tr><td>7</td><td>Editoriales sin campos estadísticos</td><td><code>library_publisher.py</code>, <code>library_publisher.xml</code></td><td>14–19, 27–36</td></tr>
+      <tr><td>8</td><td>Autores sin país (<code>res.country</code>)</td><td><code>library_author.py</code>, <code>library_author.xml</code></td><td>8, 11</td></tr>
+      <tr><td>9</td><td>Autores sin foto</td><td><code>library_author.py</code>, <code>library_author.xml</code>, <code>static/src/img/</code></td><td>10, 9–14, 34</td></tr>
+      <tr><td>10</td><td>Autores sin campos estadísticos</td><td><code>library_author.py</code>, <code>library_author.xml</code></td><td>13–18, 9–14</td></tr>
+      <tr><td>11</td><td>Libros sin widget statusbar para estado</td><td><code>views/library_book.xml</code></td><td>158</td></tr>
+      <tr><td>12</td><td>Filtro "Prestados" incorrecto</td><td><code>views/library_book.xml</code></td><td>199</td></tr>
+      <tr><td>13</td><td>Variable <code>active_loans</code> ambigua en compute</td><td><code>models/library_book.py</code></td><td>73–76</td></tr>
+      <tr><td>14</td><td>Etiqueta "Titulo" sin acento</td><td><code>models/library_book.py</code></td><td>8</td></tr>
+      <tr><td>15</td><td>Campo <code>renewed</code> sin explicación ni label descriptivo</td><td><code>views/library_loan.xml</code></td><td>48, 148</td></tr>
+      <tr><td>16</td><td>Estados del préstamo mal ordenados</td><td><code>models/library_loan.py</code></td><td>30–38</td></tr>
+      <tr><td>17</td><td>Renovación calculaba fecha desde el pasado</td><td><code>models/library_loan.py</code></td><td>119</td></tr>
+      <tr><td>18</td><td>Sin validación automática de disponibilidad</td><td><code>models/library_loan.py</code></td><td>76–83</td></tr>
+      <tr><td>19</td><td>"Curso y grupo" visible para todos los tipos</td><td><code>views/res_partner_library.xml</code></td><td>14</td></tr>
+      <tr><td>20</td><td>Sin campo estadístico de días de retraso</td><td><code>res_partner.py</code>, <code>res_partner_library.xml</code></td><td>16–20, 18, 104–117</td></tr>
+      <tr><td>21</td><td>Usuarios sin gestión dentro del módulo</td><td><code>views/res_partner_library.xml</code>, <code>library_menus.xml</code></td><td>104–117, 19–22</td></tr>
+      <tr><td>22</td><td>Sin usuarios con grupos en el demo / README incorrecto</td><td><code>library_demo_clean.xml</code>, <code>README.md</code></td><td>15–40, 88/189/196</td></tr>
+    </tbody>
+  </table>
+
+</div><!-- /content -->
+</body>
+</html>

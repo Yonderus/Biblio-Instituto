@@ -19,7 +19,6 @@
         "views/library_author.xml",
         "views/library_book.xml",
         "views/library_publisher.xml",
-        "data/library_demo_clean.xml",
         "views/library_loan.xml",
         "views/library_loan_wizard.xml",
         "views/res_partner_library.xml",
@@ -27,6 +26,9 @@
         "reports/report_loan.xml"
     ],
    
+    "demo": [
+        "data/library_demo_clean.xml",
+    ],
     # Indica si aparece como aplicacion en el menu principal.
     "application": True,
     "installable": True,
