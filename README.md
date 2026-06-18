@@ -236,7 +236,7 @@ docker-compose up -d
 |--------|-----------|----------|-----------------|
 | `javigisbert05@gmail.com` | `biblioinstituto` | Administrador | Todos |
 | `fonsi.biblio@biblio.com` | `fonsi` | Usuario interno | Bibliotecario |
-| `benito.biblio@bibio.com` | `Benito` | Usuario interno | Usuario biblioteca |
+| `benito.biblio@biblio.com` | `Benito` | Usuario interno | Usuario biblioteca |
 
 ---
 
